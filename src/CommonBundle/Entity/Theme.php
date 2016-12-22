@@ -1,6 +1,6 @@
 <?php
 
-namespace AdminBundle\Entity;
+namespace CommonBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Theme
  *
  * @ORM\Table(name="theme")
- * @ORM\Entity(repositoryClass="AdminBundle\Repository\ThemeRepository")
+ * @ORM\Entity(repositoryClass="CommonBundle\Repository\ThemeRepository")
  */
 class Theme
 {
@@ -63,4 +63,3 @@ class Theme
         return $this->name;
     }
 }
-

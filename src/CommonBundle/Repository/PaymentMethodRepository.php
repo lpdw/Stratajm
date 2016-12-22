@@ -1,6 +1,6 @@
 <?php
 
-namespace AdminBundle\Repository;
+namespace CommonBundle\Repository;
 
 /**
  * PaymentMethodRepository

@@ -1,6 +1,6 @@
 <?php
 
-namespace AdminBundle\Entity;
+namespace CommonBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * PaymentMethod
  *
  * @ORM\Table(name="payment_method")
- * @ORM\Entity(repositoryClass="AdminBundle\Repository\PaymentMethodRepository")
+ * @ORM\Entity(repositoryClass="CommonBundle\Repository\PaymentMethodRepository")
  */
 class PaymentMethod
 {
@@ -63,4 +63,3 @@ class PaymentMethod
         return $this->name;
     }
 }
-

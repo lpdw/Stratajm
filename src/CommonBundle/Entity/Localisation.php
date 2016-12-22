@@ -1,6 +1,6 @@
 <?php
 
-namespace AdminBundle\Entity;
+namespace CommonBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Localisation
  *
  * @ORM\Table(name="localisation")
- * @ORM\Entity(repositoryClass="AdminBundle\Repository\LocalisationRepository")
+ * @ORM\Entity(repositoryClass="CommonBundle\Repository\LocalisationRepository")
  */
 class Localisation
 {
@@ -125,4 +125,3 @@ class Localisation
         return $this->telNum;
     }
 }
-

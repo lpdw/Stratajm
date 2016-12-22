@@ -1,6 +1,6 @@
 <?php
 
-namespace AdminBundle\Entity;
+namespace CommonBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Publisher
  *
  * @ORM\Table(name="publisher")
- * @ORM\Entity(repositoryClass="AdminBundle\Repository\PublisherRepository")
+ * @ORM\Entity(repositoryClass="CommonBundle\Repository\PublisherRepository")
  */
 class Publisher
 {
@@ -94,4 +94,3 @@ class Publisher
         return $this->url;
     }
 }
-

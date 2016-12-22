@@ -1,6 +1,6 @@
 <?php
 
-namespace AdminBundle\Entity;
+namespace CommonBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Status
  *
  * @ORM\Table(name="status")
- * @ORM\Entity(repositoryClass="AdminBundle\Repository\StatusRepository")
+ * @ORM\Entity(repositoryClass="CommonBundle\Repository\StatusRepository")
  */
 class Status
 {
@@ -63,4 +63,3 @@ class Status
         return $this->name;
     }
 }
-
