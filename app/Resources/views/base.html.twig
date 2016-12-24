@@ -4,7 +4,10 @@
         <meta charset="UTF-8" />
         <title>{% block title %}Welcome!{% endblock %}</title>
         {% block stylesheets %}
-            {% stylesheets '@CommonBundle/Resources/public/css/bootstrap.min.css' %}
+            {% stylesheets
+            '@CommonBundle/Resources/public/css/bootstrap.min.css'
+
+            %}
             <link rel="stylesheet" href="{{ asset_url }}" />
             {% endstylesheets %}
         {% endblock %}
@@ -14,7 +17,7 @@
         {% block body %}{% endblock %}
         {% block javascripts %}
             {% javascripts '@CommonBundle/Resources/public/js/bootstrap.min.js'
-            '@CommonBundle/Resources/public/js/jquery-3.1.1.min.js'
+                           '@CommonBundle/Resources/public/js/jquery.min.js'
             %}
             <script src="{{ asset_url }}"></script>
             {% endjavascripts %}

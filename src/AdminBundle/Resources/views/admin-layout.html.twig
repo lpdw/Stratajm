@@ -1,22 +1,50 @@
-{% extends "base.html.twig" %}
+{% extends '::base.html.twig' %}
 
 {% block title %}Admin{% endblock %}
 {% block head %}
-    {{ parent() }}
     {% block stylesheets %}
-        {% stylesheets '@AdminBundle/Resources/public/css/bootstrap-table.min.css'
+
+        {{ parent() }}
+
+        {% stylesheets
+
+        '@AdminBundle/Resources/public/css/bootstrap-table.min.css'
                        '@AdminBundle/Resources/public/css/jasny-bootstrap.min.css'
+        '@AdminBundle/Resources/public/css/navmenu-push.css'
+
         %}
 
         <link rel="stylesheet" href="{{ asset_url }}" />
         {% endstylesheets %}
     {% endblock %}
 {% endblock %}
-{% block body %}{% endblock %}
+{% block body %}
+
+    <div class="container-fluid">
+    <nav id="myNavmenu" class="navmenu navmenu-default navmenu-fixed-left offcanvas" role="navigation">
+        ...
+    </nav>
+    <div class="navbar navbar-default navbar-fixed-top">
+        <button type="button" class="navbar-toggle" data-toggle="offcanvas" data-target="#myNavmenu" data-canvas="body">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+    </div>
+        <div class="col-lg-8 col-lg-offset-1">
+
+
+    {% block content %}
+
+    {% endblock %}
+        </div>
+    </div>
+{% endblock %}
 {% block javascripts %}
     {{ parent() }}
     {% javascripts '@AdminBundle/Resources/public/js/bootstrap-table.min.js'
                    '@AdminBundle/Resources/public/js/jasny-bootstrap.min.js'
+
     %}
 
     <script src="{{ asset_url }}"></script>

@@ -1,16 +1,12 @@
 {% extends "AdminBundle::admin-layout.html.twig" %}
 {% block title %}Admin{% endblock %}
-{% block head %}
-    {{ parent() }}
-    {% block stylesheets %}
-        {% stylesheets %}
 
-        <link rel="stylesheet" href="{{ asset_url }}" />
-        {% endstylesheets %}
-    {% endblock %}
-{% endblock %}
-{% block body %}
-Espace admin
+{% block content %}
+test
+
+
+    <p>Envelope icon: <span class="glyphicon glyphicon-envelope"></span></p>
+    <p>Envelope icon:<span class="glyphicon glyphicon-envelope"></span> <input type="button" class="btn btn-default" value="test"/></p>
 {% endblock %}
 {% block javascripts %}
     {{ parent() }}
