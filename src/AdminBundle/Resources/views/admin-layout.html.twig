@@ -1,0 +1,24 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Admin{% endblock %}
+{% block head %}
+    {{ parent() }}
+    {% block stylesheets %}
+        {% stylesheets '@AdminBundle/Resources/public/css/bootstrap-table.min.css'
+                       '@AdminBundle/Resources/public/css/jasny-bootstrap.min.css'
+        %}
+
+        <link rel="stylesheet" href="{{ asset_url }}" />
+        {% endstylesheets %}
+    {% endblock %}
+{% endblock %}
+{% block body %}{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    {% javascripts '@AdminBundle/Resources/public/js/bootstrap-table.min.js'
+                   '@AdminBundle/Resources/public/js/jasny-bootstrap.min.js'
+    %}
+
+    <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+{% endblock %}
