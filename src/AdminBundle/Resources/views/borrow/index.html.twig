@@ -1,0 +1,41 @@
+{% extends "AdminBundle::admin-layout.html.twig" %}
+
+{% block content %}
+    <h1>Borrows list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Begindate</th>
+                <th>Enddate</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for borrow in borrows %}
+            <tr>
+                <td><a href="{{ path('admin_borrow_show', { 'id': borrow.id }) }}">{{ borrow.id }}</a></td>
+                <td>{% if borrow.beginDate %}{{ borrow.beginDate|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{% if borrow.endDate %}{{ borrow.endDate|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('admin_borrow_show', { 'id': borrow.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('admin_borrow_edit', { 'id': borrow.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('admin_borrow_new') }}">Create a new borrow</a>
+        </li>
+    </ul>
+{% endblock %}

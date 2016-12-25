@@ -22,7 +22,23 @@
 
     <div class="container-fluid">
     <nav id="myNavmenu" class="navmenu navmenu-default navmenu-fixed-left offcanvas" role="navigation">
-        ...
+        <a class="navmenu-brand" href="#">Espace Admininistration</a>
+
+        <ul class="nav navmenu-nav">
+            <li><a href="{{ path('admin_index') }}">Liste jeux</a></li>
+            <li><a href="{{ path('admin_member_index') }}">Membres</a></li>
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Listes statiques<b class="caret"></b></a>
+                <ul class="dropdown-menu navmenu-nav" role="menu">
+                    <li><a href="{{ path('admin_theme_index') }}">Theme</a></li>
+                    <li><a href="{{ path('admin_type_index') }}">Type</a></li>
+                    <li><a href="{{ path('admin_publisher_index') }}">Éditeur</a></li>
+                    <li><a href="{{ path('admin_status_index') }}">Statut jeu</a></li>
+                    <li><a href="{{ path('admin_localisation_index') }}">Emplacement</a></li>
+                    <li><a href="{{ path('admin_paymentmethod_index') }}">Moyen de paiement</a></li>
+                </ul>
+            </li>
+        </ul>
     </nav>
     <div class="navbar navbar-default navbar-fixed-top">
         <button type="button" class="navbar-toggle" data-toggle="offcanvas" data-target="#myNavmenu" data-canvas="body">
@@ -44,7 +60,6 @@
     {{ parent() }}
     {% javascripts '@AdminBundle/Resources/public/js/bootstrap-table.min.js'
                    '@AdminBundle/Resources/public/js/jasny-bootstrap.min.js'
-
     %}
 
     <script src="{{ asset_url }}"></script>

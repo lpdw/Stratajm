@@ -1,0 +1,37 @@
+{% extends "AdminBundle::admin-layout.html.twig" %}
+
+{% block content %}
+    <h1>Statuses list</h1>
+
+    <table class="table table-bordered table-responsive">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for status in statuses %}
+            <tr>
+                <td>{{ status.name }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('admin_status_show', { 'id': status.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('admin_status_edit', { 'id': status.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('admin_status_new') }}">Create a new status</a>
+        </li>
+    </ul>
+{% endblock %}

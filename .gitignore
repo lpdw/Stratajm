@@ -45,6 +45,10 @@
 /composer.phar
 
 # Backup entities generated with doctrine:generate:entities command
-*/Entity/*~
+/src/*/Entity/*~
+
+# Assetic generation
+/web/css/*
+/web/js/*
 
 .idea

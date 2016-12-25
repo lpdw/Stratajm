@@ -1,0 +1,39 @@
+{% extends "AdminBundle::admin-layout.html.twig" %}
+
+{% block content %}
+    <h1>Publishers list</h1>
+
+    <table class="table table-bordered table-responsive">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Url</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for publisher in publishers %}
+            <tr>
+                <td>{{ publisher.name }}</td>
+                <td>{{ publisher.url }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('admin_publisher_show', { 'id': publisher.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('admin_publisher_edit', { 'id': publisher.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('admin_publisher_new') }}">Create a new publisher</a>
+        </li>
+    </ul>
+{% endblock %}

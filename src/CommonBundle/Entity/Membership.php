@@ -36,11 +36,11 @@ class Membership
     private $beginDate;
 
     /**
-     * Many Membership have One User.
-     * @ORM\ManyToOne(targetEntity="User")
-     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     * Many Membership have One Member.
+     * @ORM\ManyToOne(targetEntity="Member")
+     * @ORM\JoinColumn(name="member_id", referencedColumnName="id")
      */
-    private $user;
+    private $member;
 
     /**
      * Many Membership have One PaymentMethod.
@@ -108,29 +108,7 @@ class Membership
         return $this->beginDate;
     }
 
-    /**
-     * Set user
-     *
-     * @param \CommonBundle\Entity\User $user
-     *
-     * @return Membership
-     */
-    public function setUser(\CommonBundle\Entity\User $user = null)
-    {
-        $this->user = $user;
-
-        return $this;
-    }
-
-    /**
-     * Get user
-     *
-     * @return \CommonBundle\Entity\User
-     */
-    public function getUser()
-    {
-        return $this->user;
-    }
+ 
 
     /**
      * Set paymentMethod
@@ -154,5 +132,29 @@ class Membership
     public function getPaymentMethod()
     {
         return $this->paymentMethod;
+    }
+
+    /**
+     * Set member
+     *
+     * @param \CommonBundle\Entity\Member $member
+     *
+     * @return Membership
+     */
+    public function setMember(\CommonBundle\Entity\Member $member = null)
+    {
+        $this->member = $member;
+
+        return $this;
+    }
+
+    /**
+     * Get member
+     *
+     * @return \CommonBundle\Entity\Member
+     */
+    public function getMember()
+    {
+        return $this->member;
     }
 }

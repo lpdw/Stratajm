@@ -1,0 +1,44 @@
+{% extends "AdminBundle::admin-layout.html.twig" %}
+
+{% block content %}
+    <h1>Members list</h1>
+
+
+    <table class="table table-bordered table-responsive">
+        <thead>
+            <tr>
+                <th>Firstname</th>
+                <th>Lastname</th>
+                <th>Email</th>
+                <th>Telnum</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for member in members %}
+            <tr>
+                <td>{{ member.firstName }}</td>
+                <td>{{ member.lastName }}</td>
+                <td>{{ member.email }}</td>
+                <td>{{ member.telNum }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('admin_member_show', { 'id': member.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('admin_member_edit', { 'id': member.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('admin_member_new') }}">Create a new member</a>
+        </li>
+    </ul>
+{% endblock %}

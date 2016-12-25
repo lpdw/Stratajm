@@ -1,0 +1,36 @@
+{% extends "AdminBundle::admin-layout.html.twig" %}
+
+{% block content %}
+    <h1>Types list</h1>
+    <table class="table table-bordered table-responsive">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for type in types %}
+            <tr>
+                <td>{{ type.name }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('admin_type_show', { 'id': type.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('admin_type_edit', { 'id': type.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('admin_type_new') }}">Create a new type</a>
+        </li>
+    </ul>
+{% endblock %}

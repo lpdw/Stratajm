@@ -1,0 +1,38 @@
+{% extends "AdminBundle::admin-layout.html.twig" %}
+
+{% block content %}
+
+    <h1>Themes list</h1>
+
+    <table class="table table-bordered table-responsive">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for theme in themes %}
+            <tr>
+                <td>{{ theme.name }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('admin_theme_show', { 'id': theme.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('admin_theme_edit', { 'id': theme.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('admin_theme_new') }}">Create a new theme</a>
+        </li>
+    </ul>
+{% endblock %}

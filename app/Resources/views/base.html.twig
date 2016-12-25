@@ -16,8 +16,9 @@
     <body>
         {% block body %}{% endblock %}
         {% block javascripts %}
-            {% javascripts '@CommonBundle/Resources/public/js/bootstrap.min.js'
-                           '@CommonBundle/Resources/public/js/jquery.min.js'
+            {% javascripts
+                '@CommonBundle/Resources/public/js/jquery.min.js'
+                '@CommonBundle/Resources/public/js/bootstrap.min.js'
             %}
             <script src="{{ asset_url }}"></script>
             {% endjavascripts %}

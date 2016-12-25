@@ -43,11 +43,11 @@ class Borrow
     private $copy;
 
     /**
-     * Many Borrow have One User.
-     * @ORM\ManyToOne(targetEntity="User")
-     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     * Many Borrow have One Member.
+     * @ORM\ManyToOne(targetEntity="Member")
+     * @ORM\JoinColumn(name="member_id", referencedColumnName="id")
      */
-    private $user;
+    private $member;
 
 
     /**
@@ -132,27 +132,29 @@ class Borrow
         return $this->copy;
     }
 
+
+
     /**
-     * Set user
+     * Set member
      *
-     * @param \CommonBundle\Entity\User $user
+     * @param \CommonBundle\Entity\Member $member
      *
      * @return Borrow
      */
-    public function setUser(\CommonBundle\Entity\User $user = null)
+    public function setMember(\CommonBundle\Entity\Member $member = null)
     {
-        $this->user = $user;
+        $this->member = $member;
 
         return $this;
     }
 
     /**
-     * Get user
+     * Get member
      *
-     * @return \CommonBundle\Entity\User
+     * @return \CommonBundle\Entity\Member
      */
-    public function getUser()
+    public function getMember()
     {
-        return $this->user;
+        return $this->member;
     }
 }

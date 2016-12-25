@@ -1,0 +1,39 @@
+{% extends "AdminBundle::admin-layout.html.twig" %}
+
+{% block content %}
+    <h1>Copies list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Reference</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for copy in copies %}
+            <tr>
+                <td><a href="{{ path('admin_copy_show', { 'id': copy.id }) }}">{{ copy.id }}</a></td>
+                <td>{{ copy.reference }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('admin_copy_show', { 'id': copy.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('admin_copy_edit', { 'id': copy.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('admin_copy_new') }}">Create a new copy</a>
+        </li>
+    </ul>
+{% endblock %}

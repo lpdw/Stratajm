@@ -1,0 +1,40 @@
+{% extends "AdminBundle::admin-layout.html.twig" %}
+
+{% block content %}
+    <h1>Localisations list</h1>
+    <table class="table table-bordered table-responsive">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Adress</th>
+                <th>Telnum</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for localisation in localisations %}
+            <tr>
+                <td>{{ localisation.name }}</td>
+                <td>{{ localisation.adress }}</td>
+                <td>{{ localisation.telNum }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('admin_localisation_show', { 'id': localisation.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('admin_localisation_edit', { 'id': localisation.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('admin_localisation_new') }}">Create a new localisation</a>
+        </li>
+    </ul>
+{% endblock %}

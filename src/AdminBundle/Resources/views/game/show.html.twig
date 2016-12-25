@@ -1,0 +1,48 @@
+{% extends "AdminBundle::admin-layout.html.twig" %}
+
+{% block content %}
+    <h1>Game</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ game.id }}</td>
+            </tr>
+            <tr>
+                <th>Name</th>
+                <td>{{ game.name }}</td>
+            </tr>
+            <tr>
+                <th>Duration</th>
+                <td>{{ game.duration }}</td>
+            </tr>
+            <tr>
+                <th>Age</th>
+                <td>{{ game.age }}</td>
+            </tr>
+            <tr>
+                <th>Rules</th>
+                <td>{{ game.rules }}</td>
+            </tr>
+            <tr>
+                <th>Releasedate</th>
+                <td>{% if game.releaseDate %}{{ game.releaseDate|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('admin_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('admin_edit', { 'id': game.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}
