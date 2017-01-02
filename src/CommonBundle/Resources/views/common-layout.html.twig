@@ -3,6 +3,21 @@
 {% block title %}Les jeux{% endblock %}
 
 {% block head %}
+	    {% block stylesheets %}
+
+        {{ parent() }}
+
+        {% stylesheets
+
+        '@AdminBundle/Resources/public/css/bootstrap-table.min.css'
+        '@AdminBundle/Resources/public/css/jasny-bootstrap.min.css'
+        '@AdminBundle/Resources/public/css/navmenu-push.css'
+
+        %}
+
+        <link rel="stylesheet" href="{{ asset_url }}" />
+        {% endstylesheets %}
+    {% endblock %}
 {% endblock %}
 
 {% block body %}
