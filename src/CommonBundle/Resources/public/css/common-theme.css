@@ -1,0 +1,43 @@
+body {
+  background-color: #e8d8c9;
+}
+
+header {
+}
+
+#nav-bar, #main-div {
+  padding: 14px;
+
+}
+
+#main-div {
+  background-color: #ffffff;
+
+}
+
+#pagetitle {
+  color: #1E3F52;
+  font-family: Arial, Helvetica, Sans-Serif;
+  font-size: 24px;
+}
+
+#nav-bar {
+  background-color: #5C3E37;
+}
+
+.nav-element {
+  color: #F2EAE9;
+  padding-left: 26px;
+  padding-right: 26px;
+}
+
+footer {
+  padding-top: 5px;
+  background-color: #5C3E37;
+  text-align: center;
+}
+
+#footer-mentions {
+  color: #C2CFDB;
+  font-size:11px;
+}

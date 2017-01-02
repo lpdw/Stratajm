@@ -1,0 +1,32 @@
+<!-- Le style du body doit-être manipulé dans la partie common uniquement : nouveau base template -->
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        {% block stylesheets %}
+            {% stylesheets
+            '@CommonBundle/Resources/public/css/bootstrap.min.css'
+
+            %}
+            <link rel="stylesheet" href="{{ asset_url }}" />
+            {% endstylesheets %}
+        {% endblock %}
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+    </head>
+    <body class="
+        col-md-8
+        col-md-offset-2
+        ">
+        {% block body %}{% endblock %}
+        {% block javascripts %}
+            {% javascripts
+                '@CommonBundle/Resources/public/js/jquery.min.js'
+                '@CommonBundle/Resources/public/js/bootstrap.min.js'
+            %}
+            <script src="{{ asset_url }}"></script>
+            {% endjavascripts %}
+        {% endblock %}
+    </body>
+</html>
