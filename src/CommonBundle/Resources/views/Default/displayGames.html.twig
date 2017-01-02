@@ -1,0 +1,30 @@
+{% extends "CommonBundle::common-layout.html.twig" %}
+
+{% block content %}
+    <h1>Les jeux de Strata'j'm</h1>
+
+    <table class="table table-bordered table-responsive">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Duration</th>
+                <th>Age</th>
+                <th>Rules</th>
+                <th>Releasedate</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for game in games %}
+            <tr>
+                <td>{{ game.name }}</td>
+                <td>{{ game.duration }}</td>
+                <td>{{ game.age }}</td>
+                <td>{{ game.rules }}</td>
+                <td>{% if game.releaseDate %}{{ game.releaseDate|date('Y-m-d H:i:s') }}{% endif %}</td>
+
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}
