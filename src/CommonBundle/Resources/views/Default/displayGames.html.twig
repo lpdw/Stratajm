@@ -6,21 +6,26 @@
 
     <div id="main-div" class="row">
         <h2 id="pagetitle">Les jeux de Strata'j'm</h2>
-            <div id="filterDiv" class="col-xs-3 col-sm-3 col-md-2">
-                <p>Critères</p>
-                <p>Critères</p>
-                <p>Critères</p>
-                <p>Critères</p>
-                <p>Critères</p>
-                <p>Critères</p>
-                <p>Critères</p>
-            </div>
         
+        <div id="filter-panel" class="col-xs-3 col-sm-3 col-md-2">
+            <p>Critères</p>
+            <p>Critères</p>
+            <p>Critères</p>
+            <p>Critères</p>
+            <p>Critères</p>
+            <p>Critères</p>
+            <p>Critères</p>
+        </div>
+    
+        <div id="games-panel" class="col-xs-7 col-sm-7 col-md-8">
+            {% for game in games %}
+                <a class="game-sticker thumbnail" href="#">
+                    <img src="#" alt="#" class="game-image">                
+                    <div class="game-name">{{ game.name }}</div>
 
-        {% for game in games %}
-            {{ game.name }}
-            {% if game.releaseDate %}{{ game.releaseDate|date('Y-m-d H:i:s') }}{% endif %}
-        {% endfor %}
+                </a>
+            {% endfor %}
+        </div>
 
     </div>
 
