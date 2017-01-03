@@ -26,13 +26,7 @@
         </div>
 
         <div id="games-panel" class="col-xs-7 col-sm-7 col-md-8">
-          {% if games|length ==1 %}
-          <a class="game-sticker thumbnail" href="#">
-              <img src="#" alt="#" class="game-image">
-              <div class="game-name">{{ games.name }}</div>
 
-          </a>
-          {% else %}
             {% for game in games %}
                 <a class="game-sticker thumbnail" href="#">
                     <img src="#" alt="#" class="game-image">
@@ -40,7 +34,6 @@
 
                 </a>
             {% endfor %}
-          {% endif %}
 
         </div>
 

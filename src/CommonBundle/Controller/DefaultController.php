@@ -37,7 +37,7 @@ class DefaultController extends Controller
 
         $searchValue=$request->request->get('input');
 
-        //Gestion de l'autocompletion du champs de recherche par
+        //Gestion de l'autocompletion du champs de recherche par nom
         if($searchValue!=null){
           $gamesFound = $em->getRepository('CommonBundle:Game')->searchGame($searchValue);
           return new JsonResponse(array('games'=>json_encode($gamesFound)));
