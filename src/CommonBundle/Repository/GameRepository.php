@@ -29,4 +29,13 @@ class GameRepository extends \Doctrine\ORM\EntityRepository
       ->getSingleResult();  }
 
 
+      /*public function searchGameByPublisher(pybk){
+        return $this
+        ->createQueryBuilder('g')
+        ->where("g.name LIKE :name")
+        ->setParameter('name',"%".$name."%")
+        ->getQuery()
+        ->getSingleResult();  }
+
+*/
 }
