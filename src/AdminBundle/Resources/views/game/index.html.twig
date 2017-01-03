@@ -6,6 +6,7 @@
     <table class="table table-bordered table-responsive">
         <thead>
             <tr>
+                <th>Image</th>
                 <th>Name</th>
                 <th>Duration</th>
                 <th>Age</th>
@@ -17,6 +18,7 @@
         <tbody>
         {% for game in games %}
             <tr>
+                <td><img style="width:30%;margin-left:35%;" src="{{ asset('uploads/images/' ~ game.image) }}"/></td>
                 <td>{{ game.name }}</td>
                 <td>{{ game.duration }}</td>
                 <td>{{ game.age }}</td>

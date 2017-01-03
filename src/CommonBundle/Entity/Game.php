@@ -4,6 +4,7 @@ namespace CommonBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Game
@@ -90,6 +91,15 @@ class Game
      * @ORM\OneToMany(targetEntity="Copy", mappedBy="game")
      */
     private $copies;
+
+    /**
+     *@ORM\Column(type="string", nullable=true)
+     *@Assert\File(mimeTypes={"image/png", "image/jpeg"},
+     *             mimeTypesMessage="L'extension du fichier est invalide {{ type }}). Les extensions valides sont {{ types }}",
+     *             maxSize="1M",
+     *             maxSizeMessage="Le fichier ({{ size }} {{ suffix }}) dépasse la taille maximum autorisée ({{ limit }} {{ suffix }})")
+     */
+     private $image;
 
     public function __construct() {
         $this->features = new ArrayCollection();
@@ -351,4 +361,85 @@ class Game
     {
         return $this->copies;
     }
+
+    /**
+     * Set the value of Id
+     *
+     * @param int id
+     *
+     * @return self
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+
+        return $this;
+    }
+
+    /**
+     * Set the value of Many Games have Many Themes.
+     *
+     * @param mixed themes
+     *
+     * @return self
+     */
+    public function setThemes($themes)
+    {
+        $this->themes = $themes;
+
+        return $this;
+    }
+
+    /**
+     * Set the value of Many Games have Many Themes.
+     *
+     * @param mixed types
+     *
+     * @return self
+     */
+    public function setTypes($types)
+    {
+        $this->types = $types;
+
+        return $this;
+    }
+
+    /**
+     * Set the value of One Game has Many Copies.
+     *
+     * @param mixed copies
+     *
+     * @return self
+     */
+    public function setCopies($copies)
+    {
+        $this->copies = $copies;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of Image
+     *
+     * @return mixed
+     */
+    public function getImage()
+    {
+        return $this->image;
+    }
+
+    /**
+     * Set the value of Image
+     *
+     * @param mixed image
+     *
+     * @return self
+     */
+    public function setImage($image)
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
 }
