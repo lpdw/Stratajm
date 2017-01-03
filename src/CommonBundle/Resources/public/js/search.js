@@ -23,6 +23,8 @@ $(document).ready(function() {
     });
 
     $("#game_sort_editeur").on('change', function() {
+      console.log("data");
+
         sort();
     });
     $("#game_sort_trier_par").on('change', function() {
