@@ -20,12 +20,12 @@
         <div id="games-panel">
             {% for game in games %}
                 <div class="game-sticker thumbnail col-xs-2 col-sm-2 col-md-2" href="#">
-                    <a href="{{ game.publisher.url | external_link }}" ><img src="#" alt="#" class="game-image"></a>
+                    <img src="#" alt="#" class="game-image">
                 </div>
                 <div class="game-sticker-info">
                   <div class="game-sticker-name">{{ game.name }}</div>
                   <div class="game-sticker-rules">Règles : {{ game.rules }}</div>
-                  <div class="game-sticker-editor">Editeur : {{ game.publisher.name }} </div>
+                  <div class="game-sticker-editor">Editeur : <a href="{{ game.publisher.url | external_link }}" >{{ game.publisher.name }} </a> </div>
                 </div>
             {% endfor %}
         </div>

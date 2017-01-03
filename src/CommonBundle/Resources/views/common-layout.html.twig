@@ -19,14 +19,19 @@
 {% endblock %}
 
 {% block body %}
-	<header>
-		<h1 class="row">STRATAGEM LOGO</h1>
+	<header class="row">
+		<div id="header-images">
+			<img src="{{ asset('images/header.jpg') }}" alt="Logo Strata'j'm"/>
+			<img src=" {{ asset('images/nav.png') }}" alt="Nav logo"/>
+		</div>
+
+
 		<nav id="nav-bar" class="row">
-			<span class="nav-element">Qui sommes nous</span>
-			<span class="nav-element">Nos propositions</span>
-			<span class="nav-element">Nos prochaines animations</span>
-			<span class="nav-element">Nos dernières animations</span>
-			<span class="nav-element">Contact</span>
+			<div class="nav-element"><a href="#">Qui sommes nous</a></div>
+			<div class="nav-element"><a href="#">Nos propositions</a></div>
+			<div class="nav-element"><a href="#">Nos prochaines animations</a></div>
+			<div class="nav-element"><a href="#">Nos dernières animations</a></div>
+			<div class="nav-element"><a href="#">Contact</a></div>
 		</nav>
 	</header>
 
