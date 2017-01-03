@@ -21,7 +21,7 @@
                 <td><img style="width:30%;margin-left:35%;" src="{{ asset('uploads/images/' ~ game.image) }}"/></td>
                 <td>{{ game.name }}</td>
                 <td>{{ game.duration }}</td>
-                <td>{{ game.age }}</td>
+                <td>{{ game.ageMin }} - {{ game.ageMax }}</td>
                 <td>{{ game.rules }}</td>
                 <td>{% if game.releaseDate %}{{ game.releaseDate|date('Y-m-d H:i:s') }}{% endif %}</td>
                 <td>

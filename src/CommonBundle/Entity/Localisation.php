@@ -36,9 +36,9 @@ class Localisation
     private $adress;
 
     /**
-     * @var int
+     * @var string
      *
-     * @ORM\Column(name="telNum", type="integer", nullable=true)
+     * @ORM\Column(name="telNum", type="string", nullable=true)
      */
     private $telNum;
 

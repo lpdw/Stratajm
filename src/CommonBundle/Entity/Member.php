@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Member = membres de l'association
  *
  * @ORM\Table(name="member")
- * @ORM\Entity(repositoryClass="CommonBundle\Repository\UserRepository")
+ * @ORM\Entity(repositoryClass="CommonBundle\Repository\MemberRepository")
  */
 class Member
 {
@@ -43,9 +43,9 @@ class Member
     private $email;
 
     /**
-     * @var int
+     * @var string
      *
-     * @ORM\Column(name="telNum", type="integer", nullable=true, unique=true)
+     * @ORM\Column(name="telNum", type="string", nullable=true, unique=true)
      */
     private $telNum;
 
