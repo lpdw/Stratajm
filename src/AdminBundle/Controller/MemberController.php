@@ -3,6 +3,7 @@
 namespace AdminBundle\Controller;
 
 use CommonBundle\Entity\Member;
+use CommonBundle\Entity\Membership;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -22,14 +23,30 @@ class MemberController extends Controller
      * @Route("/", name="admin_member_index")
      * @Method("GET")
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
 
         $members = $em->getRepository('CommonBundle:Member')->findAll();
 
+        $membership = new Membership();
+        $form = $this->createForm('CommonBundle\Form\MembershipType', $membership);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($membership);
+            $em->flush($membership);
+
+            return $this->redirectToRoute('admin_membership_show', array('id' => $membership->getId()));
+        }
+
+
+
         return $this->render('AdminBundle:member:index.html.twig', array(
             'members' => $members,
+            'membership' => $membership,
+            'form' => $form->createView(),
         ));
     }
 
@@ -62,7 +79,7 @@ class MemberController extends Controller
     /**
      * Finds and displays a member entity.
      *
-     * @Route("/{id}", name="admin_member_show")
+     * @Route("/{id}", name="admin_member_show", options={"expose"=true})
      * @Method("GET")
      */
     public function showAction(Member $member)
@@ -78,7 +95,7 @@ class MemberController extends Controller
     /**
      * Displays a form to edit an existing member entity.
      *
-     * @Route("/{id}/edit", name="admin_member_edit")
+     * @Route("/{id}/edit", name="admin_member_edit", options={"expose"=true})
      * @Method({"GET", "POST"})
      */
     public function editAction(Request $request, Member $member)
@@ -122,32 +139,25 @@ class MemberController extends Controller
         if( strlen($search)<2) {
             $members = $em->getRepository('CommonBundle:Member')->findAllByArg($order, $offset, $limit);
             $nbRows = $em->getRepository('CommonBundle:Member')->countAll();
-            dump($members);
-            dump($nbRows);
         } else {
             $members = $em->getRepository('CommonBundle:Member')->findBySearch($search,$order,$offset,$limit);
             $nbRows = $em->getRepository('CommonBundle:Member')->countAllBySearch($search);
-            dump($members);
-            dump($nbRows);
         }
-        die;
         $rows =[];
-//        foreach ($histodemandes as $histodemande) {
-//            $line['id'] = $histodemande->getId();
-//            $line['demandeur'] = $histodemande->getDemandeur();
-//            $line['commentaire'] = $histodemande->getCommentaire();
-//            $line['projet'] = $histodemande->getProjet();
-//            $line['nom'] = $histodemande->getNom();
-//            $line['statut'] = $histodemande->getStatut();
-//            $line['date'] = $histodemande->getDateDemande()->format('d-m-Y H:i:s');
-//            $rows[] = $line;
-//        }
+        foreach ($members as $member) {
+            $line['id'] = $member->getId();
+            $line['firstname'] = $member->getFirstName();
+            $line['lastname'] = $member->getLastName();
+            $line['telNum'] = $member->getTelNum();
+            $line['email'] = $member->getEmail();
+            $rows[] = $line;
+        }
 
-//
-//        $result['total'] = sizeof($nbRows);
-//        $result['rows'] = $rows;
 
-        return new JsonResponse('test');
+        $result['total'] = $nbRows;
+        $result['rows'] = $rows;
+
+        return new JsonResponse($result);
     }
 
     /**

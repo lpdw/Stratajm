@@ -2,41 +2,26 @@
 
 {% block content %}
     <h1>Members list</h1>
+    <!-- Modal -->
+    <div id="" class="modal fade" role="dialog">
+        <div class="modal-dialog">
 
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Modal Header</h4>
+                </div>
+                <div class="modal-body">
+                    <p>Some text in the modal.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
 
-    <table class="table table-bordered table-responsive">
-        <thead>
-            <tr>
-                <th>Firstname</th>
-                <th>Lastname</th>
-                <th>Email</th>
-                <th>Telnum</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for member in members %}
-            <tr>
-                <td>{{ member.firstName }}</td>
-                <td>{{ member.lastName }}</td>
-                <td>{{ member.email }}</td>
-                <td>{{ member.telNum }}</td>
-                <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('admin_member_show', { 'id': member.id }) }}">show</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('admin_member_edit', { 'id': member.id }) }}">edit</a>
-                        </li>
-                    </ul>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-
+        </div>
+    </div>
     <table id="table"
            data-toggle="table"
            data-url="{{ path("members_resp") }}"
@@ -50,12 +35,15 @@
            data-search="true"
            data-show-refresh="true"
            data-sort-order="desc"
-           data-row-style="rowStyle"
+           data-show-toggle="true"
+
+           {#data-row-style="rowStyle"#}
+
     >
         <thead>
         <tr>
-            <th data-field="prenom">Prénom</th>
-            <th data-field="nom">Nom</th>
+            <th data-field="firstname">Prénom</th>
+            <th data-field="lastname">Nom</th>
             <th data-field="email">Email</th>
             <th data-field="telNum">Numéro téléphone</th>
             <th data-field="action" data-formatter="actionFormatter" data-events="actionEvents">Action</th>
@@ -68,61 +56,48 @@
             <a href="{{ path('admin_member_new') }}">Create a new member</a>
         </li>
     </ul>
+
+
 {% endblock %}
 
 {% block javascripts %}
     {{ parent() }}
+
     <script>
-        var data = [
-            {
-                "name": "bootstrap-table",
-                "stargazers_count": "526",
-                "forks_count": "122",
-                "description": "An extended Bootstrap table with radio, checkbox, sort, pagination, and other added features. (supports twitter bootstrap v2 and v3) "
-            },
-            {
-                "name": "multiple-select",
-                "stargazers_count": "288",
-                "forks_count": "150",
-                "description": "A jQuery plugin to select multiple elements with checkboxes :)"
-            },
-            {
-                "name": "bootstrap-show-password",
-                "stargazers_count": "32",
-                "forks_count": "11",
-                "description": "Show/hide password plugin for twitter bootstrap."
-            },
-            {
-                "name": "blog",
-                "stargazers_count": "13",
-                "forks_count": "4",
-                "description": "my blog"
-            },
-            {
-                "name": "scutech-redmine",
-                "stargazers_count": "6",
-                "forks_count": "3",
-                "description": "Redmine notification tools for chrome extension."
+        function actionFormatter(value, row, index) {
+            console.log(row.id);
+            var show = Routing.generate('admin_member_show', { id: row.id });
+            var edit = Routing.generate('admin_member_edit', { id: row.id });
+            return [
+                "<a href="+show+"><input type='button' class='btn btn-default' value='show'></a>",
+                "<a href="+edit+"><input type='button' class='btn btn-default' value='edit'></a>",
+                "<input type='button' class='btn btn-default membership' data-toggle='modal' data-target='#"+row.id+"' id="+row.id+" value='membership'>",
+
+
+            ].join('');
+
+        }
+
+//        $('.banane').addClass('pomme');
+
+        window.actionEvents = {
+            'click .membership': function (e, value, row, index) {
+                console.log(row);
+                $('.modal').attr('id',row.id);
+
+                $('.modal .modal-title').text(row.lastname+' '+row.firstname);
+                $('.modal .modal-body').html(
+                {{ form_start(form) }}
+                {{ form_widget(form) }}
+                '<input type="submit" value="Create" />'
+                {{ form_end(form) }}
+
+                );
+//              alert(row.id);
+
             }
-        ];
+        };
 
-        $(function () {
-
-            function queryParams(params) {
-                alert(params);
-                 console.log(JSON.stringify(params));die();
-                // {"limit":10,"offset":0,"order":"asc","your_param1":1,"your_param2":2}
-                return params;
-            }
-
-            $('#table').bootstrapTable({
-                queryParams: function (p) {
-                    return p;
-                },
-
-
-                data: data
-            });
-        });
     </script>
+
 {% endblock %}
