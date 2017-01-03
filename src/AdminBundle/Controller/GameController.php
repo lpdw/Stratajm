@@ -5,7 +5,9 @@ namespace AdminBundle\Controller;
 use CommonBundle\Entity\Game;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\File\File;
 
 /**
  * Game controller.
@@ -44,6 +46,19 @@ class GameController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            if($game->getImage())
+            {
+                $file = $game->getImage();
+                $fileName = md5(uniqid()).'.'.$file->guessExtension();
+
+                $file->move(
+                    $this->getParameter('images_directory'),
+                    $fileName
+                );
+
+                $game->setImage($fileName);
+            }
+
             $em = $this->getDoctrine()->getManager();
             $em->persist($game);
             $em->flush($game);
@@ -81,18 +96,48 @@ class GameController extends Controller
      */
     public function editAction(Request $request, Game $game)
     {
+        $oldImageName = $game->getImage();
+
+        if($game->getImage()) {
+            //Transform the string filename in a file object for the FileType field
+            $game->setImage(
+                new File($this->getParameter('images_directory').'/'.$game->getImage())
+            );
+        }
+
         $deleteForm = $this->createDeleteForm($game);
         $editForm = $this->createForm('CommonBundle\Form\GameType', $game);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
+            //Check if a new image has been uploaded
+            if($game->getImage()) {
+                if($oldImageName)
+                    unlink($this->getParameter('images_directory').'/'.$oldImageName);
+
+                $file = $game->getImage();
+                $fileName = md5(uniqid()).'.'.$file->guessExtension();
+
+                $file->move(
+                    $this->getParameter('images_directory'),
+                    $fileName
+                );
+
+                $game->setImage($fileName);
+            }
+            //else we keep the old image
+            else {
+                $game->setImage($oldImageName);
+            }
+
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('admin_edit', array('id' => $game->getId()));
+            return $this->redirectToRoute('admin_show', array('id' => $game->getId()));
         }
 
         return $this->render('AdminBundle:game:edit.html.twig', array(
             'game' => $game,
+            'oldImageName' => $oldImageName,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         ));
@@ -110,6 +155,7 @@ class GameController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            unlink($this->getParameter('images_directory').'/'.$game->getImage());
             $em = $this->getDoctrine()->getManager();
             $em->remove($game);
             $em->flush($game);

@@ -4,6 +4,7 @@ namespace CommonBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Game
@@ -39,9 +40,15 @@ class Game
     /**
      * @var string
      *
-     * @ORM\Column(name="age", type="string", length=255)
+     * @ORM\Column(name="ageMin", type="string", length=255)
      */
-    private $age;
+    private $ageMin;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="ageMax", type="string", length=255)
+     */
+    private $ageMax;
 
     /**
      * @var string
@@ -90,6 +97,15 @@ class Game
      * @ORM\OneToMany(targetEntity="Copy", mappedBy="game")
      */
     private $copies;
+
+    /**
+     *@ORM\Column(type="string", nullable=true)
+     *@Assert\File(mimeTypes={"image/png", "image/jpeg"},
+     *             mimeTypesMessage="L'extension du fichier est invalide {{ type }}). Les extensions valides sont {{ types }}",
+     *             maxSize="1M",
+     *             maxSizeMessage="Le fichier ({{ size }} {{ suffix }}) dépasse la taille maximum autorisée ({{ limit }} {{ suffix }})")
+     */
+     private $image;
 
     public function __construct() {
         $this->features = new ArrayCollection();
@@ -154,29 +170,7 @@ class Game
         return $this->duration;
     }
 
-    /**
-     * Set age
-     *
-     * @param string $age
-     *
-     * @return Game
-     */
-    public function setAge($age)
-    {
-        $this->age = $age;
 
-        return $this;
-    }
-
-    /**
-     * Get age
-     *
-     * @return string
-     */
-    public function getAge()
-    {
-        return $this->age;
-    }
 
     /**
      * Set rules
@@ -350,5 +344,128 @@ class Game
     public function getCopies()
     {
         return $this->copies;
+    }
+
+    /**
+     * Set the value of Id
+     *
+     * @param int id
+     *
+     * @return self
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+        return $this;
+    }
+
+    /**
+     * Set ageMin
+     *
+     * @param string $ageMin
+     *
+     * @return Game
+     */
+    public function setAgeMin($ageMin)
+    {
+        $this->ageMin = $ageMin;
+        return $this;
+    }
+
+    /**
+     * Set the value of Many Games have Many Themes.
+     *
+     * @param mixed themes
+     *
+     * @return self
+     */
+    public function setThemes($themes)
+    {
+        $this->themes = $themes;
+
+        return $this;
+    }
+
+    /**
+     * Set the value of Many Games have Many Themes.
+     *
+     * @param mixed types
+     *
+     * @return self
+     */
+    public function setTypes($types)
+    {
+        $this->types = $types;
+
+        return $this;
+    }
+
+    /**
+     * Set the value of One Game has Many Copies.
+     *
+     * @param mixed copies
+     *
+     * @return self
+     */
+    public function setCopies($copies)
+    {
+        $this->copies = $copies;
+        return $this;
+    }
+
+    /**
+     * Get ageMin
+     *
+     * @return string
+     */
+    public function getAgeMin()
+    {
+        return $this->ageMin;
+    }
+
+    /**
+     * Set ageMax
+     *
+     * @param string $ageMax
+     *
+     * @return Game
+     */
+    public function setAgeMax($ageMax)
+    {
+        $this->ageMax = $ageMax;
+        return $this;
+    }
+
+    /**
+     * Get the value of Image
+     *
+     * @return mixed
+     */
+    public function getImage()
+    {
+        return $this->image;
+    }
+
+    /**
+     * Set the value of Image
+     *
+     * @param mixed image
+     *
+     * @return self
+     */
+    public function setImage($image)
+    {
+        $this->image = $image;
+        return $this;
+    }
+
+    /**
+     * Get ageMax
+     *
+     * @return string
+     */
+    public function getAgeMax()
+    {
+        return $this->ageMax;
     }
 }

@@ -2,38 +2,53 @@
 
 {% block content %}
     <h1>Members list</h1>
+    <!-- Modal -->
+    <div id="" class="modal fade" role="dialog">
+        <div class="modal-dialog">
 
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Modal Header</h4>
+                </div>
+                <div class="modal-body">
+                    <p>Some text in the modal.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
 
-    <table class="table table-bordered table-responsive">
+        </div>
+    </div>
+    <table id="table"
+           data-toggle="table"
+           data-url="{{ path("members_resp") }}"
+           data-toolbar="#toolbar"
+           data-show-columns="true"
+           data-locale="fr-FR"
+           data-pagination="true"
+           data-side-pagination="server"
+           data-page-list="[5, 10, 20, 50, 100, 200]"
+           data-page-size="10"
+           data-search="true"
+           data-show-refresh="true"
+           data-sort-order="desc"
+           data-show-toggle="true"
+
+           {#data-row-style="rowStyle"#}
+
+    >
         <thead>
-            <tr>
-                <th>Firstname</th>
-                <th>Lastname</th>
-                <th>Email</th>
-                <th>Telnum</th>
-                <th>Actions</th>
-            </tr>
+        <tr>
+            <th data-field="firstname">Prénom</th>
+            <th data-field="lastname">Nom</th>
+            <th data-field="email">Email</th>
+            <th data-field="telNum">Numéro téléphone</th>
+            <th data-field="action" data-formatter="actionFormatter" data-events="actionEvents">Action</th>
+        </tr>
         </thead>
-        <tbody>
-        {% for member in members %}
-            <tr>
-                <td>{{ member.firstName }}</td>
-                <td>{{ member.lastName }}</td>
-                <td>{{ member.email }}</td>
-                <td>{{ member.telNum }}</td>
-                <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('admin_member_show', { 'id': member.id }) }}">show</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('admin_member_edit', { 'id': member.id }) }}">edit</a>
-                        </li>
-                    </ul>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
     </table>
 
     <ul>
@@ -41,4 +56,48 @@
             <a href="{{ path('admin_member_new') }}">Create a new member</a>
         </li>
     </ul>
+
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script>
+        function actionFormatter(value, row, index) {
+            console.log(row.id);
+            var show = Routing.generate('admin_member_show', { id: row.id });
+            var edit = Routing.generate('admin_member_edit', { id: row.id });
+            return [
+                "<a href="+show+"><input type='button' class='btn btn-default' value='show'></a>",
+                "<a href="+edit+"><input type='button' class='btn btn-default' value='edit'></a>",
+                "<input type='button' class='btn btn-default membership' data-toggle='modal' data-target='#"+row.id+"' id="+row.id+" value='membership'>",
+
+
+            ].join('');
+
+        }
+
+//        $('.banane').addClass('pomme');
+
+        window.actionEvents = {
+            'click .membership': function (e, value, row, index) {
+                console.log(row);
+                $('.modal').attr('id',row.id);
+
+                $('.modal .modal-title').text(row.lastname+' '+row.firstname);
+                $('.modal .modal-body').html(
+                {{ form_start(form) }}
+                {{ form_widget(form) }}
+                '<input type="submit" value="Create" />'
+                {{ form_end(form) }}
+
+                );
+//              alert(row.id);
+
+            }
+        };
+
+    </script>
+
 {% endblock %}
