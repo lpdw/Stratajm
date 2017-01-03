@@ -1,5 +1,7 @@
 body {
   background-color: #e8d8c9;
+  width: 900px;
+  margin: auto;
 }
 
 header {
@@ -31,11 +33,11 @@ header {
 }
 
 #filter-panel {
-  border: solid red;
+  border: solid ;
 }
 
 #main-div {
-  background-color: #ffffff;
+  background-color: #F2EAE9;
 
 }
 
@@ -43,6 +45,7 @@ header {
   width:180px;
   height:171px;
 }
+
 
 footer {
   padding-top: 5px;
