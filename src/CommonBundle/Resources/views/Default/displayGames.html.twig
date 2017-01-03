@@ -6,8 +6,16 @@
 
     <div id="main-div" class="row">
         <h2 id="pagetitle">Les jeux de Strata'j'm</h2>
-        
+
         <div id="filter-panel" class="col-xs-3 col-sm-3 col-md-2">
+        {{ form_start(searchForm) }}
+        {{ form_widget(searchForm) }}
+        {{ form_end(searchForm) }}
+
+
+        {{ form_start(sortForm) }}
+        {{ form_widget(sortForm) }}
+        {{ form_end(sortForm) }}
             <p>Critères</p>
             <p>Critères</p>
             <p>Critères</p>
@@ -16,19 +24,28 @@
             <p>Critères</p>
             <p>Critères</p>
         </div>
-    
+
         <div id="games-panel" class="col-xs-7 col-sm-7 col-md-8">
+          {% if games|length ==1 %}
+          <a class="game-sticker thumbnail" href="#">
+              <img src="#" alt="#" class="game-image">
+              <div class="game-name">{{ games.name }}</div>
+
+          </a>
+          {% else %}
             {% for game in games %}
                 <a class="game-sticker thumbnail" href="#">
-                    <img src="#" alt="#" class="game-image">                
+                    <img src="#" alt="#" class="game-image">
                     <div class="game-name">{{ game.name }}</div>
 
                 </a>
             {% endfor %}
+          {% endif %}
+
         </div>
 
     </div>
 
-    
+
 
 {% endblock %}
