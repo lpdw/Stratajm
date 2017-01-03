@@ -13,7 +13,8 @@ class MembershipType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('amount')->add('beginDate')->add('member')->add('paymentMethod')        ;
+        $builder->add('amount')
+            ->add('paymentMethod');
     }
     
     /**

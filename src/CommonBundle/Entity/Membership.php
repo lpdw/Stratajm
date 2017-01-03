@@ -49,6 +49,10 @@ class Membership
      */
     private $paymentMethod;
 
+    function __construct()
+    {
+        $this->beginDate = new \DateTime();
+    }
 
     /**
      * Get id
