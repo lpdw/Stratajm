@@ -35,14 +35,45 @@ class DefaultController extends Controller
         $gameSearchForm = $this->createForm(GameSearchType::class);
         $gameSearchForm->handleRequest($request);
 
-        $searchValue=$request->request->get('input');
-
         //Gestion de l'autocompletion du champs de recherche par nom
+        $searchValue=$request->request->get('gameName');
         if($searchValue!=null){
+          // On récupère le jeu correspondant
           $gamesFound = $em->getRepository('CommonBundle:Game')->searchGame($searchValue);
           return new JsonResponse(array('games'=>json_encode($gamesFound)));
 
         }
+
+        // Gestion du tri des jeux par AJAX
+        // on récupère toutes les données
+        if($request->isXmlHttpRequest()){
+          $publishersID=$request->request->get('publishers');
+          $orderby=$request->request->get('orderby');
+          $ageMin=$request->request->get('ageMin');
+          $ageMax=$request->request->get('ageMax');
+          if($publishersID==null){
+            $publishersID=$em->getRepository('CommonBundle:Game')->getAllPublishersById();
+          }
+          if($ageMin==null && $ageMax==null){
+            $ageMin=200;
+            $ageMax=0;
+          }
+          elseif($ageMax==null && $ageMin!=null){
+            $ageMax=$ageMin;
+          }
+          elseif($ageMax!=null && $ageMin==null){
+            $ageMin=$ageMax;
+          }
+
+
+
+
+          $gamesSorted = $em->getRepository('CommonBundle:Game')->sortBy($publishersID,$orderby,$ageMin,$ageMax);
+          return new JsonResponse(array('games'=>json_encode($gamesSorted)));
+
+        }
+
+
 
         if ($gameSearchForm->isSubmitted() && $gameSearchForm->isValid()) {
           $name=$gameSearchForm['searchGame']->getData();

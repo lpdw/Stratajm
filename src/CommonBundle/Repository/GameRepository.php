@@ -29,13 +29,58 @@ class GameRepository extends \Doctrine\ORM\EntityRepository
       ->getArrayResult();  }
 
 
-      /*public function searchGameByPublisher(pybk){
+      public function getAllPublishersById(){
         return $this
         ->createQueryBuilder('g')
-        ->where("g.name LIKE :name")
-        ->setParameter('name',"%".$name."%")
+        ->select('g.id')
+        ->leftJoin('g.publisher', 'p', 'WITH', 'g.publisher = p.id')
         ->getQuery()
-        ->getSingleResult();  }
+        ->getArrayResult();
+      }
 
-*/
+      public function sortBy($publishersID,$orderby,$ageMin,$ageMax){
+        if($orderby=="publication_asc"){
+             $sort='g.releaseDate';
+              $order='ASC';
+        }
+        if($orderby=="publication_desc"){
+          $sort='g.releaseDate';
+           $order='DESC';
+        }
+        if($orderby=="ajout_asc"){
+          $sort='g.id';
+           $order='ASC';
+        }
+        if($orderby=="ajout_desc"){
+
+          $sort='g.id';
+           $order='DESC';        }
+
+
+
+        $request = $this->createQueryBuilder('g')
+        ->leftJoin('g.publisher', 'p', 'WITH', 'g.publisher = p.id')
+          ->where("g.publisher IN (:publisher_id)")
+          ->andWhere("g.ageMax >= :ageMax")
+          ->andWhere("g.ageMin <= :ageMin")
+          ->setParameter('publisher_id',$publishersID)
+          ->setParameter('ageMin',$ageMin)
+          ->setParameter('ageMax',$ageMax)
+
+          ->orderBy($sort, $order)
+          ->getQuery()
+          ->getArrayResult();
+
+
+
+        //$request->getQuery()
+        //->getArrayResult();
+        return $request;
+
+      }
+
+
+
+
+
 }

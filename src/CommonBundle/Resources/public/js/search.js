@@ -7,7 +7,7 @@ $(document).ready(function() {
               type: "POST",
               url: Routing.generate('display_games'),
               data: {
-                  input: request.term
+                  gameName: request.term
               },
               success: function(data){ response($.map
                         (jQuery.parseJSON(data['games']), function(i,v) {
@@ -23,30 +23,49 @@ $(document).ready(function() {
     });
 
     $("#game_sort_editeur").on('change', function() {
-        // On récupère la route
-        var gamesURL = Routing.generate('display_games');
-        // A chaque saisie d'un caractère, on recupère la valeur
-        var publishers = $(this).val();
-        // Au bout de deux caractères saisis, on lance l'autompletion
-            $.ajax({
-                type: "POST",
-                url: gamesURL,
-                data: {
-                    publishers: publishers
-                },
-                dataType: 'json',
-                success: function(response) {
-                    var games = jQuery.parseJSON(response['games']);
-                    var names = $.map(games, function(i, v) {
-                        return i.name;
-                    });
-                    $('#game_search_searchGame').autocomplete({
-                        source: names,
-                    });
+        sort();
+    });
+    $("#game_sort_trier_par").on('change', function() {
+        sort();
+    });
+    $("#game_sort_age_min").on('change', function() {
+        sort();
+    });
+    $("#game_sort_age_max").on('change', function() {
+        sort();
+    });
 
+    function sort(){
+      var publishers = $("#game_sort_editeur").val();
+      var ageMin=$("#game_sort_age_min").val();
+      var ageMax=$("#game_sort_age_max").val();
+      var orderby=$("#game_sort_trier_par").val();
+      $.ajax({
+          type: "POST",
+          url: Routing.generate('display_games'),
+          data: {
+              ageMin: ageMin,
+              ageMax: ageMax,
+              orderby: orderby,
+              publishers: publishers
+          },
+          dataType: 'json',
+          success: function(data) {
+            console.log(data);
 
-                },
+            $("#games-panel").html("");
+            var bloc="";
+            if(!data.games.length){
+              bloc+="<p>Aucun jeu ne correspond a votre recherche</p>";
+            }
+            $.each(jQuery.parseJSON(data.games), function (i) {
+                  bloc+='<a class="game-sticker thumbnail" href="#"><img src="#" alt="#" class="game-image"><div class="game-name">'+this.name+'</div></a>';
             });
 
-    });
+            $('#games-panel').prepend(bloc);
+
+          },
+      });
+    }
+
 });

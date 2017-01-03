@@ -39,13 +39,13 @@ class Game
     /**
      * @var string
      *
-     * @ORM\Column(name="ageMin", type="string", length=255)
+     * @ORM\Column(name="ageMin", type="integer", length=255)
      */
     private $ageMin;
     /**
      * @var string
      *
-     * @ORM\Column(name="ageMax", type="string", length=255)
+     * @ORM\Column(name="ageMax", type="integer", length=255)
      */
     private $ageMax;
 

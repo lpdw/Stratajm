@@ -17,7 +17,7 @@ class GameSearchType extends AbstractType
     {
       $builder
            // Max lenght : 200 chars
-          ->add('searchGame',SearchType::class,array('required' => true))
+          ->add('searchGame',SearchType::class,array('required' => true,))
           ->add('Rechercher', SubmitType::class);
 
 
