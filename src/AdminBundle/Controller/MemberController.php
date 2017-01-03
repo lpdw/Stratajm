@@ -5,7 +5,9 @@ namespace AdminBundle\Controller;
 use CommonBundle\Entity\Member;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Member controller.
@@ -96,6 +98,56 @@ class MemberController extends Controller
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         ));
+    }
+
+
+    /**
+     * Lists all members entities.
+     *
+     * @Route("/json/member", name="members_resp" )
+     *
+     * @Method({"GET", "POST"})
+     */
+    public function dataAction(Request $request)
+    {
+        $search = $request->query->get('search');
+
+        $limit = $request->query->get('limit');
+        $offset = $request->query->get('offset');
+        $order = $request->query->get('order');
+
+        $em = $this->getDoctrine()->getManager();
+
+
+        if( strlen($search)<2) {
+            $members = $em->getRepository('CommonBundle:Member')->findAllByArg($order, $offset, $limit);
+            $nbRows = $em->getRepository('CommonBundle:Member')->countAll();
+            dump($members);
+            dump($nbRows);
+        } else {
+            $members = $em->getRepository('CommonBundle:Member')->findBySearch($search,$order,$offset,$limit);
+            $nbRows = $em->getRepository('CommonBundle:Member')->countAllBySearch($search);
+            dump($members);
+            dump($nbRows);
+        }
+        die;
+        $rows =[];
+//        foreach ($histodemandes as $histodemande) {
+//            $line['id'] = $histodemande->getId();
+//            $line['demandeur'] = $histodemande->getDemandeur();
+//            $line['commentaire'] = $histodemande->getCommentaire();
+//            $line['projet'] = $histodemande->getProjet();
+//            $line['nom'] = $histodemande->getNom();
+//            $line['statut'] = $histodemande->getStatut();
+//            $line['date'] = $histodemande->getDateDemande()->format('d-m-Y H:i:s');
+//            $rows[] = $line;
+//        }
+
+//
+//        $result['total'] = sizeof($nbRows);
+//        $result['rows'] = $rows;
+
+        return new JsonResponse('test');
     }
 
     /**
