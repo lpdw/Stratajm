@@ -39,9 +39,15 @@ class Game
     /**
      * @var string
      *
-     * @ORM\Column(name="age", type="string", length=255)
+     * @ORM\Column(name="ageMin", type="string", length=255)
      */
-    private $age;
+    private $ageMin;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="ageMax", type="string", length=255)
+     */
+    private $ageMax;
 
     /**
      * @var string
@@ -154,29 +160,7 @@ class Game
         return $this->duration;
     }
 
-    /**
-     * Set age
-     *
-     * @param string $age
-     *
-     * @return Game
-     */
-    public function setAge($age)
-    {
-        $this->age = $age;
 
-        return $this;
-    }
-
-    /**
-     * Get age
-     *
-     * @return string
-     */
-    public function getAge()
-    {
-        return $this->age;
-    }
 
     /**
      * Set rules
@@ -350,5 +334,53 @@ class Game
     public function getCopies()
     {
         return $this->copies;
+    }
+
+    /**
+     * Set ageMin
+     *
+     * @param string $ageMin
+     *
+     * @return Game
+     */
+    public function setAgeMin($ageMin)
+    {
+        $this->ageMin = $ageMin;
+
+        return $this;
+    }
+
+    /**
+     * Get ageMin
+     *
+     * @return string
+     */
+    public function getAgeMin()
+    {
+        return $this->ageMin;
+    }
+
+    /**
+     * Set ageMax
+     *
+     * @param string $ageMax
+     *
+     * @return Game
+     */
+    public function setAgeMax($ageMax)
+    {
+        $this->ageMax = $ageMax;
+
+        return $this;
+    }
+
+    /**
+     * Get ageMax
+     *
+     * @return string
+     */
+    public function getAgeMax()
+    {
+        return $this->ageMax;
     }
 }
