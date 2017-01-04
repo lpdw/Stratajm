@@ -104,9 +104,15 @@ header {
 .game-media {
 }
 
-.game-image {
-  width: auto;
-  height: auto;
+#single-game-image {
+  width: 40%;
+  height: 40%;
+  float: left;
+}
+
+#single-game-text {
+  float: left;
+
 }
 
 

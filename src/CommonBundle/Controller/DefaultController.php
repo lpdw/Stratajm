@@ -67,20 +67,15 @@ class DefaultController extends Controller
             $ageMin=$ageMax;
           }
 
-
-
-
           $gamesSorted = $em->getRepository('CommonBundle:Game')->sortBy($publishersID,$orderby,$ageMin,$ageMax,$duration);
           return new JsonResponse(array('games'=>json_encode($gamesSorted)));
 
         }
 
-
-
         if ($gameSearchForm->isSubmitted() && $gameSearchForm->isValid()) {
           $name=$gameSearchForm['searchGame']->getData();
           $gameFound = $em->getRepository('CommonBundle:Game')->searchGameByName($name);
-          
+
           // Une fois le formulaire valide et le resultat trouvé, on l'initialise
           unset($gameSearchForm);
           $gameSearchForm = $this->createForm(GameSearchType::class);
