@@ -27,8 +27,8 @@ class GameSortType extends AbstractType
         'Date d\'ajout (récente à ancienne)' => 'ajout_desc',
     )))
     ->add('duree',ChoiceType::class, array(
+          'placeholder' => 'Durée du jeu',
 'choices' => array(
-  'Durée'=>4,
     'Courte (<=30 min)' => 0,
     'Moyenne (30-45min)' => 1,
     'Longue (~1 heure)' => 2,

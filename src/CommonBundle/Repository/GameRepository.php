@@ -60,8 +60,9 @@ class GameRepository extends \Doctrine\ORM\EntityRepository
             $sort='g.id';
             $order='DESC';
         }
-        if($duration==4){
+        if($duration==null){
           $requestDuree="g.duration < :duration";
+          $duration=4;
         }else{
           $requestDuree="g.duration = :duration";
         }
