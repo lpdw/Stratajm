@@ -7,17 +7,17 @@
     <div id="main-div" class="row">
         <h2 id="pagetitle">Les jeux de Strata'j'm</h2>
 
-        <div id="filter-panel" class="col-xs-3 col-sm-3 col-md-2">
+        <div id="filter-panel" class="col-xs-3 col-sm- 3 col-md-3">
 
 
-        {{ form_start(searchForm, {'attr': {'class': 'form-inline'} }) }}
-        {{ form_widget(searchForm) }}
-        {{ form_end(searchForm) }}
+          {{ form_start(searchForm, {'attr': {'class': 'form-inline'} }) }}
+          {{ form_widget(searchForm) }}
+          {{ form_end(searchForm) }}
 
 
-        {{ form_start(sortForm) }}
-        {{ form_widget(sortForm) }}
-        {{ form_end(sortForm) }}
+          {{ form_start(sortForm) }}
+          {{ form_widget(sortForm) }}
+          {{ form_end(sortForm) }}
 
 
         </div>
@@ -28,17 +28,22 @@
             <img src="{{ asset('images/loader.gif') }}" alt="#" class="game-image">
           </div>
             {% for game in games %}
+              <div class="row">
 
-                <div class="game-sticker-info">
+                <div class="game-sticker-info col-xs-3 col-sm-3 col-md-3">
                   <div class="game-sticker thumbnail" href="#">
                       <a href="{{ path('single_game', { 'id': game.id }) }}">
-                        <img src="{{ asset('uploads/images/' ~ game.image) }}" alt="Image du jeu {{ game.name }}" class="game-image">
+                        <img  class="game-sticker-image" src="{{ asset('uploads/images/' ~ game.image) }}" alt="Image du jeu {{ game.name }}">
                       </a>
                   </div>
-                  <div class="game-sticker-name">{{ game.name }}</div>
-                  <div class="game-sticker-rules">Règles : {{ game.rules }}</div>
-                  <div class="game-sticker-editor">Editeur : <a href="{{ game.publisher.url | external_link }}" >{{ game.publisher.name }} </a> </div>
+                  <div class=" col-xs-7 col-sm-7 col-md-7">
+                    <div class="game-sticker-name">{{ game.name }}</div>
+                    <div class="game-sticker-rules">Règles : {{ game.rules }}</div>
+                    <div class="game-sticker-editor">Editeur : <a href="{{ game.publisher.url | external_link }}" >{{ game.publisher.name }} </a> </div>
+                  </div>
                 </div>
+
+            </div>
             {% endfor %}
 
         </div>

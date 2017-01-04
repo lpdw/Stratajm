@@ -12,6 +12,11 @@ header {
 
 }
 
+#main-div {
+  height: 100%;
+  background-color: #F2EAE9;
+}
+
 #nav-bar {
   position: relative;
   margin-top: -47px;
@@ -50,27 +55,27 @@ header {
   margin-bottom: 20px;
 }
 
+#games-panel {
+  height: 100%;
+}
+
 #filter-panel {
   border: solid ;
-}
-
-#main-div {
-  background-color: #F2EAE9;
-
+  height:100%;
 }
 
 
+#game_search_Rechercher:before {
+    color:black;
+    font-family: "Glyphicons Halflings";
+    content: "\e003";
+ }
 
-  #game_search_Rechercher:before {
-      color:black;
-      font-family: "Glyphicons Halflings";
-      content: "\e003";
-   }
 #loader{
   display: none;
 }
 
-.game-sticker {
+.game-sticker .game-sticker-image {
   width:180px;
   height:171px;
 }
