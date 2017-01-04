@@ -25,27 +25,38 @@ $(document).ready(function() {
     $("#game_sort_editeur").on('change', function() {
       console.log("data");
 
-        sort();
+        sort(true);
     });
     $("#game_sort_trier_par").on('change', function() {
-        sort();
+        sort(true);
     });
     $("#game_sort_age_min").on('change', function() {
-        sort();
+        sort(true);
     });
     $("#game_sort_age_max").on('change', function() {
-        sort();
+        sort(true);
     });
     $("#game_sort_duree").on('change', function() {
-        sort();
+        sort(true);
     });
+    $("#game_sort_reinitialiser").on('click', function() {
+        sort(false);
+    });
+    function sort(sort){
+      if(sort){
+        var publishers = $("#game_sort_editeur").val();
+        var ageMin=$("#game_sort_age_min").val();
+        var ageMax=$("#game_sort_age_max").val();
+        var orderby=$("#game_sort_trier_par").val();
+        var duration=$("#game_sort_duree").val();
+      }else{
+        var publishers = "";
+        var ageMin="";
+        var ageMax="";
+        var orderby="publication_asc";
+        var duration="";
+      }
 
-    function sort(){
-      var publishers = $("#game_sort_editeur").val();
-      var ageMin=$("#game_sort_age_min").val();
-      var ageMax=$("#game_sort_age_max").val();
-      var orderby=$("#game_sort_trier_par").val();
-      var duration=$("#game_sort_duree").val();
 
       $.ajax({
           type: "POST",

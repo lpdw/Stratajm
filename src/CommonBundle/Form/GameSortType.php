@@ -10,6 +10,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\ResetType;
 
 class GameSortType extends AbstractType
 {
@@ -19,6 +20,7 @@ class GameSortType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+        ->add('reinitialiser',ResetType::class)
         ->add('trier_par',ChoiceType::class, array(
 'choices' => array(
         'Date de publication (ancienne à récente)' => 'publication_asc',
