@@ -77,22 +77,22 @@
             ].join('');
 
         }
-
-//        $('.banane').addClass('pomme');
-
         window.actionEvents = {
             'click .membership': function (e, value, row, index) {
                 console.log(row);
                 $('.modal').attr('id',row.id);
 
                 $('.modal .modal-title').text(row.lastname+' '+row.firstname);
-                {#$('.modal .modal-body').html(#}
-                {#{{ form_start(form) }}#}
-                {#{{ form_widget(form) }}#}
-                {#'<input type="submit" value="Create" />'#}
-                {#{{ form_end(form) }}#}
+                $('.modal .modal-body').html(
+                '{{ form_start(form) }}'+
+                '{{ form_widget(form) }}'+
+                '<input type="submit" value="Create" />'+
+                '{{ form_end(form) }}'
 
-                {#);#}
+                );
+                $('.modal .modal-body .memberId').attr('value',row.id);
+//                $('.modal .modal-body .memberId').attr('value',row.id);
+
 //              alert(row.id);
 
             }
