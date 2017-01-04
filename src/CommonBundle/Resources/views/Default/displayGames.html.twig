@@ -4,10 +4,10 @@
 
 {% block content %}
 
-    <div id="main-div" class="row">
+    <div id="main-div">
         <h2 id="pagetitle">Les jeux de Strata'j'm</h2>
 
-        <div id="filter-panel" class="col-xs-3 col-sm- 3 col-md-3">
+        <div id="filter-panel">
 
 
           {{ form_start(searchForm, {'attr': {'class': 'form-inline'} }) }}
@@ -23,27 +23,22 @@
         </div>
 
 
-        <div id="games-panel" class=" col-md-offset-3">
+        <div id="games-panel">
           <div id="loader" class="text-center">
             <img src="{{ asset('images/loader.gif') }}" alt="#" class="game-image">
           </div>
             {% for game in games %}
-              <div class="col-md-7">
 
-                <div class="game-sticker-info col-xs-3 col-sm-5 col-md-5">
-                  <div class="game-sticker thumbnail" href="#">
-                      <a href="{{ path('single_game', { 'id': game.id }) }}">
-                        <img  class="game-sticker-image" src="{{ asset('uploads/images/' ~ game.image) }}" alt="Image du jeu {{ game.name }}">
-                      </a>
+                <div class="game-sticker">
+                  <a href="{{ path('single_game', { 'id': game.id }) }}">
+                    <img  class="game-sticker-image" src="{{ asset('uploads/images/' ~ game.image) }}" alt="Image du jeu {{ game.name }}">
+                  </a>
+                  <div class="game-sticker-info">
+                    <div>{{ game.name }}</div>
+                    <div>Editeur : <a href="{{ game.publisher.url | external_link }}" >{{ game.publisher.name }} </a> </div>
                   </div>
-                  <div class=" col-xs-12 col-sm-12 col-md-12">
-                    <div class="game-sticker-name">{{ game.name }}</div>
-                    <div class="game-sticker-rules">Règles : {{ game.rules }}</div>
-                    <div class="game-sticker-editor">Editeur : <a href="{{ game.publisher.url | external_link }}" >{{ game.publisher.name }} </a> </div>
-                  </div>
+
                 </div>
-
-            </div>
             {% endfor %}
 
         </div>
