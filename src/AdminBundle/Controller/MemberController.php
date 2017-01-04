@@ -21,7 +21,7 @@ class MemberController extends Controller
      * Lists all member entities.
      *
      * @Route("/", name="admin_member_index")
-     * @Method("GET")
+     * @Method({"GET", "POST"})
      */
     public function indexAction(Request $request)
     {
@@ -34,11 +34,14 @@ class MemberController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
+            $idMember = $form->get('champcachee')->getData();
+            dump($form);
+            $member = $em->getRepository('CommonBundle:Member')->findById($idMember);
+            $membership->setMember($member[0]);
             $em->persist($membership);
             $em->flush($membership);
 
-            return $this->redirectToRoute('admin_membership_show', array('id' => $membership->getId()));
+//            return $this->redirectToRoute('admin_membership_show', array('id' => $membership->getId()));
         }
 
 
