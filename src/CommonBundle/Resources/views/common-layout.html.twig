@@ -1,4 +1,4 @@
-{% extends '::common-base.html.twig' %}
+{% extends '::base.html.twig' %}
 
 {% block title %}Les jeux{% endblock %}
 
@@ -9,7 +9,7 @@
 
 		        {% stylesheets
 
-			        'bundles/common/css/common-theme.css'
+			        '@CommonBundle/Resources/public/css/common-theme.css'
 
 		        %}
 
@@ -19,13 +19,19 @@
 {% endblock %}
 
 {% block body %}
-	<header>
-		<h1 class="row">STRATAGEM LOGO</h1>
+	<header class="row">
+		<div id="header-images">
+			<img src="{{ asset('images/header.jpg') }}" alt="Logo Strata'j'm"/>
+			<img src=" {{ asset('images/nav.png') }}" alt="Nav logo"/>
+		</div>
+
+
 		<nav id="nav-bar" class="row">
-			<span class="nav-element">Nav 1</span>
-			<span class="nav-element">Nav 2</span>
-			<span class="nav-element">Nav 3</span>
-			<span class="nav-element">Nav 4</span>
+			<div class="nav-element"><a href="#">Qui sommes nous</a></div>
+			<div class="nav-element"><a href="#">Nos propositions</a></div>
+			<div class="nav-element"><a href="#">Nos prochaines animations</a></div>
+			<div class="nav-element"><a href="#">Nos dernières animations</a></div>
+			<div class="nav-element"><a href="#">Contact</a></div>
 		</nav>
 	</header>
 

@@ -1,19 +1,39 @@
 body {
   background-color: #e8d8c9;
+  width: 890px;
+  height: 100%;
+  margin: auto;
 }
 
 header {
 }
 
+#header-images {
+
+}
 
 #nav-bar {
-  background-color: #5C3E37;
+  position: relative;
+  margin-top: -47px;
+  width: 100%;
+  height: 100%;
 }
 
 .nav-element {
+  display: inline-block;
   color: #F2EAE9;
-  padding-left: 26px;
-  padding-right: 26px;
+  margin-left: 24px;
+  margin-right: 24px;
+  height:100%;
+}
+
+.nav-element a {
+  text-decoration: none;
+  color: #FFFFFF;
+}
+
+.nav-element:hover {
+  background-color: #8D6053;
 }
 
 #nav-bar, #main-div {
@@ -31,11 +51,11 @@ header {
 }
 
 #filter-panel {
-  border: solid red;
+  border: solid ;
 }
 
 #main-div {
-  background-color: #ffffff;
+  background-color: #F2EAE9;
 
 }
 
@@ -43,6 +63,7 @@ header {
   width:180px;
   height:171px;
 }
+
 
 footer {
   padding-top: 5px;

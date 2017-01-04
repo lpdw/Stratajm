@@ -5,6 +5,7 @@ namespace CommonBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 
 class GameType extends AbstractType
@@ -23,7 +24,10 @@ class GameType extends AbstractType
                 ->add('releaseDate')
                 ->add('themes')
                 ->add('types')
-                ->add('publisher')        ;
+                ->add('publisher', EntityType::class, array(
+                  'class' => 'CommonBundle:Publisher',
+                  'choice_label' => 'name'
+                ));
     }
 
     /**

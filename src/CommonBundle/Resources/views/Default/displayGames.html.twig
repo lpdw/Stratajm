@@ -16,26 +16,25 @@
         {{ form_start(sortForm) }}
         {{ form_widget(sortForm) }}
         {{ form_end(sortForm) }}
-            <p>Critères</p>
-            <p>Critères</p>
-            <p>Critères</p>
-            <p>Critères</p>
-            <p>Critères</p>
-            <p>Critères</p>
-            <p>Critères</p>
+
+
         </div>
 
-        <div id="games-panel" class="col-xs-7 col-sm-7 col-md-8">
-
+        <div id="games-panel">
             {% for game in games %}
-                <a class="game-sticker thumbnail" href="#">
-                    <img src="#" alt="#" class="game-image">
-                    <div class="game-name">{{ game.name }}</div>
 
-                </a>
+                <div class="game-sticker-info">
+                  <div class="game-sticker thumbnail col-xs-2 col-sm-2 col-md-2" href="#">
+                      <img src="#" alt="#" class="game-image">
+                  </div>
+                  <div class="game-sticker-name">{{ game.name }}</div>
+                  <div class="game-sticker-rules">Règles : {{ game.rules }}</div>
+                  <div class="game-sticker-editor">Editeur : <a href="{{ game.publisher.url | external_link }}" >{{ game.publisher.name }} </a> </div>
+                </div>
             {% endfor %}
 
         </div>
+
 
     </div>
 
