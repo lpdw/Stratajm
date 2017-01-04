@@ -71,7 +71,7 @@
             return [
                 "<a href="+show+"><input type='button' class='btn btn-default' value='show'></a>",
                 "<a href="+edit+"><input type='button' class='btn btn-default' value='edit'></a>",
-                "<input type='button' class='btn btn-default membership' data-toggle='modal' data-target='#"+row.id+"' id="+row.id+" value='membership'>",
+                "<input type='button' class='btn btn-default membership' data-toggle='modal' data-target='#"+row.id+"' id="+row.id+" value='membership'>"
 
 
             ].join('');
@@ -86,13 +86,13 @@
                 $('.modal').attr('id',row.id);
 
                 $('.modal .modal-title').text(row.lastname+' '+row.firstname);
-                $('.modal .modal-body').html(
-                {{ form_start(form) }}
-                {{ form_widget(form) }}
-                '<input type="submit" value="Create" />'
-                {{ form_end(form) }}
+                {#$('.modal .modal-body').html(#}
+                {#{{ form_start(form) }}#}
+                {#{{ form_widget(form) }}#}
+                {#'<input type="submit" value="Create" />'#}
+                {#{{ form_end(form) }}#}
 
-                );
+                {#);#}
 //              alert(row.id);
 
             }
