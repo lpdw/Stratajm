@@ -26,6 +26,14 @@ class GameSortType extends AbstractType
         'Date d\'ajout (ancienne à récente)' => 'ajout_asc',
         'Date d\'ajout (récente à ancienne)' => 'ajout_desc',
     )))
+    ->add('duree',ChoiceType::class, array(
+'choices' => array(
+  'Durée'=>4,
+    'Courte (<=30 min)' => 0,
+    'Moyenne (30-45min)' => 1,
+    'Longue (~1 heure)' => 2,
+    'Très long (+ 1 heure)' => 3,
+)))
            ->add('editeur', EntityType::class, array(
     'class' => 'CommonBundle:Publisher',
     'choice_label' => 'name',

@@ -51,6 +51,7 @@ class DefaultController extends Controller
           $orderby=$request->request->get('orderby');
           $ageMin=$request->request->get('ageMin');
           $ageMax=$request->request->get('ageMax');
+          $duration=$request->request->get('duration');
           if($publishersID==null){
             $publishersID=$em->getRepository('CommonBundle:Game')->getAllPublishersById();
           }
@@ -68,7 +69,7 @@ class DefaultController extends Controller
 
 
 
-          $gamesSorted = $em->getRepository('CommonBundle:Game')->sortBy($publishersID,$orderby,$ageMin,$ageMax);
+          $gamesSorted = $em->getRepository('CommonBundle:Game')->sortBy($publishersID,$orderby,$ageMin,$ageMax,$duration);
           return new JsonResponse(array('games'=>json_encode($gamesSorted)));
 
         }
@@ -85,7 +86,6 @@ class DefaultController extends Controller
 
           // Par défaut on affiche tous les jeux
           $games = $em->getRepository('CommonBundle:Game')->findAll();
-
           return $this->render('CommonBundle:Default:displayGames.html.twig', array(
               'games' => $games,"searchForm"=>$gameSearchForm->createView(),"sortForm"=>$gameSortForm->createView()
           ));
