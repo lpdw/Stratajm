@@ -3,6 +3,7 @@
 namespace CommonBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
 use CommonBundle\Form\GameSearchType;
@@ -90,6 +91,15 @@ class DefaultController extends Controller
               'games' => $games,"searchForm"=>$gameSearchForm->createView(),"sortForm"=>$gameSortForm->createView()
           ));
 
+    }
+
+    /**
+     * @Route("/singlegame/{id}", name="single_game")
+     * @Method("GET")
+     */
+    public function singleGameAction(Game $game)
+    {
+      return $this->render('CommonBundle:Default:singleGame.html.twig', array('game' => $game));
     }
 
 

@@ -1,0 +1,15 @@
+{% extends "CommonBundle::common-layout.html.twig" %}
+
+{% block content %}
+  <div id="main-div" class="row">
+    <h2 id="pagetitle">{{ game.name }}</h2>
+    <div "game-displayer">
+      <img src="{{ asset('uploads/images/' ~ game.image) }}" alt="Image du jeu {{ game.name }}" class="game-image">
+      <span>{{ game.rules }}</span>
+      <span>{{ game.releaseDate | date("d/m/Y") }}</span>
+      <span>{{ game.ageMin }}</span>
+      <span>{{ game.ageMax }}</span>
+    </div>
+  </div>
+
+{% endblock %}

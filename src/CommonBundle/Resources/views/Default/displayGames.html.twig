@@ -25,7 +25,9 @@
 
                 <div class="game-sticker-info">
                   <div class="game-sticker thumbnail col-xs-2 col-sm-2 col-md-2" href="#">
-                      <img src="#" alt="#" class="game-image">
+                      <a href="{{ path('single_game', { 'id': game.id }) }}">
+                        <img src="{{ asset('uploads/images/' ~ game.image) }}" alt="Image du jeu {{ game.name }}" class="game-image">
+                      </a>
                   </div>
                   <div class="game-sticker-name">{{ game.name }}</div>
                   <div class="game-sticker-rules">Règles : {{ game.rules }}</div>
