@@ -58,6 +58,14 @@ header {
   background-color: #F2EAE9;
 
 }
+
+
+
+  #game_search_Rechercher:before {
+      color:black;
+      font-family: "Glyphicons Halflings";
+      content: "\e003";
+   }
 #loader{
   display: none;
 }

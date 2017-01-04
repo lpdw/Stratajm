@@ -8,7 +8,9 @@
         <h2 id="pagetitle">Les jeux de Strata'j'm</h2>
 
         <div id="filter-panel" class="col-xs-3 col-sm-3 col-md-2">
-        {{ form_start(searchForm) }}
+
+
+        {{ form_start(searchForm, {'attr': {'class': 'form-inline'} }) }}
         {{ form_widget(searchForm) }}
         {{ form_end(searchForm) }}
 
