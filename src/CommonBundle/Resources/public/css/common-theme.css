@@ -58,6 +58,9 @@ header {
   background-color: #F2EAE9;
 
 }
+#loader{
+  display: none;
+}
 
 .game-sticker {
   width:180px;
