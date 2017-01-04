@@ -1,0 +1,18 @@
+{% extends "CommonBundle::common-layout.html.twig" %}
+
+{% block content %}
+  <div id="main-div">
+    <h2 id="pagetitle">{{ game.name }}</h2>
+
+    <img  id="single-game-image" src="{{ asset('uploads/images/' ~ game.image) }}" alt="Image du jeu {{ game.name }}"/>
+    <div id="single-game-text">
+      <p>Règles : {{ game.rules }}</p>
+      <p>Date de sortie : {{ game.releaseDate | date("d/m/Y") }}</p>
+      <p>De {{ game.ageMin }} à {{ game.ageMax }} ans</p>
+    </div>
+  </div>
+
+
+  </div>
+
+{% endblock %}

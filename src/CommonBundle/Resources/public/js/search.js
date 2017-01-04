@@ -69,6 +69,12 @@ $(document).ready(function() {
               duration: duration
           },
           dataType: 'json',
+          beforeSend: function(){
+             $("#loader").show();
+           },
+           complete: function(){
+             $("#loader").hide();
+           },
           success: function(data) {
             console.log(data);
 
@@ -78,7 +84,7 @@ $(document).ready(function() {
               bloc+="<p>Aucun jeu ne correspond a votre recherche</p>";
             }
             $.each(jQuery.parseJSON(data.games), function (i) {
-              urlImage='{{ asset("bundles/mybundle/images/'+this.image+'.png") }}';
+              urlImage='{{ asset("uploads/images/'+this.image+'") }}';
               console.log(this.publisher.name);
                   bloc+='<div class="game-sticker-info"><div class="game-sticker thumbnail col-xs-2 col-sm-2 col-md-2" href="#"><img src="'+urlImage+'" alt="#" class="game-image"></div><div class="game-sticker-name">'+this.name+'</div><div class="game-sticker-rules">Règles : '+this.rules+'</div><div class="game-sticker-editor">Editeur : <a href="'+this.publisher.url+'">'+this.publisher.name+' </a> </div></div>';
             });

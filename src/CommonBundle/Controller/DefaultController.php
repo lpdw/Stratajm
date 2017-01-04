@@ -3,6 +3,7 @@
 namespace CommonBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
 use CommonBundle\Form\GameSearchType;
@@ -66,19 +67,19 @@ class DefaultController extends Controller
             $ageMin=$ageMax;
           }
 
-
-
-
           $gamesSorted = $em->getRepository('CommonBundle:Game')->sortBy($publishersID,$orderby,$ageMin,$ageMax,$duration);
           return new JsonResponse(array('games'=>json_encode($gamesSorted)));
 
         }
 
-
-
         if ($gameSearchForm->isSubmitted() && $gameSearchForm->isValid()) {
           $name=$gameSearchForm['searchGame']->getData();
           $gameFound = $em->getRepository('CommonBundle:Game')->searchGameByName($name);
+
+          // Une fois le formulaire valide et le resultat trouvé, on l'initialise
+          unset($gameSearchForm);
+          $gameSearchForm = $this->createForm(GameSearchType::class);
+
           return $this->render('CommonBundle:Default:displayGames.html.twig', array(
               'games' => $gameFound,"searchForm"=>$gameSearchForm->createView(),"sortForm"=>$gameSortForm->createView()
           ));
@@ -90,6 +91,15 @@ class DefaultController extends Controller
               'games' => $games,"searchForm"=>$gameSearchForm->createView(),"sortForm"=>$gameSortForm->createView()
           ));
 
+    }
+
+    /**
+     * @Route("/singlegame/{id}", name="single_game")
+     * @Method("GET")
+     */
+    public function singleGameAction(Game $game)
+    {
+      return $this->render('CommonBundle:Default:singleGame.html.twig', array('game' => $game));
     }
 
 
