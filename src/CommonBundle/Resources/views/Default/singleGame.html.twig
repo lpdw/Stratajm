@@ -3,13 +3,22 @@
 {% block content %}
   <div id="main-div" class="row">
     <h2 id="pagetitle">{{ game.name }}</h2>
-    <div "game-displayer">
-      <img src="{{ asset('uploads/images/' ~ game.image) }}" alt="Image du jeu {{ game.name }}" class="game-image">
-      <span>{{ game.rules }}</span>
-      <span>{{ game.releaseDate | date("d/m/Y") }}</span>
-      <span>{{ game.ageMin }}</span>
-      <span>{{ game.ageMax }}</span>
+
+    <div class="media game-displayer">
+      <div class="media-left media-middle game-media">
+        <img  class="media-object game-image" src="{{ asset('uploads/images/' ~ game.image) }}" alt="Image du jeu {{ game.name }}">
+      </div>
+      <div class="panel panel-default media-body">
+        <div class="panel-body">
+          <span>{{ game.rules }}</span>
+          <span>{{ game.releaseDate | date("d/m/Y") }}</span>
+          <span>{{ game.ageMin }}</span>
+          <span>{{ game.ageMax }}</span>
+        </div>
+      </div>
     </div>
+
+
   </div>
 
 {% endblock %}

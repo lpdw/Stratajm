@@ -65,6 +65,18 @@ header {
 }
 
 
+/*******************/
+/* singleGame page */
+/*******************/
+.game-media {
+}
+
+.game-image {
+  width: auto;
+  height: auto;
+}
+
+
 footer {
   padding-top: 5px;
   background-color: #5C3E37;

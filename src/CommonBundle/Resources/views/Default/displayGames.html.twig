@@ -20,11 +20,11 @@
 
         </div>
 
-        <div id="games-panel">
+        <div id="games-panel" class="col-md-2" >
             {% for game in games %}
 
                 <div class="game-sticker-info">
-                  <div class="game-sticker thumbnail col-xs-2 col-sm-2 col-md-2" href="#">
+                  <div class="game-sticker thumbnail" href="#">
                       <a href="{{ path('single_game', { 'id': game.id }) }}">
                         <img src="{{ asset('uploads/images/' ~ game.image) }}" alt="Image du jeu {{ game.name }}" class="game-image">
                       </a>
