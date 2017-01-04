@@ -10,4 +10,17 @@ namespace CommonBundle\Repository;
  */
 class MembershipRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function findMaxByMember($member){
+
+        $result = $this->createQueryBuilder('ms')
+            ->select('MAX(ms.beginDate)')
+            ->where('ms.member= :member')
+            ->setParameter('member', $member)
+            ->getQuery()
+            ->getSingleResult();
+
+
+        return $result;
+    }
+
 }

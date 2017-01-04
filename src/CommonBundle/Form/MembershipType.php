@@ -21,7 +21,7 @@ class MembershipType extends AbstractType
                 'class' => 'CommonBundle:PaymentMethod',
                 'choice_label' => 'name'
             ))
-            ->add('champcachee', HiddenType::class, array(
+            ->add('memberId', HiddenType::class, array(
                 'mapped' => false,
                 'attr' => array('class' => 'memberId'),
             ));

@@ -9,6 +9,9 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Serializer\Encoder\JsonEncode;
+use Symfony\Component\Validator\Constraints\Date;
+use Symfony\Component\Validator\Constraints\DateTime;
 
 /**
  * Member controller.
@@ -34,8 +37,7 @@ class MemberController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $idMember = $form->get('champcachee')->getData();
-            dump($form);
+            $idMember = $form->get('memberId')->getData();
             $member = $em->getRepository('CommonBundle:Member')->findById($idMember);
             $membership->setMember($member[0]);
             $em->persist($membership);
@@ -87,9 +89,12 @@ class MemberController extends Controller
      */
     public function showAction(Member $member)
     {
+        $em = $this->getDoctrine()->getManager();
         $deleteForm = $this->createDeleteForm($member);
+        $memberships = $em->getRepository('CommonBundle:Membership')->findByMember($member->getId());
 
         return $this->render('AdminBundle:member:show.html.twig', array(
+            'memberships' => $memberships,
             'member' => $member,
             'delete_form' => $deleteForm->createView(),
         ));
@@ -120,6 +125,22 @@ class MemberController extends Controller
         ));
     }
 
+    /**
+     * A mettre en service, return true si la date passé en param date d'il y a plus d'un an
+     */
+    public function datetimeAction($date){
+//        $date = $request->query->get('date');
+        if($date != null){
+            $dateNow = new \DateTime();
+            $dateMax = new \DateTime($date[1]);
+            if($interval = $dateNow->diff($dateMax)->days > 365){
+                return "true";
+            } else {
+                return "false";
+            }
+        }
+
+    }
 
     /**
      * Lists all members entities.
@@ -148,14 +169,17 @@ class MemberController extends Controller
         }
         $rows =[];
         foreach ($members as $member) {
+
+            $date = $em->getRepository('CommonBundle:Membership')->findMaxByMember($member);
+
             $line['id'] = $member->getId();
             $line['firstname'] = $member->getFirstName();
             $line['lastname'] = $member->getLastName();
             $line['telNum'] = $member->getTelNum();
             $line['email'] = $member->getEmail();
+            $line['lastDate'] = self::datetimeAction($date);
             $rows[] = $line;
         }
-
 
         $result['total'] = $nbRows;
         $result['rows'] = $rows;

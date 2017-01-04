@@ -13,6 +13,7 @@ class MemberRepository extends \Doctrine\ORM\EntityRepository
     public function findAllByArg($order = 'desc', $offset = 0, $limit = 10){
         $result = $this->createQueryBuilder('m')
             ->select('m')
+//            ->leftJoin('CommonBundle\Entity\Membership','ms', \Doctrine\ORM\Query\Expr\Join::ON, 'ms.member = m')
             ->orderBy('m.id', $order)
             ->setFirstResult($offset)
             ->setMaxResults($limit)
