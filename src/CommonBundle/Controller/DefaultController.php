@@ -80,6 +80,11 @@ class DefaultController extends Controller
         if ($gameSearchForm->isSubmitted() && $gameSearchForm->isValid()) {
           $name=$gameSearchForm['searchGame']->getData();
           $gameFound = $em->getRepository('CommonBundle:Game')->searchGameByName($name);
+          
+          // Une fois le formulaire valide et le resultat trouvé, on l'initialise
+          unset($gameSearchForm);
+          $gameSearchForm = $this->createForm(GameSearchType::class);
+
           return $this->render('CommonBundle:Default:displayGames.html.twig', array(
               'games' => $gameFound,"searchForm"=>$gameSearchForm->createView(),"sortForm"=>$gameSortForm->createView()
           ));

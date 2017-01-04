@@ -59,6 +59,17 @@ header {
 
 }
 
+
+
+  #game_search_Rechercher:before {
+      color:black;
+      font-family: "Glyphicons Halflings";
+      content: "\e003";
+   }
+#loader{
+  display: none;
+}
+
 .game-sticker {
   width:180px;
   height:171px;
