@@ -70,6 +70,7 @@ $(document).ready(function() {
           },
           dataType: 'json',
           beforeSend: function(){
+            $("#games-panel").html("");
              $("#loader").show();
            },
            complete: function(){
@@ -78,7 +79,8 @@ $(document).ready(function() {
           success: function(data) {
             console.log(data);
 
-            $("#games-panel").html("");
+            $("#games-panel").html(data);
+            /*
             var bloc="";
             if(data.games==="[]"){
               bloc+="<p>Aucun jeu ne correspond a votre recherche</p>";
@@ -90,7 +92,7 @@ $(document).ready(function() {
             });
 
             $('#games-panel').prepend(bloc);
-
+            */
           },
       });
     }
