@@ -10,62 +10,75 @@ namespace CommonBundle\Repository;
  */
 class GameRepository extends \Doctrine\ORM\EntityRepository
 {
-
-  public function searchGame($searchValue){
-    return $this
+    public function searchGame($searchValue)
+    {
+        return $this
     ->createQueryBuilder('g')
     ->select(array('g'))
     ->where("g.name LIKE :searchValue")
-    ->setParameter('searchValue',"%".$searchValue."%")
+    ->setParameter('searchValue', "%".$searchValue."%")
     ->getQuery()
-    ->getArrayResult();  }
+    ->getArrayResult();
+    }
 
-    public function searchGameByName($name){
-      return $this
+    public function searchGameByName($name)
+    {
+        return $this
       ->createQueryBuilder('g')
       ->where("g.name LIKE :name")
-      ->setParameter('name',"%".$name."%")
+      ->setParameter('name', "%".$name."%")
       ->getQuery()
-      ->getArrayResult();  }
+      ->getArrayResult();
+    }
 
 
-      public function getAllPublishersById(){
+    public function getAllPublishersById()
+    {
         return $this
         ->createQueryBuilder('g')
         ->select('g.id')
         ->leftJoin('g.publisher', 'p', 'WITH', 'g.publisher = p.id')
         ->getQuery()
         ->getArrayResult();
-      }
+    }
 
-      public function sortBy($publishersID,$orderby,$ageMin,$ageMax){
-        if($orderby=="publication_asc"){
-             $sort='g.releaseDate';
-              $order='ASC';
+    public function sortBy($publishersID, $orderby, $ageMin, $ageMax, $duration)
+    {
+        if ($orderby=="publication_asc") {
+            $sort='g.releaseDate';
+            $order='ASC';
         }
-        if($orderby=="publication_desc"){
-          $sort='g.releaseDate';
-           $order='DESC';
+        if ($orderby=="publication_desc") {
+            $sort='g.releaseDate';
+            $order='DESC';
         }
-        if($orderby=="ajout_asc"){
-          $sort='g.id';
-           $order='ASC';
+        if ($orderby=="ajout_asc") {
+            $sort='g.id';
+            $order='ASC';
         }
-        if($orderby=="ajout_desc"){
-
-          $sort='g.id';
-           $order='DESC';        }
-
+        if ($orderby=="ajout_desc") {
+            $sort='g.id';
+            $order='DESC';
+        }
+        if($duration==null){
+          $requestDuree="g.duration < :duration";
+          $duration=4;
+        }else{
+          $requestDuree="g.duration = :duration";
+        }
 
 
         $request = $this->createQueryBuilder('g')
+        ->select(array('g', 'p'))
         ->leftJoin('g.publisher', 'p', 'WITH', 'g.publisher = p.id')
           ->where("g.publisher IN (:publisher_id)")
           ->andWhere("g.ageMax >= :ageMax")
           ->andWhere("g.ageMin <= :ageMin")
-          ->setParameter('publisher_id',$publishersID)
-          ->setParameter('ageMin',$ageMin)
-          ->setParameter('ageMax',$ageMax)
+          ->andwhere($requestDuree)
+          ->setParameter('publisher_id', $publishersID)
+          ->setParameter('ageMin', $ageMin)
+          ->setParameter('ageMax', $ageMax)
+          ->setParameter('duration', $duration)
 
           ->orderBy($sort, $order)
           ->getQuery()
@@ -76,11 +89,5 @@ class GameRepository extends \Doctrine\ORM\EntityRepository
         //$request->getQuery()
         //->getArrayResult();
         return $request;
-
-      }
-
-
-
-
-
+    }
 }
