@@ -33,7 +33,7 @@ class Game
     /**
      * @var float
      *
-     * @ORM\Column(name="duration", type="float")
+     * @ORM\Column(name="duration", type="string")
      */
     private $duration;
 
