@@ -7,8 +7,12 @@ services:
 #    service_name:
 #        class: AppBundle\Directory\ClassName
 #        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
-  app.twig.external_link:
-    class: CommonBundle\Twig\ExternalLinkFilter
-    public: false
-    tags:
-      - { name: twig.extension }
+    app.twig.external_link:
+      class: CommonBundle\Twig\ExternalLinkFilter
+      public: false
+      tags:
+        - { name: twig.extension }
+
+    app.copygenerator:
+      class: AdminBundle\Services\CopyGeneratorService
+      arguments: ['@doctrine', gameid, nbcopy]
