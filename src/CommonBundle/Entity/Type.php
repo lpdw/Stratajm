@@ -3,12 +3,15 @@
 namespace CommonBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * Type
  *
  * @ORM\Table(name="type")
  * @ORM\Entity(repositoryClass="CommonBundle\Repository\TypeRepository")
+ * @UniqueEntity(fields="name", message="Le type {{ value }} existe déjà.")
+
  */
 class Type
 {

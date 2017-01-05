@@ -3,12 +3,15 @@
 namespace CommonBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * Status
  *
  * @ORM\Table(name="status")
  * @ORM\Entity(repositoryClass="CommonBundle\Repository\StatusRepository")
+ * @UniqueEntity(fields="name", message="Le status {{ value }} existe déjà.")
+
  */
 class Status
 {

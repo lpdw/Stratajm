@@ -30,8 +30,18 @@ class GameType extends AbstractType
                 ->add('ageMax')
                 ->add('rules')
                 ->add('releaseDate')
-                ->add('themes')
-                ->add('types')
+                ->add('themes',EntityType::class, array(
+                  'class' => 'CommonBundle:Theme',
+                  'choice_label' => 'name',
+                  'expanded' => false,
+                  'multiple' => true
+                ))
+                ->add('types',EntityType::class, array(
+                  'class' => 'CommonBundle:Type',
+                  'choice_label' => 'name',
+                  'expanded' => false,
+                  'multiple' => true
+                ))
                 ->add('publisher', EntityType::class, array(
                   'class' => 'CommonBundle:Publisher',
                   'choice_label' => 'name'

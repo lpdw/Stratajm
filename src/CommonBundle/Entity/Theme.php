@@ -3,12 +3,15 @@
 namespace CommonBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * Theme
  *
  * @ORM\Table(name="theme")
  * @ORM\Entity(repositoryClass="CommonBundle\Repository\ThemeRepository")
+ * @UniqueEntity(fields="name", message="Le thème {{ value }} existe déjà.")
  */
 class Theme
 {
@@ -23,7 +26,7 @@ class Theme
 
     /**
      * @var string
-     *
+     * @Assert\Type("string")
      * @ORM\Column(name="name", type="string", length=255, unique=true)
      */
     private $name;

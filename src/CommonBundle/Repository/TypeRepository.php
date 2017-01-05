@@ -10,4 +10,12 @@ namespace CommonBundle\Repository;
  */
 class TypeRepository extends \Doctrine\ORM\EntityRepository
 {
+  public function getAllTypesById()
+  {
+      return $this
+      ->createQueryBuilder('t')
+      ->select('id')
+      ->getQuery()
+      ->getArrayResult();
+  }
 }

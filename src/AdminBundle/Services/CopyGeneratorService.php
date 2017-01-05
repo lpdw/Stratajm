@@ -48,12 +48,18 @@ class CopyGeneratorService {
     $game = $em->getRepository('CommonBundle:Game')->findOneById($gameId);
 
     for($i = 0 ; $i<$nbcopies ; $i++) {
-      // Generating a random test string to fill the reference field
-      $characters = 'AUTORANDOM0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';$charactersLength = strlen($characters);$randomString = '';for ($j = 0; $j < 10; $j++){$randomString .= $characters[rand(0, $charactersLength - 1)];}
+
+      // TO REMOVE : Generating a random test string to fill the reference field
+      $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+      $charactersLength = strlen($characters);$randomString = '';
+      for ($j = 0; $j < 10; $j++) {
+        $randomString .= $characters[rand(0, $charactersLength - 1)];
+      }
+      // TO REMOVE
 
       $copy = new Copy();
       $copy->setGame($game);
-      $copy->setReference($randomString);
+      $copy->setReference("CopyGeneratorService.createGameCopies:".$randomString);
       /**
       * TODO : fixer un statut et une localisation pour les jeux nouvellement créés
       * $copy->setStatus("Statut à renseigner");

@@ -39,9 +39,21 @@ $(document).ready(function() {
     $("#game_sort_duree").on('change', function() {
         sort(true);
     });
-    $("#game_sort_reinitialiser").on('click', function() {
+    $("#game_sort_categorie").on('change', function() {
+        sort(true);
+    });
+    $("#game_sort_theme").on('change', function() {
+        sort(true);
+    });
+
+    $("#game_sort_reinitialiser_les_filtres").on('click', function() {
         sort(false);
     });
+
+    $("#game_search_Annuler").on('click', function() {
+        sort(false);
+    });
+
     function sort(sort){
       if(sort){
         var publishers = $("#game_sort_editeur").val();
@@ -49,12 +61,18 @@ $(document).ready(function() {
         var ageMax=$("#game_sort_age_max").val();
         var orderby=$("#game_sort_trier_par").val();
         var duration=$("#game_sort_duree").val();
+        var types=$("#game_sort_categorie").val();
+        var themes=$("#game_sort_theme").val();
+
       }else{
         var publishers = "";
         var ageMin="";
         var ageMax="";
+        var types="";
         var orderby="publication_asc";
         var duration="";
+        var themes="";
+
       }
 
 
@@ -66,10 +84,13 @@ $(document).ready(function() {
               ageMax: ageMax,
               orderby: orderby,
               publishers: publishers,
-              duration: duration
+              duration: duration,
+              types: types,
+              themes:themes
           },
           dataType: 'json',
           beforeSend: function(){
+            $("#games-panel").html("");
              $("#loader").show();
            },
            complete: function(){
@@ -78,18 +99,7 @@ $(document).ready(function() {
           success: function(data) {
             console.log(data);
 
-            $("#games-panel").html("");
-            var bloc="";
-            if(data.games==="[]"){
-              bloc+="<p>Aucun jeu ne correspond a votre recherche</p>";
-            }
-            $.each(jQuery.parseJSON(data.games), function (i) {
-              urlImage='{{ asset("uploads/images/'+this.image+'") }}';
-              console.log(this.publisher.name);
-                  bloc+='<div class="game-sticker-info"><div class="game-sticker thumbnail col-xs-2 col-sm-2 col-md-2" href="#"><img src="'+urlImage+'" alt="#" class="game-image"></div><div class="game-sticker-name">'+this.name+'</div><div class="game-sticker-rules">Règles : '+this.rules+'</div><div class="game-sticker-editor">Editeur : <a href="'+this.publisher.url+'">'+this.publisher.name+' </a> </div></div>';
-            });
-
-            $('#games-panel').prepend(bloc);
+            $("#games-panel").html(data);
 
           },
       });

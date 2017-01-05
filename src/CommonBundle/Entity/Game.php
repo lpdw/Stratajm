@@ -5,12 +5,15 @@ namespace CommonBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * Game
  *
  * @ORM\Table(name="game")
  * @ORM\Entity(repositoryClass="CommonBundle\Repository\GameRepository")
+ * @UniqueEntity(fields="name", message="Le jeu  {{ value }} existe déjà.")
+
  */
 class Game
 {
