@@ -20,7 +20,7 @@ class GameSortType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-        ->add('reinitialiser_les_filtres', ResetType::class)
+        ->add('reinitialiser_les_filtres', ResetType::class,array('label' => "Réinitialiser les filtres" ))
         ->add('trier_par', ChoiceType::class, array(
 'choices' => array(
         'Date de publication (ancienne à récente)' => 'publication_asc',
