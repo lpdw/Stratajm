@@ -3,6 +3,7 @@
 namespace AdminBundle\Controller;
 
 use CommonBundle\Entity\Game;
+use AdminBundle\Services\CopyGeneratorService;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -61,11 +62,14 @@ class GameController extends Controller
 
             $em = $this->getDoctrine()->getManager();
 
-            // création du nombre d'exemplaires saisis
-            $nbcopies = $form['nbcopies']->getData();
-
+            // création du jeu
             $em->persist($game);
             $em->flush($game);
+
+            // création du nombre d'exemplaires saisis
+            $nbcopies = $form['nbcopies']->getData();
+            $copygenerator = $this->get('app.copygenerator');
+            $copygenerator->createGameCopies($game->getId(), $nbcopies);
 
             return $this->redirectToRoute('admin_show', array('id' => $game->getId()));
         }
