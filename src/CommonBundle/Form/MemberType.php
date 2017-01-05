@@ -2,7 +2,9 @@
 
 namespace CommonBundle\Form;
 
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -18,7 +20,15 @@ class MemberType extends AbstractType
             ->add('lastName')
             ->add('email')
             ->add('telNum')
-            ;
+            ->add('paymentMethod', EntityType::class, array(
+                'class' => 'CommonBundle:PaymentMethod',
+                'choice_label' => 'name',
+                'mapped' => false,
+            ))
+            ->add('amount', TextType::class, array(
+                'mapped' => false,
+                'attr' => array('class' => 'montant'),
+            ));
     }
 
     /**

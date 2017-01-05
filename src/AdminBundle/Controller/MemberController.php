@@ -23,36 +23,43 @@ class MemberController extends Controller
     /**
      * Lists all member entities.
      *
-     * @Route("/", name="admin_member_index")
+     * @Route("/", name="admin_member_index", defaults={"select" = "all"})
+     * @Route("/{select}", name="admin_member_index_select" ,requirements={"select": "(actif|all)"})
      * @Method({"GET", "POST"})
      */
     public function indexAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $members = $em->getRepository('CommonBundle:Member')->findAll();
+        $select = $request->attributes->get('select');
 
-        $membership = new Membership();
-        $form = $this->createForm('CommonBundle\Form\MembershipType', $membership);
-        $form->handleRequest($request);
+            $members = $em->getRepository('CommonBundle:Member')->findAll();
+            $membership = new Membership();
+            $form = $this->createForm('CommonBundle\Form\MembershipType', $membership);
+            $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $idMember = $form->get('memberId')->getData();
-            $member = $em->getRepository('CommonBundle:Member')->findById($idMember);
-            $membership->setMember($member[0]);
-            $em->persist($membership);
-            $em->flush($membership);
+            if ($form->isSubmitted() && $form->isValid()) {
+                $idMember = $form->get('memberId')->getData();
+                $member = $em->getRepository('CommonBundle:Member')->findById($idMember);
+                $membership->setMember($member[0]);
+                $em->persist($membership);
+                $em->flush($membership);
 
 //            return $this->redirectToRoute('admin_membership_show', array('id' => $membership->getId()));
-        }
+            }
+
+            return $this->render('AdminBundle:member:index.html.twig', array(
+                'members' => $members,
+                'membership' => $membership,
+                'select' => $select,
+                'form' => $form->createView(),
+            ));
 
 
 
-        return $this->render('AdminBundle:member:index.html.twig', array(
-            'members' => $members,
-            'membership' => $membership,
-            'form' => $form->createView(),
-        ));
+
+
+
     }
 
     /**
@@ -64,13 +71,23 @@ class MemberController extends Controller
     public function newAction(Request $request)
     {
         $member = new Member();
+        $membership = new Membership();
         $form = $this->createForm('CommonBundle\Form\MemberType', $member);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            $paymentMethod = $form->get('paymentMethod')->getData();
+            $amount = $form->get('amount')->getData();
+            $membership->setMember($member);
+            $membership->setAmount($amount);
+            $membership->setPaymentMethod($paymentMethod);
+
             $em->persist($member);
             $em->flush($member);
+
+            $em->persist($membership);
+            $em->flush($membership);
 
             return $this->redirectToRoute('admin_member_show', array('id' => $member->getId()));
         }
@@ -152,22 +169,65 @@ class MemberController extends Controller
     public function dataAction(Request $request)
     {
         $search = $request->query->get('search');
-
         $limit = $request->query->get('limit');
         $offset = $request->query->get('offset');
         $order = $request->query->get('order');
+        $select = $request->query->get('select');
 
         $em = $this->getDoctrine()->getManager();
 
-
+        //cas ou le nombre de caractère de la recherche est inférieur à 2
         if( strlen($search)<2) {
+
+            //on recupère tous les membres
             $members = $em->getRepository('CommonBundle:Member')->findAllByArg($order, $offset, $limit);
-            $nbRows = $em->getRepository('CommonBundle:Member')->countAll();
+
+            //cas ou il s'agit seulement des utilisateurs actifs avec un abonnement à l'année
+            if($select == 'actif'){
+                $nbUserActif = 0;
+
+                //on a besoin de récupérer tous les utilisateurs et gérer le count des utilisateurs actif
+                $users = $em->getRepository('CommonBundle:Member')->findAll();
+                foreach ($users as $user){
+                    $date = $em->getRepository('CommonBundle:Membership')->findMaxByMember($user);
+
+                    if(  self::datetimeAction($date) == 'false')
+
+                        $nbUserActif++;
+                }
+                $nbRows = $nbUserActif;
+            }    else {
+
+                //si pas de contrainte actif on fait simplement un count de tous les utilisateurs.
+                $nbRows = $em->getRepository('CommonBundle:Member')->countAll();
+
+            }
         } else {
+            //cas d'une recherche
             $members = $em->getRepository('CommonBundle:Member')->findBySearch($search,$order,$offset,$limit);
-            $nbRows = $em->getRepository('CommonBundle:Member')->countAllBySearch($search);
+            if($select == 'actif'){
+                $nbUserActif = 0;
+
+                //on a besoin de récupérer tous les utilisateurs de la recherche et gérer le count des utilisateurs actif
+                $users = $em->getRepository('CommonBundle:Member')->findAllBySearch($search);
+                foreach ($users as $user){
+                    $date = $em->getRepository('CommonBundle:Membership')->findMaxByMember($user);
+
+                    //la date max de l'utilisateur date d'il y a moins d'un an
+                    if(  self::datetimeAction($date) == 'false')
+                        $nbUserActif++;
+                }
+                $nbRows = $nbUserActif;
+            }    else {
+
+                //si pas de contrainte actif on fait simplement un count de tous les utilisateurs de la recherche.
+                $nbRows = $em->getRepository('CommonBundle:Member')->countAllBySearch($search);
+
+            }
         }
         $rows =[];
+
+        //on commence le formatage du tableau
         foreach ($members as $member) {
 
             $date = $em->getRepository('CommonBundle:Membership')->findMaxByMember($member);
@@ -178,9 +238,14 @@ class MemberController extends Controller
             $line['telNum'] = $member->getTelNum();
             $line['email'] = $member->getEmail();
             $line['lastDate'] = self::datetimeAction($date);
-            $rows[] = $line;
-        }
 
+            //il s'agit d'un filtre actif et donc sa date max doit être d'il y a moins d'un an
+            if( $select == 'actif' && $line['lastDate'] == 'false' )
+                $rows[] = $line;
+            //on demande tous les utilisateur pas de filtre nécéssaire on ajoute donc la ligne au tableau
+            else if ($select != 'actif')
+                $rows[] = $line;
+        }
         $result['total'] = $nbRows;
         $result['rows'] = $rows;
 
