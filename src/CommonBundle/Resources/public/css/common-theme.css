@@ -145,7 +145,7 @@ footer {
 /*******************/
 /* Media queries for sort form on mobile and tablet*/
 /*******************/
-@media (max-width: 1200px)
+@media (max-width: 1000px)
 {
   #filter-panel{
     width: 100%;
