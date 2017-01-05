@@ -2,13 +2,28 @@
 
 {% block content %}
     <h1>Member</h1>
+    <table class="table table-bordered">
 
+        <thead>
+        <tr>
+            <th>Amount</th>
+            <th>Begindate</th>
+            <th>paymentMethod</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for membership in memberships %}
+            {#{{ dump(membership) }}#}
+            <tr>
+                <td>{{ membership.amount }}</td>
+                <td>{% if membership.beginDate %}{{ membership.beginDate|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{{ membership.paymentMethod.name }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
     <table>
         <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ member.id }}</td>
-            </tr>
             <tr>
                 <th>Firstname</th>
                 <td>{{ member.firstName }}</td>

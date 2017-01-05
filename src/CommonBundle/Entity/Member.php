@@ -2,6 +2,7 @@
 
 namespace CommonBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -50,8 +51,6 @@ class Member
     private $telNum;
 
 
-
-    
 
     /**
      * Get id
@@ -158,5 +157,21 @@ class Member
     {
         return $this->telNum;
     }
+
+
+    /**
+     * Add membership
+     *
+     * @param \CommonBundle\Entity\Membership $membership
+     *
+     * @return Member
+     */
+    public function addMembership(\CommonBundle\Entity\Membership $membership)
+    {
+        $this->memberships[] = $membership;
+
+        return $this;
+    }
+
 
 }

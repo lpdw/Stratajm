@@ -1,6 +1,8 @@
 {% extends "AdminBundle::admin-layout.html.twig" %}
 
 {% block content %}
+
+
     <h1>Members list</h1>
     <!-- Modal -->
     <div id="" class="modal fade" role="dialog">
@@ -65,16 +67,22 @@
 
     <script>
         function actionFormatter(value, row, index) {
-            console.log(row.id);
             var show = Routing.generate('admin_member_show', { id: row.id });
             var edit = Routing.generate('admin_member_edit', { id: row.id });
-            return [
+
+            if (row.lastDate == "true"){
+                return [
                 "<a href="+show+"><input type='button' class='btn btn-default' value='show'></a>",
                 "<a href="+edit+"><input type='button' class='btn btn-default' value='edit'></a>",
                 "<input type='button' class='btn btn-default membership' data-toggle='modal' data-target='#"+row.id+"' id="+row.id+" value='membership'>"
+                ].join('');
+            } else {
+                return [
+                    "<a href="+show+"><input type='button' class='btn btn-default' value='show'></a>",
+                    "<a href="+edit+"><input type='button' class='btn btn-default' value='edit'></a>",
+                ].join('');
+            }
 
-
-            ].join('');
 
         }
         window.actionEvents = {

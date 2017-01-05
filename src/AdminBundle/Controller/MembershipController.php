@@ -60,7 +60,7 @@ class MembershipController extends Controller
     /**
      * Finds and displays a membership entity.
      *
-     * @Route("/{id}", name="admin_membership_show")
+     * @Route("/{id}", name="admin_membership_show", options={"expose"=true})
      * @Method("GET")
      */
     public function showAction(Membership $membership)

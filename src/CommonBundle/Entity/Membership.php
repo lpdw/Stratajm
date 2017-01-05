@@ -33,7 +33,7 @@ class Membership
      *
      * @ORM\Column(name="beginDate", type="datetime")
      */
-    private $beginDate;
+    private$beginDate ;
 
     /**
      * Many Membership have One Member.
