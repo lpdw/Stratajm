@@ -23,36 +23,43 @@ class MemberController extends Controller
     /**
      * Lists all member entities.
      *
-     * @Route("/", name="admin_member_index")
+     * @Route("/", name="admin_member_index", defaults={"select" = "all"})
+     * @Route("/{select}", name="admin_member_index_select" ,requirements={"select": "(actif|all)"})
      * @Method({"GET", "POST"})
      */
     public function indexAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $members = $em->getRepository('CommonBundle:Member')->findAll();
+        $select = $request->attributes->get('select');
 
-        $membership = new Membership();
-        $form = $this->createForm('CommonBundle\Form\MembershipType', $membership);
-        $form->handleRequest($request);
+            $members = $em->getRepository('CommonBundle:Member')->findAll();
+            $membership = new Membership();
+            $form = $this->createForm('CommonBundle\Form\MembershipType', $membership);
+            $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $idMember = $form->get('memberId')->getData();
-            $member = $em->getRepository('CommonBundle:Member')->findById($idMember);
-            $membership->setMember($member[0]);
-            $em->persist($membership);
-            $em->flush($membership);
+            if ($form->isSubmitted() && $form->isValid()) {
+                $idMember = $form->get('memberId')->getData();
+                $member = $em->getRepository('CommonBundle:Member')->findById($idMember);
+                $membership->setMember($member[0]);
+                $em->persist($membership);
+                $em->flush($membership);
 
 //            return $this->redirectToRoute('admin_membership_show', array('id' => $membership->getId()));
-        }
+            }
+
+            return $this->render('AdminBundle:member:index.html.twig', array(
+                'members' => $members,
+                'membership' => $membership,
+                'select' => $select,
+                'form' => $form->createView(),
+            ));
 
 
 
-        return $this->render('AdminBundle:member:index.html.twig', array(
-            'members' => $members,
-            'membership' => $membership,
-            'form' => $form->createView(),
-        ));
+
+
+
     }
 
     /**
@@ -152,14 +159,26 @@ class MemberController extends Controller
     public function dataAction(Request $request)
     {
         $search = $request->query->get('search');
-
         $limit = $request->query->get('limit');
         $offset = $request->query->get('offset');
         $order = $request->query->get('order');
+        $select = $request->query->get('select');
 
         $em = $this->getDoctrine()->getManager();
 
-
+//            $members = $em->getRepository('CommonBundle:Member')->findAll();
+//            $membersActif = [];
+//            foreach ($members as $member){
+//                $date = $em->getRepository('CommonBundle:Membership')->findMaxByMember($member);
+//                if(!$date){
+//                    $membersActif[] = $member;
+//                }
+//            }
+//
+//            return $this->render('AdminBundle:member:index.html.twig', array(
+//                'members' => $members,
+//                'select' => $select,
+//            ));
         if( strlen($search)<2) {
             $members = $em->getRepository('CommonBundle:Member')->findAllByArg($order, $offset, $limit);
             $nbRows = $em->getRepository('CommonBundle:Member')->countAll();
@@ -178,9 +197,11 @@ class MemberController extends Controller
             $line['telNum'] = $member->getTelNum();
             $line['email'] = $member->getEmail();
             $line['lastDate'] = self::datetimeAction($date);
-            $rows[] = $line;
+            if( $select == 'actif' && $line['lastDate'] == 'false' )
+                $rows[] = $line;
+            else if ($select != 'actif')
+                $rows[] = $line;
         }
-
         $result['total'] = $nbRows;
         $result['rows'] = $rows;
 
