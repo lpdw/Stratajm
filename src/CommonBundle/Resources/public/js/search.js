@@ -49,6 +49,11 @@ $(document).ready(function() {
     $("#game_sort_reinitialiser_les_filtres").on('click', function() {
         sort(false);
     });
+
+    $("#game_search_Annuler").on('click', function() {
+        sort(false);
+    });
+
     function sort(sort){
       if(sort){
         var publishers = $("#game_sort_editeur").val();

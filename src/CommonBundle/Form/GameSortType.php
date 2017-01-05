@@ -30,6 +30,7 @@ class GameSortType extends AbstractType
     )))
         ->add('duree', ChoiceType::class, array(
               'placeholder' => 'Durée du jeu',
+              'label' => 'Durée de jeu' ,
               'choices' => array(
                   'Courte (<=30 min)' => 0,
                   'Moyenne (30-45min)' => 1,
@@ -38,18 +39,21 @@ class GameSortType extends AbstractType
               )))
         ->add('editeur', EntityType::class, array(
               'class' => 'CommonBundle:Publisher',
+              'label' => 'Éditeurs' ,
               'choice_label' => 'name',
               'expanded' => false,
               'multiple' => true))
 
         ->add('categorie', EntityType::class, array(
               'class' => 'CommonBundle:Type',
+              'label' => 'Types de jeu' ,
               'choice_label' => 'name',
               'expanded' => false,
               'multiple' => true))
 
         ->add('themes', EntityType::class, array(
               'class' => 'CommonBundle:Theme',
+              'label' => 'Thèmes' ,
               'choice_label' => 'name',
               'expanded' => false,
               'multiple' => true))
