@@ -346,6 +346,7 @@ class Game
         return $this->copies;
     }
 
+
     /**
      * Set the value of Id
      *

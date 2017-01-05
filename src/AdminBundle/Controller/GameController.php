@@ -60,6 +60,10 @@ class GameController extends Controller
             }
 
             $em = $this->getDoctrine()->getManager();
+
+            // création du nombre d'exemplaires saisis
+            $nbcopies = $form['nbcopies']->getData();
+
             $em->persist($game);
             $em->flush($game);
 
@@ -82,9 +86,13 @@ class GameController extends Controller
     {
         $deleteForm = $this->createDeleteForm($game);
 
+        $em = $this->getDoctrine()->getManager();
+        $nbcopies = $em->getRepository('CommonBundle:Copy')->countCopiesByGame($game->getId());
+
         return $this->render('AdminBundle:game:show.html.twig', array(
             'game' => $game,
             'delete_form' => $deleteForm->createView(),
+            'nbcopies' => $nbcopies,
         ));
     }
 

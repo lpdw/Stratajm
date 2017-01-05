@@ -10,4 +10,16 @@ namespace CommonBundle\Repository;
  */
 class CopyRepository extends \Doctrine\ORM\EntityRepository
 {
+
+  public function countCopiesByGame($gameid) {
+    return $this
+      ->createQueryBuilder('c')
+      ->select('COUNT(c)')
+      ->where('c.game = :gameid')
+      ->setParameter('gameid', '%'.$gameid.'%')
+      ->getQuery()
+      ->getSingleScalarResult();
+  }
+
+
 }

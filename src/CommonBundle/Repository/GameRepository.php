@@ -33,7 +33,6 @@ class GameRepository extends \Doctrine\ORM\EntityRepository
       ->getArrayResult();
     }
 
-
     public function getAllPublishersById()
     {
         return $this
@@ -92,4 +91,5 @@ class GameRepository extends \Doctrine\ORM\EntityRepository
         //->getArrayResult();
         return $request;
     }
+
 }
