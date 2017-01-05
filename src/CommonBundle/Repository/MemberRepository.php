@@ -32,6 +32,14 @@ class MemberRepository extends \Doctrine\ORM\EntityRepository
         return $result;
     }
 
+    public function findAll(){
+        $result = $this->createQueryBuilder('m')
+            ->getQuery()
+            ->getResult();
+
+        return $result;
+    }
+
     public function findBySearch($search, $order = 'desc', $offset = 0, $limit = 10){
 
         $result = $this->createQueryBuilder('m')
@@ -66,4 +74,18 @@ class MemberRepository extends \Doctrine\ORM\EntityRepository
         return $result;
     }
 
+    public function findAllBySearch($search){
+        $result = $this->createQueryBuilder('m')
+            ->select('m')
+            ->orderBy('m.id', 'desc')
+            ->where('m.firstName LIKE :search')
+            ->orWhere('m.lastName LIKE :search')
+            ->orWhere('m.email LIKE :search')
+            ->orWhere('m.telNum LIKE :search')
+            ->setParameter('search', '%'.$search.'%')
+            ->getQuery()
+            ->getResult();
+
+        return $result;
+    }
 }
