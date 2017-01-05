@@ -22,8 +22,7 @@ class GameSearchType extends AbstractType
           ->add('searchGame',TextType::class,array('required' => true,'label' => false,'attr' => array(
         'placeholder' => 'Rechercher par nom',
     )))
-          ->add('Rechercher', SubmitType::class,array('label'=>' '))
-          ->add('Annuler', ResetType::class,array('label'=>' '));
+          ->add('Rechercher', SubmitType::class,array('label'=>' '));
 
 
         }

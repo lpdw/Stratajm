@@ -74,17 +74,24 @@ header {
     font-family: "Glyphicons Halflings";
     content: "\e003";
  }
-#game_search_Annuler:before{
-  color:black;
-  font-family: "Glyphicons Halflings";
-  content: "\e014";
-}
+ #filters-dropdown{
+   display: none;
+ }
+ #form-game-sort{
+   display: block;
+ }
+ .open>#form-game-sort{display: block;}
+  .open>#filters-dropdown:after{
+    color:black;
+    font-family: "Glyphicons Halflings";
+    content: "\e260";
+  }
 #loader{
   display: none;
 }
 
 .form-game-search{
-  float:right;
+  /*float:right;*/
 }
 .game-sticker {
   width:100%;
@@ -133,4 +140,29 @@ footer {
 #footer-mentions {
   color: #C2CFDB;
   font-size:11px;
+}
+
+/*******************/
+/* Media queries for sort form on mobile and tablet*/
+/*******************/
+@media (max-width: 1000px)
+{
+  #filter-panel{
+    width: 100%;
+    height: auto;
+  }
+  #filters-dropdown{
+    display: block;
+    width: 100%;
+
+  }
+  #filters-dropdown:after{
+    color:black;
+    font-family: "Glyphicons Halflings";
+    content: "\e259";
+  }
+
+  #form-game-sort{
+    display: none;
+  }
 }

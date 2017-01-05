@@ -24,23 +24,30 @@
 
         </div>
     </div>
+    <div id="toolbar">
+            {% if select != "actif" %}
+                <a  href="{{ path('admin_member_index_select',{ 'select' : 'actif' }) }}"> <button type="button" value="actif">Afficher les membres actifs</button></a>
+            {% else %}
+                <a  href="{{ path('admin_member_index_select',{ 'select' : 'all' }) }}"> <button type="button" value="all">Afficher tous les membres</button></a>
+            {% endif %}
+    </div>
     <table id="table"
            data-toggle="table"
-           data-url="{{ path("members_resp") }}"
+           data-url="{{ path("members_resp",{ 'select' :  select  }) }}"
            data-toolbar="#toolbar"
            data-show-columns="true"
            data-locale="fr-FR"
            data-pagination="true"
            data-side-pagination="server"
            data-page-list="[5, 10, 20, 50, 100, 200]"
-           data-page-size="10"
+           data-page-size="5"
            data-search="true"
            data-show-refresh="true"
            data-sort-order="desc"
            data-show-toggle="true"
-
-           {#data-row-style="rowStyle"#}
-
+           data-export-types="['excel','doc']"
+           data-show-export="true"
+           data-ajax-options="test"
     >
         <thead>
         <tr>
@@ -69,7 +76,6 @@
         function actionFormatter(value, row, index) {
             var show = Routing.generate('admin_member_show', { id: row.id });
             var edit = Routing.generate('admin_member_edit', { id: row.id });
-
             if (row.lastDate == "true"){
                 return [
                 "<a href="+show+"><input type='button' class='btn btn-default' value='show'></a>",
@@ -85,26 +91,38 @@
 
 
         }
-        window.actionEvents = {
-            'click .membership': function (e, value, row, index) {
-                console.log(row);
-                $('.modal').attr('id',row.id);
 
-                $('.modal .modal-title').text(row.lastname+' '+row.firstname);
-                $('.modal .modal-body').html(
-                '{{ form_start(form) }}'+
-                '{{ form_widget(form) }}'+
-                '<input type="submit" value="Create" />'+
-                '{{ form_end(form) }}'
+        var select = '{{ select }}';
 
-                );
-                $('.modal .modal-body .memberId').attr('value',row.id);
-//                $('.modal .modal-body .memberId').attr('value',row.id);
+        if ( select != 'actif' ){
+            window.actionEvents = {
+                'click .membership': function (e, value, row, index) {
+                    $('.modal').attr('id',row.id);
 
-//              alert(row.id);
+                    $('.modal .modal-title').text(row.lastname+' '+row.firstname);
+                    $('.modal .modal-body').html(
+                        '{{ form_start(form) }}'+
+                        '{{ form_widget(form) }}'+
+                        '<input type="submit" value="Create" />'+
+                        '{{ form_end(form) }}'
 
-            }
-        };
+                    );
+                    $('.modal .modal-body .memberId').attr('value',row.id);
+                }
+            };
+        }
+
+
+        var $table = $('#table');
+
+
+        $(function () {
+            $('#toolbar').find('select').change(function () {
+                $table.bootstrapTable('destroy').bootstrapTable({
+                    exportDataType: $(this).val()
+                });
+            });
+        })
 
     </script>
 

@@ -167,7 +167,10 @@ class GameController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            unlink($this->getParameter('images_directory').'/'.$game->getImage());
+            if($game->getImage())
+            {
+                unlink($this->getParameter('images_directory').'/'.$game->getImage());
+            }
             $em = $this->getDoctrine()->getManager();
             $em->remove($game);
             $em->flush($game);

@@ -57,7 +57,7 @@ class GameRepository extends \Doctrine\ORM\EntityRepository
 
 
 
-    public function sortBy($publishersID, $orderby, $ageMin, $ageMax, $duration,$types)
+    public function sortBy($publishersID, $orderby, $ageMin, $ageMax, $duration,$types,$themes)
     {
         if ($orderby=="publication_asc") {
             $sort='g.releaseDate';
@@ -86,12 +86,17 @@ class GameRepository extends \Doctrine\ORM\EntityRepository
         ->select('g', 'p')
         ->leftJoin('g.publisher', 'p')
         ->leftJoin('g.types', 't')
+        ->leftJoin('g.themes', 'th')
+
           ->where("g.publisher IN (:publisher_id)")
           ->andWhere('t.id IN (:types_id)')
+          ->andWhere('th.id IN (:themes_id)')
+
           ->andWhere("g.ageMax >= :ageMax")
           ->andWhere("g.ageMin <= :ageMin")
           ->andwhere($requestDuree)
           ->setParameter('publisher_id', $publishersID)
+          ->setParameter('themes_id',$themes)
           ->setParameter('types_id', $types)
           ->setParameter('ageMin', $ageMin)
           ->setParameter('ageMax', $ageMax)

@@ -14,17 +14,17 @@
         csv: 'CSV',
         txt: 'TXT',
         sql: 'SQL',
-        doc: 'MS-Word',
-        excel: 'MS-Excel',
+        doc: 'Word',
+        excel: 'Excel',
         powerpoint: 'MS-Powerpoint',
         pdf: 'PDF'
     };
 
     $.extend($.fn.bootstrapTable.defaults, {
         showExport: false,
-        exportDataType: 'basic', // basic, all, selected
+        exportDataType: 'all', // basic, all, selected
         // 'json', 'xml', 'png', 'csv', 'txt', 'sql', 'doc', 'excel', 'powerpoint', 'pdf'
-        exportTypes: ['csv', 'txt', 'pdf', 'excel'],
+        exportTypes: ['json', 'xml', 'csv', 'txt', 'sql', 'excel'],
         exportOptions: {}
     });
 
@@ -107,6 +107,15 @@
                     } else if (that.options.exportDataType === 'selected') {
                         var data = that.getData(),
                             selectedData = that.getAllSelections();
+
+                        // Quick fix #2220
+                        if (that.options.sidePagination === 'server') {
+                            data = {total: that.options.totalRows};
+                            data[that.options.dataField] = that.getData();
+
+                            selectedData = {total: that.options.totalRows};
+                            selectedData[that.options.dataField] = that.getAllSelections();
+                        }
 
                         that.load(selectedData);
                         doExport();

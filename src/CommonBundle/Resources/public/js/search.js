@@ -42,7 +42,7 @@ $(document).ready(function() {
     $("#game_sort_categorie").on('change', function() {
         sort(true);
     });
-    $("#game_sort_theme").on('change', function() {
+    $("#game_sort_themes").on('change', function() {
         sort(true);
     });
 
@@ -50,9 +50,7 @@ $(document).ready(function() {
         sort(false);
     });
 
-    $("#game_search_Annuler").on('click', function() {
-        sort(false);
-    });
+
 
     function sort(sort){
       if(sort){
@@ -62,7 +60,7 @@ $(document).ready(function() {
         var orderby=$("#game_sort_trier_par").val();
         var duration=$("#game_sort_duree").val();
         var types=$("#game_sort_categorie").val();
-        var themes=$("#game_sort_theme").val();
+        var themes=$("#game_sort_themes").val();
 
       }else{
         var publishers = "";
@@ -89,16 +87,14 @@ $(document).ready(function() {
               themes:themes
           },
           dataType: 'json',
-          beforeSend: function(){
+          /*beforeSend: function(){
             $("#games-panel").html("");
              $("#loader").show();
            },
            complete: function(){
              $("#loader").hide();
-           },
+           },*/
           success: function(data) {
-            console.log(data);
-
             $("#games-panel").html(data);
 
           },
