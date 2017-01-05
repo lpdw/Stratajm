@@ -6,17 +6,24 @@
 
     <div id="main-div">
         <h2 id="pagetitle">Les jeux de Strata'j'm</h2>
-        {{ form_start(searchForm, {'attr': {'class': 'form-inline form-game-search'} }) }}
-        {{ form_widget(searchForm) }}
-        {{ form_end(searchForm) }}
 
-        <div id="filter-panel">
 
-          {{ form_start(sortForm) }}
-          {{ form_widget(sortForm) }}
-          {{ form_end(sortForm) }}
+        <div id="filter-panel" class="dropdown">
+            <button class="btn btn-default dropdown-toggle" type="button" id="filters-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+              Filtrer les résultats   <span class="glyphicon glyphicon-filter"></span>
+            </button>
+            <div id="form-game-sort">
+            {{ form_start(searchForm, {'attr': {'class': 'form-inline form-game-search'} }) }}
+            {{ form_widget(searchForm) }}
+            {{ form_end(searchForm) }}
+            {{ form_start(sortForm)  }}
+            {{ form_widget(sortForm) }}
+            {{ form_end(sortForm) }}
+          </div>
 
-        </div>
+          </div>
+
+
 
 
         <div id="games-panel">
