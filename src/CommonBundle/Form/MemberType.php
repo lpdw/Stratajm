@@ -20,7 +20,7 @@ class MemberType extends AbstractType
             ->add('telNum')
             ;
     }
-    
+
     /**
      * {@inheritdoc}
      */
