@@ -46,7 +46,10 @@ class GameType extends AbstractType
                   'class' => 'CommonBundle:Publisher',
                   'choice_label' => 'name'
                 ))
-                ->add('nbcopies', IntegerType::class, array('label' => 'Nombre d\'exemplaires', 'mapped' => false));
+                ->add('nbcopies', IntegerType::class, array(
+                  'label' => 'Nombre d\'exemplaires',
+                  'mapped' => false,
+                ));
     }
 
     /**

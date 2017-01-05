@@ -92,7 +92,6 @@ class GameController extends Controller
 
         $em = $this->getDoctrine()->getManager();
         $nbcopies = $em->getRepository('CommonBundle:Copy')->countCopiesByGame($game->getId());
-        var_dump($nbcopies);
 
         return $this->render('AdminBundle:game:show.html.twig', array(
             'game' => $game,
