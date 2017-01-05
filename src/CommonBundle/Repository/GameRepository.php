@@ -98,7 +98,7 @@ class GameRepository extends \Doctrine\ORM\EntityRepository
           ->setParameter('duration', $duration)
           ->orderBy($sort, $order)
           ->getQuery();
-
+          
         return $request;
     }
 }
