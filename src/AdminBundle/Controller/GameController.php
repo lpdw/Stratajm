@@ -3,6 +3,7 @@
 namespace AdminBundle\Controller;
 
 use CommonBundle\Entity\Game;
+use AdminBundle\Services\CopyGeneratorService;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -60,8 +61,15 @@ class GameController extends Controller
             }
 
             $em = $this->getDoctrine()->getManager();
+
+            // création du jeu
             $em->persist($game);
             $em->flush($game);
+
+            // création du nombre d'exemplaires saisis
+            $nbcopies = $form['nbcopies']->getData();
+            $copygenerator = $this->get('app.copygenerator');
+            $copygenerator->createGameCopies($game->getId(), $nbcopies);
 
             return $this->redirectToRoute('admin_show', array('id' => $game->getId()));
         }
@@ -82,9 +90,14 @@ class GameController extends Controller
     {
         $deleteForm = $this->createDeleteForm($game);
 
+        $em = $this->getDoctrine()->getManager();
+        $nbcopies = $em->getRepository('CommonBundle:Copy')->countCopiesByGame($game->getId());
+        var_dump($nbcopies);
+
         return $this->render('AdminBundle:game:show.html.twig', array(
             'game' => $game,
             'delete_form' => $deleteForm->createView(),
+            'nbcopies' => $nbcopies,
         ));
     }
 

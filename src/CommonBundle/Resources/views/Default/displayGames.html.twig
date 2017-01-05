@@ -7,45 +7,33 @@
     <div id="main-div">
         <h2 id="pagetitle">Les jeux de Strata'j'm</h2>
 
-        <div id="filter-panel">
+
+        <div id="filter-panel" class="dropdown">
+            <button class="btn btn-default dropdown-toggle" type="button" id="filters-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+              Filtrer les résultats   <span class="glyphicon glyphicon-filter"></span>
+            </button>
+            <div id="form-game-sort">
+            {{ form_start(searchForm, {'attr': {'class': 'form-inline form-game-search'} }) }}
+            {{ form_widget(searchForm) }}
+            {{ form_end(searchForm) }}
+            {{ form_start(sortForm)  }}
+            {{ form_widget(sortForm) }}
+            {{ form_end(sortForm) }}
+          </div>
+
+          </div>
 
 
-          {{ form_start(searchForm, {'attr': {'class': 'form-inline'} }) }}
-          {{ form_widget(searchForm) }}
-          {{ form_end(searchForm) }}
-
-
-          {{ form_start(sortForm) }}
-          {{ form_widget(sortForm) }}
-          {{ form_end(sortForm) }}
-
-
-        </div>
 
 
         <div id="games-panel">
-          <div id="loader" class="text-center">
-            <img src="{{ asset('images/loader.gif') }}" alt="#" class="game-image">
-          </div>
-            {% for game in games %}
 
-                <div class="game-sticker">
-                  <a href="{{ path('single_game', { 'id': game.id }) }}">
-                    <img  class="game-sticker-image" src="{{ asset('uploads/images/' ~ game.image) }}" alt="Image du jeu {{ game.name }}">
-                  </a>
-                  <div class="game-sticker-info">
-                    <div>{{ game.name }}</div>
-                    <div>Editeur : <a href="{{ game.publisher.url | external_link }}" >{{ game.publisher.name }} </a> </div>
-                  </div>
-
-                </div>
-            {% endfor %}
-
-        </div>
+        {{ include('CommonBundle:Default:listGames.html.twig', { 'pagination': pagination }) }}
 
 
-    </div>
 
+      </div>
+</div>
 
 
 

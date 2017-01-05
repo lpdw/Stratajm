@@ -1,7 +1,7 @@
 <?php
 
 namespace CommonBundle\Repository;
-
+use Doctrine\ORM\Tools\Pagination\Paginator;
 /**
  * GameRepository
  *
@@ -29,10 +29,21 @@ class GameRepository extends \Doctrine\ORM\EntityRepository
       ->leftJoin('g.publisher', 'p', 'WITH', 'g.publisher = p.id')
       ->where("g.name LIKE :name")
       ->setParameter('name', "%".$name."%")
-      ->getQuery()
-      ->getArrayResult();
+      ->getQuery();
     }
 
+    public function getAllGames()
+    {
+      return $this->createQueryBuilder('g')
+      ->getQuery();
+    }
+
+    public function countAllGames(){
+      return $this->createQueryBuilder('g')
+            ->select('COUNT(g)')
+            ->getQuery()
+            ->getResult();
+    }
 
     public function getAllPublishersById()
     {
@@ -44,7 +55,9 @@ class GameRepository extends \Doctrine\ORM\EntityRepository
         ->getArrayResult();
     }
 
-    public function sortBy($publishersID, $orderby, $ageMin, $ageMax, $duration)
+
+
+    public function sortBy($publishersID, $orderby, $ageMin, $ageMax, $duration,$types)
     {
         if ($orderby=="publication_asc") {
             $sort='g.releaseDate';
@@ -69,27 +82,24 @@ class GameRepository extends \Doctrine\ORM\EntityRepository
           $requestDuree="g.duration = :duration";
         }
 
-
         $request = $this->createQueryBuilder('g')
-        ->select(array('g', 'p'))
-        ->leftJoin('g.publisher', 'p', 'WITH', 'g.publisher = p.id')
+        ->select('g', 'p')
+        ->leftJoin('g.publisher', 'p')
+        ->leftJoin('g.types', 't')
           ->where("g.publisher IN (:publisher_id)")
+          ->andWhere('t.id IN (:types_id)')
           ->andWhere("g.ageMax >= :ageMax")
           ->andWhere("g.ageMin <= :ageMin")
           ->andwhere($requestDuree)
           ->setParameter('publisher_id', $publishersID)
+          ->setParameter('types_id', $types)
           ->setParameter('ageMin', $ageMin)
           ->setParameter('ageMax', $ageMax)
           ->setParameter('duration', $duration)
-
           ->orderBy($sort, $order)
-          ->getQuery()
-          ->getArrayResult();
-
-
-
-        //$request->getQuery()
-        //->getArrayResult();
+          ->getQuery();
+          
         return $request;
     }
+
 }
