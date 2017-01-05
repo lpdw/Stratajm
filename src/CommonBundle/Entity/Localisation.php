@@ -3,12 +3,16 @@
 namespace CommonBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * Localisation
  *
  * @ORM\Table(name="localisation")
  * @ORM\Entity(repositoryClass="CommonBundle\Repository\LocalisationRepository")
+ * @UniqueEntity(fields="name", message="L'emplacement {{ value }} existe déjà.")
+ * @UniqueEntity(fields="adress", message="L'adresse {{ value }} est déjà utilisée.")
+
  */
 class Localisation
 {
