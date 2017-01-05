@@ -50,9 +50,7 @@ $(document).ready(function() {
         sort(false);
     });
 
-    $("#game_search_Annuler").on('click', function() {
-        sort(false);
-    });
+  
 
     function sort(sort){
       if(sort){
@@ -89,16 +87,14 @@ $(document).ready(function() {
               themes:themes
           },
           dataType: 'json',
-          beforeSend: function(){
+          /*beforeSend: function(){
             $("#games-panel").html("");
              $("#loader").show();
            },
            complete: function(){
              $("#loader").hide();
-           },
+           },*/
           success: function(data) {
-            console.log(data);
-
             $("#games-panel").html(data);
 
           },
