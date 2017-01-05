@@ -42,13 +42,27 @@ class Game
 
     /**
      * @var string
-     *
+     * @Assert\Type("integer")
+     * @Assert\Range(
+          *      min = 0,
+          *      max = 110,
+          *      minMessage = "L'âge doit être supérieur à {{ limit }}",
+          *      maxMessage = "L'âge ne peut pas être supérieur à  {{ limit }}"
+          * )
      * @ORM\Column(name="ageMin", type="integer", length=255)
      */
     private $ageMin;
     /**
      * @var string
      *
+     * @Assert\Type("integer")
+
+     * @Assert\Range(
+          *      min = 0,
+          *      max = 110,
+          *      minMessage = "L'âge doit être supérieur à {{ limit }}",
+          *      maxMessage = "L'âge ne peut pas être supérieur à  {{ limit }}"
+          * )
      * @ORM\Column(name="ageMax", type="integer", length=255)
      */
     private $ageMax;
