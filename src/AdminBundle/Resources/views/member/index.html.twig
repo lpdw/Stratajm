@@ -25,15 +25,11 @@
         </div>
     </div>
     <div id="toolbar">
-        {#<select class="form-control" id="selectTable">#}
-            {#<option value="actif">Afficher les membres actifs</option>#}
             {% if select != "actif" %}
                 <a  href="{{ path('admin_member_index_select',{ 'select' : 'actif' }) }}"> <button type="button" value="actif">Afficher les membres actifs</button></a>
             {% else %}
                 <a  href="{{ path('admin_member_index_select',{ 'select' : 'all' }) }}"> <button type="button" value="all">Afficher tous les membres</button></a>
             {% endif %}
-            {#<option value="all">Afficher tous les membres</option>#}
-        {#</select>#}
     </div>
     <table id="table"
            data-toggle="table"
@@ -44,6 +40,7 @@
            data-pagination="true"
            data-side-pagination="server"
            data-page-list="[5, 10, 20, 50, 100, 200]"
+           data-page-size="5"
            data-search="true"
            data-show-refresh="true"
            data-sort-order="desc"
@@ -51,9 +48,6 @@
            data-export-types="['excel','doc']"
            data-show-export="true"
            data-ajax-options="test"
-
-           {#data-row-style="rowStyle"#}
-
     >
         <thead>
         <tr>
@@ -82,7 +76,6 @@
         function actionFormatter(value, row, index) {
             var show = Routing.generate('admin_member_show', { id: row.id });
             var edit = Routing.generate('admin_member_edit', { id: row.id });
-            console.log(row.lastDate);
             if (row.lastDate == "true"){
                 return [
                 "<a href="+show+"><input type='button' class='btn btn-default' value='show'></a>",
@@ -104,7 +97,6 @@
         if ( select != 'actif' ){
             window.actionEvents = {
                 'click .membership': function (e, value, row, index) {
-                    console.log(row);
                     $('.modal').attr('id',row.id);
 
                     $('.modal .modal-title').text(row.lastname+' '+row.firstname);
@@ -116,10 +108,6 @@
 
                     );
                     $('.modal .modal-body .memberId').attr('value',row.id);
-//                $('.modal .modal-body .memberId').attr('value',row.id);
-
-//              alert(row.id);
-
                 }
             };
         }
@@ -130,10 +118,7 @@
 
         $(function () {
             $('#toolbar').find('select').change(function () {
-
-                console.log($(this).val());
                 $table.bootstrapTable('destroy').bootstrapTable({
-//                    exportTypes:['json', 'xml', 'png', 'csv', 'txt', 'sql', 'doc', 'excel', 'powerpoint', 'pdf'],
                     exportDataType: $(this).val()
                 });
             });
