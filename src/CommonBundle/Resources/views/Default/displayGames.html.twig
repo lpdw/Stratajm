@@ -4,21 +4,22 @@
 
 {% block content %}
 
-    <div id="main-div" class="row">
+    <div id="main-div">
         <h2 id="pagetitle">Les jeux de Strata'j'm</h2>
+        <div id="filter-panel">
 
-        <div id="filter-panel" class="col-xs-3 col-sm-3 col-md-4">
+
+          {{ form_start(searchForm, {'attr': {'class': 'form-inline'} }) }}
+          {{ form_widget(searchForm) }}
+          {{ form_end(searchForm) }}
 
 
-        {{ form_start(searchForm, {'attr': {'class': 'form-inline'} }) }}
-        {{ form_widget(searchForm) }}
-        {{ form_end(searchForm) }}
-
-        {{ form_start(sortForm) }}
-        {{ form_widget(sortForm) }}
-        {{ form_end(sortForm) }}
+          {{ form_start(sortForm) }}
+          {{ form_widget(sortForm) }}
+          {{ form_end(sortForm) }}
 
         </div>
+
 
         <div id="games-panel">
 
@@ -26,24 +27,9 @@
 
 
 
+      </div>
 </div>
-</div>
-
-            {# for game in games %}
-
-                <div class="game-sticker-info">
-                  <div class="game-sticker thumbnail col-xs-2 col-sm-2 col-md-2" href="#">
-                      <img src="#" alt="#" class="game-image">
-                  </div>
-                  <div class="game-sticker-name">{# game.name }}</div>
-                  <div class="game-sticker-rules">Règles : {# game.rules }}</div>
-                  <div class="game-sticker-editor">Editeur : <a href="{# game.publisher.url | external_link }}" >{# game.publisher.name }} </a> </div>
-                </div>
-            {# endfor #}
-
-        </div>
 
 
-    </div>
 
 {% endblock %}

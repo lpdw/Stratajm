@@ -29,8 +29,7 @@ class GameRepository extends \Doctrine\ORM\EntityRepository
       ->leftJoin('g.publisher', 'p', 'WITH', 'g.publisher = p.id')
       ->where("g.name LIKE :name")
       ->setParameter('name', "%".$name."%")
-      ->getQuery()
-      ->getArrayResult();
+      ->getQuery();
     }
 
     public function getAllGames()
@@ -56,7 +55,9 @@ class GameRepository extends \Doctrine\ORM\EntityRepository
         ->getArrayResult();
     }
 
-    public function sortBy($publishersID, $orderby, $ageMin, $ageMax, $duration,$page=1, $maxperpage=1)
+
+
+    public function sortBy($publishersID, $orderby, $ageMin, $ageMax, $duration,$types)
     {
         if ($orderby=="publication_asc") {
             $sort='g.releaseDate';
@@ -81,28 +82,23 @@ class GameRepository extends \Doctrine\ORM\EntityRepository
           $requestDuree="g.duration = :duration";
         }
 
-
         $request = $this->createQueryBuilder('g')
         ->select('g', 'p')
-        ->leftJoin('g.publisher', 'p', 'WITH', 'g.publisher = p.id')
-
+        ->leftJoin('g.publisher', 'p')
+        ->leftJoin('g.types', 't')
           ->where("g.publisher IN (:publisher_id)")
+          ->andWhere('t.id IN (:types_id)')
           ->andWhere("g.ageMax >= :ageMax")
           ->andWhere("g.ageMin <= :ageMin")
           ->andwhere($requestDuree)
           ->setParameter('publisher_id', $publishersID)
+          ->setParameter('types_id', $types)
           ->setParameter('ageMin', $ageMin)
           ->setParameter('ageMax', $ageMax)
           ->setParameter('duration', $duration)
           ->orderBy($sort, $order)
           ->getQuery();
 
-        //$page = new Paginator($request,$fetchJoinCollection = true);
-        //return $page;
-
-
-        //$request->getQuery()
-        //->getArrayResult();
         return $request;
     }
 }

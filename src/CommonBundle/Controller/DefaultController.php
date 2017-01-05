@@ -3,6 +3,7 @@
 namespace CommonBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
 use CommonBundle\Form\GameSearchType;
@@ -53,8 +54,20 @@ class DefaultController extends Controller
           $ageMin=$request->request->get('ageMin');
           $ageMax=$request->request->get('ageMax');
           $duration=$request->request->get('duration');
+          $types=$request->request->get('types');
+          $themes=$request->request->get('themes');
+
           if($publishersID==null){
+            // Si aucun editeur de jeu n'est selectionné, on les récupère tous
             $publishersID=$em->getRepository('CommonBundle:Game')->getAllPublishersById();
+          }
+          if($types==null){
+            // Si aucun type de jeu n'est selectionné, on les récupère tous
+            $types = $em->getRepository('CommonBundle:Type')->findAll();
+          }
+          if($themes==null){
+            // Si aucun theme de jeu n'est selectionné, on les récupère tous
+            $themes = $em->getRepository('CommonBundle:Theme')->findAll();
           }
           if($ageMin==null && $ageMax==null){
             $ageMin=200;
@@ -67,17 +80,14 @@ class DefaultController extends Controller
             $ageMin=$ageMax;
           }
 
-
-
-
-          $gamesSorted = $em->getRepository('CommonBundle:Game')->sortBy($publishersID,$orderby,$ageMin,$ageMax,$duration);
+          $gamesSorted = $em->getRepository('CommonBundle:Game')->sortBy($publishersID,$orderby,$ageMin,$ageMax,$duration,$types,$themes);
           $countGames=count($gamesSorted);
           $pages_count=ceil($countGames/1);
           $paginator  = $this->get('knp_paginator');
-         $pagination = $paginator->paginate(
+          $pagination = $paginator->paginate(
              $gamesSorted, /* query NOT result */
              $request->query->get('page', $page)/*page number*/,
-             1/*limit per page*/
+             10/*limit per page*/
          );
           $updatedVue=$this->renderView('CommonBundle:Default:listGames.html.twig', array(
               'pagination'=>$pagination,
@@ -85,8 +95,6 @@ class DefaultController extends Controller
           return new Response(json_encode($updatedVue));
 
         }
-
-
 
         if ($gameSearchForm->isSubmitted() && $gameSearchForm->isValid()) {
           $name=$gameSearchForm['searchGame']->getData();
@@ -97,12 +105,12 @@ class DefaultController extends Controller
           $gameSearchForm = $this->createForm(GameSearchType::class);
           $paginator  = $this->get('knp_paginator');
            $pagination = $paginator->paginate(
-               $gamesSorted, /* query NOT result */
-               $request->query->get('page', 1),
-               1/*limit per page*/
+               $gameFound, /* query NOT result */
+               $request->query->get('page',$page),
+               10/*limit per page*/
            );
           return $this->render('CommonBundle:Default:displayGames.html.twig', array(
-              'games' => $gameFound,'pagination'=>$pagination,"searchForm"=>$gameSearchForm->createView(),"sortForm"=>$gameSortForm->createView()
+              'pagination'=>$pagination,"searchForm"=>$gameSearchForm->createView(),"sortForm"=>$gameSortForm->createView()
           ));
         }
 
@@ -111,14 +119,23 @@ class DefaultController extends Controller
           $games_count = $this->getDoctrine()->getRepository('CommonBundle:Game')->countAllGames();
           $paginator  = $this->get('knp_paginator');
            $pagination = $paginator->paginate(
-               $games, /* query NOT result */
+               $games, /* query */
                $request->query->get('page', $page),
-               1/*limit per page*/
+               10/*limite par page*/
            );
           return $this->render('CommonBundle:Default:displayGames.html.twig', array(
               'pagination'=>$pagination,"searchForm"=>$gameSearchForm->createView(),"sortForm"=>$gameSortForm->createView()
           ));
 
+    }
+
+    /**
+     * @Route("/singlegame/{id}", name="single_game")
+     * @Method("GET")
+     */
+    public function singleGameAction(Game $game)
+    {
+      return $this->render('CommonBundle:Default:singleGame.html.twig', array('game' => $game));
     }
 
 
