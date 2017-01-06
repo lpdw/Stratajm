@@ -107,4 +107,57 @@ class GameRepository extends \Doctrine\ORM\EntityRepository
         return $request;
     }
 
+    public function findAllByArg($order = 'desc', $offset = 0, $limit = 10){
+        $result = $this->createQueryBuilder('m')
+            ->select('m')
+            ->orderBy('m.id', $order)
+            ->setFirstResult($offset)
+            ->setMaxResults($limit)
+            ->getQuery()
+            ->getResult();
+
+        return $result;
+    }
+
+    public function countAll(){
+        $result = $this->createQueryBuilder('m')
+            ->select('count(m)')
+            ->getQuery()
+            ->getSingleScalarResult();
+
+        return $result;
+    }
+
+    public function findBySearch($search, $order = 'desc', $offset = 0, $limit = 10){
+
+        $result = $this->createQueryBuilder('m')
+            ->select('m')
+            ->orderBy('m.id', $order)
+            ->where('m.name LIKE :search')
+            ->orWhere('m.duration LIKE :search')
+            ->orWhere('m.rules LIKE :search')
+            ->setParameter('search', '%'.$search.'%')
+            ->setFirstResult($offset)
+            ->setMaxResults($limit)
+            ->getQuery()
+            ->getResult();
+
+
+        return $result;
+    }
+
+    public function countAllBySearch($search){
+        $result = $this->createQueryBuilder('m')
+            ->select('count(m)')
+            ->orderBy('m.id', 'desc')
+            ->where('m.name LIKE :search')
+            ->orWhere('m.duration LIKE :search')
+            ->orWhere('m.rules LIKE :search')
+            ->setParameter('search', '%'.$search.'%')
+            ->getQuery()
+            ->getSingleScalarResult();
+
+        return $result;
+    }
+
 }
