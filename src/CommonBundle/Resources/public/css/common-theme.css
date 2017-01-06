@@ -13,8 +13,9 @@ header {
 }
 
 #main-div {
-  height: 100vh;
   background-color: #F2EAE9;
+  float: left;
+  width: 100%;
 }
 
 #nav-bar {
@@ -63,9 +64,9 @@ header {
 }
 
 #games-panel {
-  width: 65%;
-  height: 100%;
-  float: left;
+    width: 500px;
+    height: 100%;
+    float: left;
 }
 
 
@@ -74,28 +75,34 @@ header {
     font-family: "Glyphicons Halflings";
     content: "\e003";
  }
- #filters-dropdown{
+
+ #filters-dropdown {
    display: none;
  }
- #form-game-sort{
+
+ #form-game-sort {
    display: block;
  }
+
  .open>#form-game-sort{display: block;}
   .open>#filters-dropdown:after{
     color:black;
     font-family: "Glyphicons Halflings";
     content: "\e260";
   }
-#loader{
+
+#loader {
   display: none;
 }
 
-.form-game-search{
+.form-game-search {
   /*float:right;*/
 }
+
 .game-sticker {
   width:100%;
-  height:30%;
+  height:300px;
+  float: left;
 }
 
 .game-sticker .game-sticker-image {
@@ -131,10 +138,21 @@ header {
 }
 
 
+main-div-footer-border {
+  width:100%;
+  height:1500px;
+}
+
+
+/*******************/
+/* Footer */
+/*******************/
 footer {
+  float:left;
   padding-top: 5px;
   background-color: #5C3E37;
   text-align: center;
+  width:100%;
 }
 
 #footer-mentions {
