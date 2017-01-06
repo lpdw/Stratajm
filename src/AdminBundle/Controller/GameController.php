@@ -13,7 +13,7 @@ use Symfony\Component\HttpFoundation\File\File;
 /**
  * Game controller.
  *
- * @Route("admin")
+ * @Route("admin/game")
  */
 class GameController extends Controller
 {

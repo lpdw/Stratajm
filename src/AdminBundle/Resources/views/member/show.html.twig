@@ -6,17 +6,17 @@
 
         <thead>
         <tr>
-            <th>Amount</th>
-            <th>Begindate</th>
-            <th>paymentMethod</th>
+            <th>Montant</th>
+            <th>Date début</th>
+            <th>Moyen de paiement</th>
         </tr>
         </thead>
         <tbody>
         {% for membership in memberships %}
             {#{{ dump(membership) }}#}
             <tr>
-                <td>{{ membership.amount }}</td>
-                <td>{% if membership.beginDate %}{{ membership.beginDate|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{{ membership.amount }}€</td>
+                <td>{% if membership.beginDate %}{{ membership.beginDate|date('Y-m-d') }}{% endif %}</td>
                 <td>{{ membership.paymentMethod.name }}</td>
             </tr>
         {% endfor %}
@@ -25,19 +25,19 @@
     <table>
         <tbody>
             <tr>
-                <th>Firstname</th>
+                <th class="col-lg-2">Prénom: </th>
                 <td>{{ member.firstName }}</td>
             </tr>
             <tr>
-                <th>Lastname</th>
+                <th>Nom</th>
                 <td>{{ member.lastName }}</td>
             </tr>
             <tr>
-                <th>Email</th>
+                <th>Email: </th>
                 <td>{{ member.email }}</td>
             </tr>
             <tr>
-                <th>Telnum</th>
+                <th>Numéro Tel: </th>
                 <td>{{ member.telNum }}</td>
             </tr>
         </tbody>

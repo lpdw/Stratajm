@@ -248,7 +248,7 @@ class MemberController extends Controller
         }
         $result['total'] = $nbRows;
         $result['rows'] = $rows;
-
+//            dump($result);die;
         return new JsonResponse($result);
     }
 
