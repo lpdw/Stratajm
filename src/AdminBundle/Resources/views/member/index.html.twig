@@ -18,7 +18,7 @@
                     <p>Some text in the modal.</p>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
                 </div>
             </div>
 
@@ -76,7 +76,7 @@
                 return [
                 "  <a href="+show+"><input type='button' class='btn btn-default' value='Afficher'></a>  ",
                 "  <a href="+edit+"><input type='button' class='btn btn-default' value='Modifier'></a>  ",
-                "  <input type='button' class='btn btn-default membership' data-toggle='modal' data-target='#"+row.id+"' id="+row.id+" value='adhésions'>  "
+                "  <input type='button' class='btn btn-default membership' data-toggle='modal' data-target='#"+row.id+"' id="+row.id+" value='Re-adhérer'>  "
                 ].join('');
             } else {
                 return [
@@ -99,7 +99,7 @@
                     $('.modal .modal-body').html(
                         '{{ form_start(form) }}'+
                         '{{ form_widget(form) }}'+
-                        '<input type="submit" value="Create" />'+
+                        '<input type="submit" class="btn btn-default" value="ajouter" />'+
                         '{{ form_end(form) }}'
 
                     );

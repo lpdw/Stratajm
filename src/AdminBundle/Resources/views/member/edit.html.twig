@@ -12,15 +12,15 @@
 
     {{ form_row(edit_form._token) }}
         {#{{ form_widget(edit_form) }}#}
-        <input type="submit" class="btn btn-success" value="Valider" />
+        <input type="submit" class="btn btn-success pull-right" value="Valider" />
     {{ form_end(edit_form, {'render_rest': false}) }}
 
-    <a href="{{ path('admin_member_index') }}"><button class="btn btn-default">Retour à la liste</button></a>
+    <a href="{{ path('admin_member_index') }}"><button class="btn btn-default col-lg-offset-2">Retour à la liste</button></a>
 
 
 
     {{ form_start(delete_form, {}) }}
-        <input type="submit" class="btn btn-danger" value="Supprimer" disabled>
+        <input type="submit" class="btn btn-danger col-lg-offset-2" style="margin-top:10px;" value="Supprimer" disabled>
     {{ form_end(delete_form) }}
 
 {% endblock %}
