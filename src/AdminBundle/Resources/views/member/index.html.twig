@@ -18,7 +18,7 @@
                     <p>Some text in the modal.</p>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
                 </div>
             </div>
 
@@ -26,9 +26,9 @@
     </div>
     <div id="toolbar">
             {% if select != "actif" %}
-                <a  href="{{ path('admin_member_index_select',{ 'select' : 'actif' }) }}"> <button type="button" value="actif">Afficher les membres actifs</button></a>
+                <a  href="{{ path('admin_member_index_select',{ 'select' : 'actif' }) }}"> <button type="button" class="btn btn-default" value="actif">Afficher les membres actifs</button></a>
             {% else %}
-                <a  href="{{ path('admin_member_index_select',{ 'select' : 'all' }) }}"> <button type="button" value="all">Afficher tous les membres</button></a>
+                <a  href="{{ path('admin_member_index_select',{ 'select' : 'all' }) }}"> <button type="button" class="btn btn-default" value="all">Afficher tous les membres</button></a>
             {% endif %}
     </div>
     <table id="table"
@@ -40,7 +40,7 @@
            data-pagination="true"
            data-side-pagination="server"
            data-page-list="[5, 10, 20, 50, 100, 200]"
-           data-page-size="5"
+           data-page-size="10"
            data-search="true"
            data-show-refresh="true"
            data-sort-order="desc"
@@ -55,16 +55,12 @@
             <th data-field="lastname">Nom</th>
             <th data-field="email">Email</th>
             <th data-field="telNum">Numéro téléphone</th>
-            <th data-field="action" data-formatter="actionFormatter" data-events="actionEvents">Action</th>
+            <th data-field="action" data-formatter="actionFormatter"  data-events="actionEvents">Action</th>
         </tr>
         </thead>
     </table>
 
-    <ul>
-        <li>
-            <a href="{{ path('admin_member_new') }}">Create a new member</a>
-        </li>
-    </ul>
+    <a href="{{ path('admin_member_new') }}"><button class="btn btn-success pull-right"><span class="glyphicon glyphicon-plus"></span> Ajouter un nouveau membre</button> </a>
 
 
 {% endblock %}
@@ -78,14 +74,14 @@
             var edit = Routing.generate('admin_member_edit', { id: row.id });
             if (row.lastDate == "true"){
                 return [
-                "<a href="+show+"><input type='button' class='btn btn-default' value='show'></a>",
-                "<a href="+edit+"><input type='button' class='btn btn-default' value='edit'></a>",
-                "<input type='button' class='btn btn-default membership' data-toggle='modal' data-target='#"+row.id+"' id="+row.id+" value='membership'>"
+                "  <a href="+show+"><input type='button' class='btn btn-default' value='Afficher'></a>  ",
+                "  <a href="+edit+"><input type='button' class='btn btn-default' value='Modifier'></a>  ",
+                "  <input type='button' class='btn btn-default membership' data-toggle='modal' data-target='#"+row.id+"' id="+row.id+" value='Re-adhérer'>  "
                 ].join('');
             } else {
                 return [
-                    "<a href="+show+"><input type='button' class='btn btn-default' value='show'></a>",
-                    "<a href="+edit+"><input type='button' class='btn btn-default' value='edit'></a>",
+                    "  <a href="+show+"><input type='button' class='btn btn-default' value='Afficher'></a>  " ,
+                    "  <a href="+edit+"><input type='button' class='btn btn-default' value='Modifier'></a>  ",
                 ].join('');
             }
 
@@ -103,7 +99,7 @@
                     $('.modal .modal-body').html(
                         '{{ form_start(form) }}'+
                         '{{ form_widget(form) }}'+
-                        '<input type="submit" value="Create" />'+
+                        '<input type="submit" class="btn btn-default" value="ajouter" />'+
                         '{{ form_end(form) }}'
 
                     );

@@ -1,23 +1,32 @@
 {% extends "AdminBundle::admin-layout.html.twig" %}
 
 {% block content %}
-    <h1>Member</h1>
+    <h1>Page membre</h1>
     <table class="table table-bordered">
 
         <thead>
         <tr>
-            <th>Amount</th>
-            <th>Begindate</th>
-            <th>paymentMethod</th>
+            <th>Montant</th>
+            <th>Date début</th>
+            <th>Moyen de paiement</th>
         </tr>
         </thead>
         <tbody>
         {% for membership in memberships %}
-            {#{{ dump(membership) }}#}
+
             <tr>
-                <td>{{ membership.amount }}</td>
-                <td>{% if membership.beginDate %}{{ membership.beginDate|date('Y-m-d H:i:s') }}{% endif %}</td>
-                <td>{{ membership.paymentMethod.name }}</td>
+
+                {% if( membership.beginDate|date('Y')  == "now"|date("Y")) %}
+                    <td class="success">{{ membership.amount }}€</td>
+                    <td class="success">{% if membership.beginDate %}{{ membership.beginDate|date('Y-m-d') }}{% endif %}</td>
+                    <td class="success">{{ membership.paymentMethod.name }}</td>
+                {% else %}
+                    <td class="danger">{{ membership.amount }}€</td>
+                    <td class="danger">{% if membership.beginDate %}{{ membership.beginDate|date('Y-m-d') }}{% endif %}</td>
+                    <td class="danger">{{ membership.paymentMethod.name }}</td>
+                {% endif %}
+
+
             </tr>
         {% endfor %}
         </tbody>
@@ -25,35 +34,27 @@
     <table>
         <tbody>
             <tr>
-                <th>Firstname</th>
+                <th class="col-lg-2">Prénom: </th>
                 <td>{{ member.firstName }}</td>
             </tr>
             <tr>
-                <th>Lastname</th>
+                <th class="col-lg-2">Nom</th>
                 <td>{{ member.lastName }}</td>
             </tr>
             <tr>
-                <th>Email</th>
+                <th class="col-lg-2">Email: </th>
                 <td>{{ member.email }}</td>
             </tr>
             <tr>
-                <th>Telnum</th>
+                <th class="col-lg-2">Numéro Tel: </th>
                 <td>{{ member.telNum }}</td>
             </tr>
         </tbody>
     </table>
 
-    <ul>
-        <li>
-            <a href="{{ path('admin_member_index') }}">Back to the list</a>
-        </li>
-        <li>
-            <a href="{{ path('admin_member_edit', { 'id': member.id }) }}">Edit</a>
-        </li>
-        <li>
-            {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
-            {{ form_end(delete_form) }}
-        </li>
-    </ul>
+    <a href="{{ path('admin_member_index') }}"><button class="btn btn-default col-lg-offset-2">Retour à la liste</button></a>
+    <a href="{{ path('admin_member_edit', { 'id': member.id }) }}"><input type='button' class='btn btn-default' value='Modifier'></a>
+    {{ form_start(delete_form) }}
+        <input type="submit" class="btn btn-danger col-lg-offset-2" style="margin-top:10px;" value="Supprimer" disabled>
+    {{ form_end(delete_form) }}
 {% endblock %}

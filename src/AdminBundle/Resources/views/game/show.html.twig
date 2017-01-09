@@ -36,7 +36,32 @@
         </tbody>
     </table>
 
-    <span>Nombre d'exemplaires : {{ nbcopies }}</span>
+    {% if copies %}
+    <h3> {{ copies|length}} exemplaire(s) trouvé(s)</h3>
+    <table  class="table table-bordered">
+      <thead>
+        <tr>
+            <th>Référence</th>
+            <th>Etat</th>
+            <th>Emplacement</th>
+        </tr>
+      </thead>
+      <tbody>
+      {% for copy in copies %}
+
+      <tr>
+        <td><a href="{{path('admin_copy_show', {'id': copy.id }) }}"> {{ copy.reference }}</a></td>
+        <td>{{copy.status}}</td>
+        <td>{{copy.localisation}}</td>
+      </tr>
+
+      {% endfor %}
+    </tbody>
+  </table>
+
+    {% else %}
+      <span>Aucun exemplaire en BD. </span>
+    {% endif %}</span>
 
     <ul>
         <li>
@@ -51,4 +76,6 @@
             {{ form_end(delete_form) }}
         </li>
     </ul>
+
+
 {% endblock %}

@@ -1,16 +1,12 @@
 {% extends "AdminBundle::admin-layout.html.twig" %}
+{%  form_theme form 'bootstrap_3_horizontal_layout.html.twig' %}
 
 {% block content %}
     <h1>Member creation</h1>
 
     {{ form_start(form) }}
         {{ form_widget(form) }}
-        <input type="submit" value="Create" />
+        <input type="submit" class="btn btn-success pull-right" value="Create" />
     {{ form_end(form) }}
-
-    <ul>
-        <li>
-            <a href="{{ path('admin_member_index') }}">Back to the list</a>
-        </li>
-    </ul>
+    <a href="{{ path('admin_member_index') }}"><button class="btn btn-default col-lg-offset-2">Retour à la liste</button></a>
 {% endblock %}

@@ -8,12 +8,14 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\Serializer\Encoder\JsonEncode;
 use Symfony\Component\HttpFoundation\File\File;
 
 /**
  * Game controller.
  *
- * @Route("admin")
+ * @Route("admin/game")
  */
 class GameController extends Controller
 {
@@ -83,7 +85,7 @@ class GameController extends Controller
     /**
      * Finds and displays a game entity.
      *
-     * @Route("/{id}", name="admin_show")
+     * @Route("/{id}", name="admin_show", options={"expose"=true})
      * @Method("GET")
      */
     public function showAction(Game $game)
@@ -91,19 +93,23 @@ class GameController extends Controller
         $deleteForm = $this->createDeleteForm($game);
 
         $em = $this->getDoctrine()->getManager();
-        $nbcopies = $em->getRepository('CommonBundle:Copy')->countCopiesByGame($game->getId());
+        $copies = $em->getRepository('CommonBundle:Copy')->findBy(
+          array('game' => $game)
+        );
+
+        //$nbcopies = $em->getRepository('CommonBundle:Copy')->countCopiesByGame($game);
 
         return $this->render('AdminBundle:game:show.html.twig', array(
             'game' => $game,
             'delete_form' => $deleteForm->createView(),
-            'nbcopies' => $nbcopies,
+            'copies' => $copies,
         ));
     }
 
     /**
      * Displays a form to edit an existing game entity.
      *
-     * @Route("/{id}/edit", name="admin_edit")
+     * @Route("/{id}/edit", name="admin_edit", options={"expose"=true})
      * @Method({"GET", "POST"})
      */
     public function editAction(Request $request, Game $game)
@@ -153,6 +159,56 @@ class GameController extends Controller
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         ));
+    }
+
+    /**
+     * Lists all games entities.
+     *
+     * @Route("/json/games", name="games_resp" )
+     *
+     * @Method({"GET", "POST"})
+     */
+    public function dataAction(Request $request)
+    {
+        $search = $request->query->get('search');
+        $limit = $request->query->get('limit');
+        $offset = $request->query->get('offset');
+        $order = $request->query->get('order');
+
+        $em = $this->getDoctrine()->getManager();
+
+        //cas ou le nombre de caractère de la recherche est inférieur à 2
+        if( strlen($search)<2) {
+
+            //on recupère tous les jeux
+            $games = $em->getRepository('CommonBundle:Game')->findAllByArg($order, $offset, $limit);
+
+            $nbRows = $em->getRepository('CommonBundle:Game')->countAll();
+        } else {
+            //cas d'une recherche
+            $games = $em->getRepository('CommonBundle:Game')->findBySearch($search,$order,$offset,$limit);
+
+            $nbRows = $em->getRepository('CommonBundle:Game')->countAllBySearch($search);
+        }
+        $rows =[];
+
+        //on commence le formatage du tableau
+        foreach ($games as $game) {
+            $line['id'] = $game->getId();
+            $line['image'] = $game->getImage();
+            $line['name'] = $game->getName();
+            $line['age'] = $game->getAgeMin().' - '.$game->getAgeMax();
+            $line['duration'] = $game->getDuration();
+            $line['rules'] = $game->getRules();
+            $line['releaseDate'] = $game->getReleaseDate();
+            $line['releaseDate'] = date("d-m-Y");
+
+            $rows[] = $line;
+        }
+        $result['total'] = $nbRows;
+        $result['rows'] = $rows;
+
+        return new JsonResponse($result);
     }
 
     /**
