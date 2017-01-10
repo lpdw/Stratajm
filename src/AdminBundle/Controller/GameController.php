@@ -98,9 +98,27 @@ class GameController extends Controller
         );
 
         //$nbcopies = $em->getRepository('CommonBundle:Copy')->countCopiesByGame($game);
+        switch($game->getDuration()) {
+          case 0:
+            $duration="Courte (<= 30min)";
+          break;
+
+          case 1:
+            $duration="Moyenne (30-45min)";
+          break;
+
+          case 2:
+            $duration="Longue (~1h)";
+          break;
+
+          case 3:
+            $duration="Très longue (+1h)";
+          break;
+        }
 
         return $this->render('AdminBundle:game:show.html.twig', array(
             'game' => $game,
+            'duration' => $duration,
             'delete_form' => $deleteForm->createView(),
             'copies' => $copies,
         ));
