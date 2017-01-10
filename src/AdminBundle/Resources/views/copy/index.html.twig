@@ -12,7 +12,6 @@
             </tr>
         </thead>
         <tbody>
-          {{ dump(copies) }}
         {% for copy in copies %}
             <tr>
                 <td><a href="{{ path('admin_copy_show', { 'id': copy.id }) }}">{{ copy.id }}</a></td>
