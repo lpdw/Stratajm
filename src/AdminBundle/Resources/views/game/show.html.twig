@@ -14,11 +14,11 @@
                 <td>{{ game.id }}</td>
             </tr>
             <tr>
-                <th>Name</th>
+                <th>Nom</th>
                 <td>{{ game.name }}</td>
             </tr>
             <tr>
-                <th>Duration</th>
+                <th>Durée moyenne d'une partie</th>
                 <td>{{ duration }}</td>
             </tr>
             <tr>
@@ -26,11 +26,11 @@
                 <td>{{ game.ageMin }} - {{ game.ageMax }}</td>
             </tr>
             <tr>
-                <th>Rules</th>
+                <th>Règles</th>
                 <td>{{ game.rules }}</td>
             </tr>
             <tr>
-                <th>Releasedate</th>
+                <th>Date de sortie</th>
                 <td>{% if game.releaseDate %}{{ game.releaseDate|date('Y-m-d H:i:s') }}{% endif %}</td>
             </tr>
         </tbody>
