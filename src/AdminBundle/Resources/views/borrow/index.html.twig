@@ -8,13 +8,10 @@
 
     {% else %}
       {% for borrow in borrows %}
-
-          <a href="{{ path('admin_borrow_show', { 'id': borrow.id }) }}">{{ borrow.id }}</a>
-          {% if borrow.beginDate %}{{ borrow.beginDate|date('Y-m-d H:i:s') }}{% endif %}
-          {% if borrow.endDate %}{{ borrow.endDate|date('Y-m-d H:i:s') }}{% endif %}
-                <a href="{{ path('admin_borrow_show', { 'id': borrow.id }) }}">show</a>
-                <a href="{{ path('admin_borrow_edit', { 'id': borrow.id }) }}">edit</a>
-        {% endfor %}
+      <li>
+          <a href="{{ path('admin_borrow_show', { 'id': borrow.id }) }}">{{ borrow.member.firstName }} {{borrow.member.lastName}}</a> le {{borrow.beginDate|date("m/d/Y", "Europe/Paris")}} <a href="{{ path('admin_borrow_edit', { 'id': borrow.id }) }}">[Modifier]</a>
+      </li>
+      {% endfor %}
     {% endif %}
 
     <p><a href="{{ path('admin_borrow_new') }}">Déclarer un nouvel emprunt</a></p>
