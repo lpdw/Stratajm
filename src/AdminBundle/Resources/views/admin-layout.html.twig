@@ -28,6 +28,7 @@
         <ul class="nav navmenu-nav">
             <li><a href="{{ path('admin_index') }}">Liste jeux</a></li>
             <li><a href="{{ path('admin_member_index') }}">Membres</a></li>
+            <li><a href="{{ path('admin_borrow_index') }}">Emprunts</a></li>
             {% if is_granted('ROLE_SUPER_ADMIN') %}
             <li><a href="{{ path('admin_user_index') }}">Administrateurs</a></li>
             {% endif %}

@@ -27,7 +27,7 @@ class MemberType extends AbstractType
                 'label' => 'Email :',
             ))
             ->add('telNum', TextType::class, array(
-                'label' => 'Nom :',
+                'label' => 'Téléphone :',
             ))
             ->add('paymentMethod', EntityType::class, array(
                 'class' => 'CommonBundle:PaymentMethod',
