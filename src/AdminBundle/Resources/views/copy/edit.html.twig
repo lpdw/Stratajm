@@ -10,7 +10,7 @@
 
     <ul>
         <li>
-            <a href="{{ path('admin_copy_index') }}">Back to the list</a>
+            <a href="{{ path('admin_show', {'id': copy.game.id}) }}">Retour à la liste des exemplaires</a>
         </li>
         <li>
             {{ form_start(delete_form) }}

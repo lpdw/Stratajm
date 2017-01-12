@@ -1,41 +1,18 @@
 {% extends "AdminBundle::admin-layout.html.twig" %}
 
 {% block content %}
-    <h1>Borrows list</h1>
+    <h1>Emprunts en cours</h1>
 
-    <table>
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Begindate</th>
-                <th>Enddate</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for borrow in borrows %}
-            <tr>
-                <td><a href="{{ path('admin_borrow_show', { 'id': borrow.id }) }}">{{ borrow.id }}</a></td>
-                <td>{% if borrow.beginDate %}{{ borrow.beginDate|date('Y-m-d H:i:s') }}{% endif %}</td>
-                <td>{% if borrow.endDate %}{{ borrow.endDate|date('Y-m-d H:i:s') }}{% endif %}</td>
-                <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('admin_borrow_show', { 'id': borrow.id }) }}">show</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('admin_borrow_edit', { 'id': borrow.id }) }}">edit</a>
-                        </li>
-                    </ul>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+    {% if currentBorrowings == null %}
+    <div>Aucun emprunt en cours.</div>
 
-    <ul>
-        <li>
-            <a href="{{ path('admin_borrow_new') }}">Create a new borrow</a>
-        </li>
-    </ul>
+    {% else %}
+      {% for borrow in borrows %}
+      <li>
+          <a href="{{ path('admin_borrow_show', { 'id': borrow.id }) }}">{{ borrow.member.firstName }} {{borrow.member.lastName}}</a> le {{borrow.beginDate|date("m/d/Y", "Europe/Paris")}} <a href="{{ path('admin_borrow_edit', { 'id': borrow.id }) }}">[Modifier]</a>
+      </li>
+      {% endfor %}
+    {% endif %}
+
+    <p><a href="{{ path('admin_borrow_new') }}">Déclarer un nouvel emprunt</a></p>
 {% endblock %}

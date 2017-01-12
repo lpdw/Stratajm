@@ -10,4 +10,23 @@ namespace CommonBundle\Repository;
  */
 class BorrowRepository extends \Doctrine\ORM\EntityRepository
 {
+
+  public function findCurrentBorrowings($currentDate) {
+    return $this
+      ->createQueryBuilder('b')
+      ->select(array('b'))
+      ->where("b.endDate < :currentDate")
+      ->setParameter('currentDate', $currentDate)
+      ->getQuery()
+      ->getResult();
+  }
+
+  public function findEndedBorrowings($currentDate) {
+    return $this
+      ->createQueryBuilder('b')
+      ->select(array('b'))
+      ->where("b.endDate >= :currentDate")
+      ->setParameter('currentDate', $currentDate)
+      ->getQuery();
+  }
 }
