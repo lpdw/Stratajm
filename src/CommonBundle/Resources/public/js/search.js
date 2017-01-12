@@ -1,20 +1,22 @@
 $(document).ready(function() {
 
-  // Autocompletion sur le champs de recherche par nom
-  $('#game_search_searchGame').autocomplete({
-    source: function(request, response) {
+    // Autocompletion sur le champs de recherche par nom
+    $('#game_search_searchGame').autocomplete({
+        source: function(request, response) {
             $.ajax({
-              type: "POST",
-              url: Routing.generate('display_games'),
-              data: {
-                  gameName: request.term
-              },
-              success: function(data){ response($.map
-                        (jQuery.parseJSON(data['games']), function(i,v) {
-                            return {
-                            label: i.name ,
+                type: "POST",
+                url: Routing.generate('display_games'),
+                data: {
+                    gameName: request.term
+                },
+                success: function(data) {
+                    response($.map(jQuery.parseJSON(data['games']), function(i, v) {
+                        return {
+                            label: i.name,
                             value: i.name
-                };}));}
+                        };
+                    }));
+                }
 
             });
         },
@@ -23,7 +25,7 @@ $(document).ready(function() {
     });
 
     $("#game_sort_editeur").on('change', function() {
-      console.log("data");
+        console.log("data");
 
         sort(true);
     });
@@ -52,53 +54,59 @@ $(document).ready(function() {
 
 
 
-    function sort(sort){
-      if(sort){
-        var publishers = $("#game_sort_editeur :checked").val();
-        var ageMin=$("#game_sort_age_min").val();
-        var ageMax=$("#game_sort_age_max").val();
-        var orderby=$("#game_sort_trier_par").val();
-        var duration=$("#game_sort_duree").val();
-        var types=$("#game_sort_categorie :checked").val();
-        var themes=$("#game_sort_themes :checked").val();
+    function sort(sort) {
+        if (sort) {
+            var publishers = $("#game_sort_editeur :checked").map(function() {
+                return this.value;
+            }).get();
+            var ageMin = $("#game_sort_age_min").val();
+            var ageMax = $("#game_sort_age_max").val();
+            var orderby = $("#game_sort_trier_par").val();
+            var duration = $("#game_sort_duree").val();
+            var types = $("#game_sort_categorie :checked").map(function() {
+                return this.value;
+            }).get();
+            var themes = $("#game_sort_themes :checked").map(function() {
+                return this.value;
+            }).get();
 
-      }else{
-        var publishers = "";
-        var ageMin="";
-        var ageMax="";
-        var types="";
-        var orderby="publication_asc";
-        var duration="";
-        var themes="";
+        } else {
+            var publishers = "";
+            var ageMin = "";
+            var ageMax = "";
+            var types = "";
+            var orderby = "publication_asc";
+            var duration = "";
+            var themes = "";
 
-      }
+        }
 
 
-      $.ajax({
-          type: "POST",
-          url: Routing.generate('display_games'),
-          data: {
-              ageMin: ageMin,
-              ageMax: ageMax,
-              orderby: orderby,
-              publishers: publishers,
-              duration: duration,
-              types: types,
-              themes:themes
-          },
-          dataType: 'json',
-          /*beforeSend: function(){
-            $("#games-panel").html("");
-             $("#loader").show();
-           },
-           complete: function(){
-             $("#loader").hide();
-           },*/
-          success: function(data) {
-            $("#games-panel").html(data);
+        $.ajax({
+            type: "POST",
+            url: Routing.generate('display_games'),
+            data: {
+                ageMin: ageMin,
+                ageMax: ageMax,
+                orderby: orderby,
+                publishers: publishers,
+                duration: duration,
+                types: types,
+                themes: themes
+            },
+            dataType: 'json',
+            /*beforeSend: function(){
+              $("#games-panel").html("");
+               $("#loader").show();
+             },
+             complete: function(){
+               $("#loader").hide();
+             },*/
+            success: function(data) {
+                $("#games-panel").html(data);
 
-          },
-      });
+            },
+        });
     }
 
 });
