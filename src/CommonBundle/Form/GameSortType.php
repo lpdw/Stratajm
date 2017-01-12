@@ -41,21 +41,21 @@ class GameSortType extends AbstractType
               'class' => 'CommonBundle:Publisher',
               'label' => 'Éditeurs' ,
               'choice_label' => 'name',
-              'expanded' => false,
+              'expanded' => true,
               'multiple' => true))
 
         ->add('categorie', EntityType::class, array(
               'class' => 'CommonBundle:Type',
               'label' => 'Types de jeu' ,
               'choice_label' => 'name',
-              'expanded' => false,
+              'expanded' => true,
               'multiple' => true))
 
         ->add('themes', EntityType::class, array(
               'class' => 'CommonBundle:Theme',
               'label' => 'Thèmes' ,
               'choice_label' => 'name',
-              'expanded' => false,
+              'expanded' => true,
               'multiple' => true))
 
         ->add('age_min', IntegerType::class)

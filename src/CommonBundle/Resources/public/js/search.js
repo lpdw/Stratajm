@@ -54,13 +54,13 @@ $(document).ready(function() {
 
     function sort(sort){
       if(sort){
-        var publishers = $("#game_sort_editeur").val();
+        var publishers = $("#game_sort_editeur :checked").val();
         var ageMin=$("#game_sort_age_min").val();
         var ageMax=$("#game_sort_age_max").val();
         var orderby=$("#game_sort_trier_par").val();
         var duration=$("#game_sort_duree").val();
-        var types=$("#game_sort_categorie").val();
-        var themes=$("#game_sort_themes").val();
+        var types=$("#game_sort_categorie :checked").val();
+        var themes=$("#game_sort_themes :checked").val();
 
       }else{
         var publishers = "";
