@@ -98,7 +98,11 @@ header {
 .form-game-search {
   /*float:right;*/
 }
-
+.dropdown-menu{
+  position: relative !important;
+  width: 100% !important;
+  background: none;
+}
 .game-sticker {
   width:100%;
   height:300px;

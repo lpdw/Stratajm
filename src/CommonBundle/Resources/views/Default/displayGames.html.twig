@@ -17,7 +17,32 @@
             {{ form_widget(searchForm) }}
             {{ form_end(searchForm) }}
             {{ form_start(sortForm)  }}
-            {{ form_widget(sortForm) }}
+            {{ form_widget(sortForm.reinitialiser_les_filtres) }}
+
+            {{ form_widget(sortForm.trier_par) }}
+            {{ form_widget(sortForm.duree) }}
+            {{ form_widget(sortForm.age_min) }}
+            {{ form_widget(sortForm.age_max) }}
+
+              <div class="dropdown">
+                <button class="btn btn-default dropdown-toggle" type="button" id="dropdown-categories" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                  Type de jeu <span class="caret"></span>
+                </button>
+              {{ form_widget(sortForm.categorie, {'attr':{'aria-labelledby':'dropdown-categories','class':'dropdown-menu'}}) }}
+            </div>
+            <div class="dropdown">
+                <button class="btn btn-default dropdown-toggle" type="button" id="dropdown-editeurs" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                  Editeurs <span class="caret"></span>
+                </button>
+                {{ form_widget(sortForm.editeur, {'attr':{'aria-labelledby':'dropdown-editeurs','class':'dropdown-menu'}}) }}
+            </div>
+
+<div class="dropdown">
+    <button class="btn btn-default dropdown-toggle" type="button" id="dropdown-themes" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+Thèmes
+<span class="caret"></span>
+  </button>            {{ form_widget(sortForm.themes, {'attr':{'aria-labelledby':'dropdown-themes','class':'dropdown-menu'}}) }}
+</div>
             {{ form_end(sortForm) }}
           </div>
 
