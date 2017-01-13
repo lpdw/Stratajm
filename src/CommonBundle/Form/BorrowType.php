@@ -6,6 +6,8 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
+
 
 
 class BorrowType extends AbstractType
@@ -16,8 +18,21 @@ class BorrowType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-          ->add('beginDate')
-          ->add('endDate')
+          ->add('beginDate', DateType::class, array (
+            'placeholder' => array(
+              'day'=>'Jour',
+              'month'=>'Mois',
+              'year'=>'Année'
+            ),
+            'format' => 'dd MM yyyy'
+          ))->add('endDate', DateType::class, array (
+            'placeholder' => array(
+              'day'=>'Jour',
+              'month'=>'Mois',
+              'year'=>'Année'
+            ),
+            'format' => 'dd MM yyyy'
+          ))
           ->add('copy', EntityType::class, array(
             'class' => 'CommonBundle:Copy',
             'choice_label' => 'reference',

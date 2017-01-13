@@ -53,7 +53,7 @@
         <tr>
             <th data-field="firstname">Prénom</th>
             <th data-field="lastname">Nom</th>
-            <th data-field="email">Email</th>
+            <th data-field="email" data-formatter="emailFormatter">Email</th>
             <th data-field="telNum">Numéro téléphone</th>
             <th data-field="action" data-formatter="actionFormatter"  data-events="actionEvents">Action</th>
         </tr>
@@ -84,6 +84,17 @@
                     "  <a href="+edit+"><input type='button' class='btn btn-default' value='Modifier'></a>  ",
                 ].join('');
             }
+
+
+        }
+
+        function emailFormatter(value, row, index) {
+            console.log(value);
+
+            return [
+                    '<a href="mailto:'+value+'">'+value+'</a>',
+            ].join('');
+
 
 
         }

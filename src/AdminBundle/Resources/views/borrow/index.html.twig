@@ -3,13 +3,13 @@
 {% block content %}
     <h1>Emprunts en cours</h1>
 
-    {% if currentBorrowings == null %}
+    {% if borrowings == null %}
     <div>Aucun emprunt en cours.</div>
 
     {% else %}
-      {% for borrow in borrows %}
+      {% for borrowing in borrowings %}
       <li>
-          <a href="{{ path('admin_borrow_show', { 'id': borrow.id }) }}">{{ borrow.member.firstName }} {{borrow.member.lastName}}</a> le {{borrow.beginDate|date("m/d/Y", "Europe/Paris")}} <a href="{{ path('admin_borrow_edit', { 'id': borrow.id }) }}">[Modifier]</a>
+          {{ borrowing.copy.game.name }} (référence {{ borrowing.copy.reference }}) : emprunté par <a href="{{ path('admin_borrow_show', { 'id': borrowing.id }) }}">{{ borrowing.member.firstName }} {{borrowing.member.lastName}}</a> le {{borrowing.beginDate|date("m/d/Y", "Europe/Paris")}} <a href="{{ path('admin_borrow_edit', { 'id': borrowing.id }) }}">[Modifier]</a>
       </li>
       {% endfor %}
     {% endif %}
