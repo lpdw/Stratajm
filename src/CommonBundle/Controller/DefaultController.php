@@ -9,7 +9,13 @@ use Symfony\Component\HttpFoundation\Request;
 use CommonBundle\Form\GameSearchType;
 use CommonBundle\Form\GameSortType;
 
-use CommonBundle\Repository;
+use CommonBundle\Repository\GameRepository;
+use CommonBundle\Repository\PublisherRepository;
+use CommonBundle\Repository\PlayersRepository;
+use CommonBundle\Repository\CongestionRepository;
+
+use CommonBundle\Repository\AuthorRepository;
+
 use CommonBundle\Entity\Game;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
@@ -74,14 +80,30 @@ class DefaultController extends Controller
           $publishersID=$request->request->get('publishers');
           $orderby=$request->request->get('orderby');
           $ageMin=$request->request->get('ageMin');
-          $ageMax=$request->request->get('ageMax');
           $duration=$request->request->get('duration');
           $types=$request->request->get('types');
           $themes=$request->request->get('themes');
+          $authors=$request->request->get('authors');
+          $country=$request->request->get('country');
+          $congestion=$request->request->get('congestion');
+          $players=$request->request->get('players');
+
 
           if($publishersID==null){
             // Si aucun editeur de jeu n'est selectionné, on les récupère tous
-            $publishersID=$em->getRepository('CommonBundle:Game')->getAllPublishersById();
+            $publishersID=$em->getRepository('CommonBundle:Publisher')->findAll();
+          }
+          if($authors==null){
+            $authors=$em->getRepository('CommonBundle:Author')->findAll();
+          }
+          if($country==null){
+            $country=$em->getRepository('CommonBundle:Country')->findAll();
+          }
+          if($congestion==null){
+            $congestion=$em->getRepository('CommonBundle:Congestion')->findAll();
+          }
+          if($players==null){
+            $players=$em->getRepository('CommonBundle:Players')->findAll();
           }
           if($types==null){
             // Si aucun type de jeu n'est selectionné, on les récupère tous
@@ -91,19 +113,11 @@ class DefaultController extends Controller
             // Si aucun theme de jeu n'est selectionné, on les récupère tous
             $themes = $em->getRepository('CommonBundle:Theme')->findAll();
           }
-          if($ageMin==null && $ageMax==null){
-            // Si aucun âge n'est sélectionné on prend deux extrêmes pour
+          if($ageMin==null){
             $ageMin=200;
-            $ageMax=0;
-          }
-          elseif($ageMax==null && $ageMin!=null){
-            $ageMax=$ageMin;
-          }
-          elseif($ageMax!=null && $ageMin==null){
-            $ageMin=$ageMax;
-          }
+        }
 
-          $gamesSorted = $em->getRepository('CommonBundle:Game')->sortBy($publishersID,$orderby,$ageMin,$ageMax,$duration,$types,$themes);
+          $gamesSorted = $em->getRepository('CommonBundle:Game')->sortBy($publishersID,$orderby,$ageMin,$duration,$types,$themes,$authors,$country,$congestion,$players);
           $paginator  = $this->get('knp_paginator');
           $pagination = $paginator->paginate(
              $gamesSorted, /* query NOT result */

@@ -102,6 +102,11 @@ header {
   position: relative !important;
   width: 100% !important;
   background: none;
+  overflow-x: scroll !important;
+}
+
+.dropdown-toggle{
+  width: 100%;
 }
 .game-sticker {
   width:100%;

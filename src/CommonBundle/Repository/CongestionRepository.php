@@ -10,4 +10,12 @@ namespace CommonBundle\Repository;
  */
 class CongestionRepository extends \Doctrine\ORM\EntityRepository
 {
+  public function getAllIds()
+  {
+      return $this
+      ->createQueryBuilder('c')
+      ->select('c.id')
+      ->getQuery()
+      ->getArrayResult();
+  }
 }

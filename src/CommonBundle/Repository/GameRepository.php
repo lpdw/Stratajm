@@ -45,19 +45,11 @@ class GameRepository extends \Doctrine\ORM\EntityRepository
             ->getResult();
     }
 
-    public function getAllPublishersById()
-    {
-        return $this
-        ->createQueryBuilder('g')
-        ->select('g.id')
-        ->leftJoin('g.publisher', 'p', 'WITH', 'g.publisher = p.id')
-        ->getQuery()
-        ->getArrayResult();
-    }
 
 
 
-    public function sortBy($publishersID, $orderby, $ageMin, $ageMax, $duration,$types,$themes)
+
+    public function sortBy($publishersID, $orderby, $ageMin,$duration,$types,$themes,$authors,$country,$congestion,$players)
     {
         if ($orderby=="publication_asc") {
             $sort='g.releaseDate';
@@ -83,29 +75,36 @@ class GameRepository extends \Doctrine\ORM\EntityRepository
         }
 
         $request = $this->createQueryBuilder('g')
-        ->select('g', 'p')
-        ->leftJoin('g.publisher', 'p')
+        ->leftJoin('g.publishers', 'pu')
         ->leftJoin('g.types', 't')
         ->leftJoin('g.themes', 'th')
-
-          ->where("g.publisher IN (:publisher_id)")
-          ->andWhere('t.id IN (:types_id)')
-          ->andWhere('th.id IN (:themes_id)')
-
-          ->andWhere("g.ageMax >= :ageMax")
-          ->andWhere("g.ageMin <= :ageMin")
-          ->andwhere($requestDuree)
-          ->setParameter('publisher_id', $publishersID)
-          ->setParameter('themes_id',$themes)
-          ->setParameter('types_id', $types)
-          ->setParameter('ageMin', $ageMin)
-          ->setParameter('ageMax', $ageMax)
-          ->setParameter('duration', $duration)
-          ->orderBy($sort, $order)
-          ->getQuery();
-
+        ->leftJoin('g.authors', 'a')
+        ->leftJoin('g.country', 'c')
+        ->leftJoin('g.congestion', 'con')
+        ->leftJoin('g.nbPlayers', 'p')
+        ->where("pu.id IN (:publisher_id)")
+        ->andWhere('t.id IN (:types_id)')
+        ->andWhere('th.id IN (:themes_id)')
+        ->andWhere('a.id IN (:authors)')
+        ->andWhere('c.id IN (:countries)')
+        ->andWhere('con.id IN (:congestions)')
+        ->andWhere('p.id IN (:players)')
+        ->andWhere("g.ageMin <= :ageMin")
+        ->andwhere($requestDuree)
+        ->setParameter('publisher_id', $publishersID)
+        ->setParameter('themes_id',$themes)
+        ->setParameter('authors',$authors)
+        ->setParameter('countries',$country)
+        ->setParameter('congestions',$congestion)
+        ->setParameter('players',$players)
+        ->setParameter('types_id', $types)
+        ->setParameter('ageMin', $ageMin)
+        ->setParameter('duration', $duration)
+        ->orderBy($sort, $order)
+        ->getQuery();
         return $request;
     }
+
 
     public function findAllByArg($order = 'desc', $offset = 0, $limit = 10){
         $result = $this->createQueryBuilder('m')

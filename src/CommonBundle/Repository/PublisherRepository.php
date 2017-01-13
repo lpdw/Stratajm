@@ -10,4 +10,12 @@ namespace CommonBundle\Repository;
  */
 class PublisherRepository extends \Doctrine\ORM\EntityRepository
 {
+  public function getAllIds()
+  {
+      return $this
+      ->createQueryBuilder('p')
+      ->select('p.id')
+      ->getQuery()
+      ->getArrayResult();
+  }
 }

@@ -10,4 +10,12 @@ namespace CommonBundle\Repository;
  */
 class CountryRepository extends \Doctrine\ORM\EntityRepository
 {
+  public function getAllIds()
+  {
+      return $this
+      ->createQueryBuilder('c')
+      ->select('c.id')
+      ->getQuery()
+      ->getArrayResult();
+  }
 }
