@@ -55,7 +55,7 @@
                 var url = "{{ asset('uploads/images/') }}";
 
                 return [
-                    '<img src="'+url+value+'"/>'
+                    '<img src="'+url+value+'" onerror="this.style.display=\'none\'"/>'
                 ].join('');
         }
 

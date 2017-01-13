@@ -38,7 +38,7 @@ class Membership
     /**
      * Many Membership have One Member.
      * @ORM\ManyToOne(targetEntity="Member")
-     * @ORM\JoinColumn(name="member_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="member_id", referencedColumnName="id", onDelete="CASCADE")
      */
     private $member;
 
