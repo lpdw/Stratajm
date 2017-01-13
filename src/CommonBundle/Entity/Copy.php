@@ -49,7 +49,7 @@ class Copy
      */
     private $localisation;
 
-    
+
 
 
     /**
