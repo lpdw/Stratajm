@@ -1,0 +1,32 @@
+{% extends 'AdminBundle::admin-layout.html.twig' %}
+
+{% block body %}
+    <h1>Countries list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for country in countries %}
+            <tr>
+                <td><a href="{{ path('admin_country_show', { 'id': country.id }) }}">{{ country.id }}</a></td>
+                <td>{{ country.name }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('admin_country_show', { 'id': country.id }) }}">show</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+
+{% endblock %}
