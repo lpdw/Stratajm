@@ -53,19 +53,41 @@ class Game
      */
     private $ageMin;
     /**
-     * @var string
+     * @var integer
      *
      * @Assert\Type("integer")
 
      * @Assert\Range(
           *      min = 0,
-          *      max = 110,
-          *      minMessage = "L'âge doit être supérieur à {{ limit }}",
-          *      maxMessage = "L'âge ne peut pas être supérieur à  {{ limit }}"
+          *      minMessage = "Le nombre de joueurs doit être supérieur à {{ limit }}",
           * )
-     * @ORM\Column(name="ageMax", type="integer", length=255)
+     * @ORM\Column(name="nbPlayers", type="integer", length=255)
      */
-    private $ageMax;
+    private $nbPlayers;
+    /**
+     * @var integer
+     *
+     * @Assert\Type("integer")
+
+     * @Assert\Range(
+          *      min = 0,
+          *      minMessage = "La durée des explications ne peut pas être inférieure à {{ limit }}",
+          * )
+     * @ORM\Column(name="explanationsDuration", type="integer", length=255)
+     */
+    private $explanationsDuration;
+    /**
+     * @var integer
+     *
+     * @Assert\Type("integer")
+
+     * @Assert\Range(
+          *      min = 0,
+          *      minMessage = "Le prix ne peut pas être inférieur à  {{ limit }}",
+          * )
+     * @ORM\Column(name="prix", type="integer", length=255, nullable=true)
+     */
+    private $price;
 
     /**
      * @var string
@@ -91,8 +113,26 @@ class Game
      */
     private $themes;
 
+    /**
+     *  @var integer
+     * Many Games have One Country.
+     * @ORM\ManyToOne(targetEntity="Country")
+     * @ORM\JoinColumn(name="country_id", referencedColumnName="id")
+     *
+     */
+    private $country;
 
     /**
+     * @var integer
+     * Many Games have One Congestion.
+     * @ORM\ManyToOne(targetEntity="Congestion")
+     * @ORM\JoinColumn(name="congestion_id", referencedColumnName="id")
+     *
+     */
+    private $congestion;
+
+    /**
+     *
      * Many Games have Many Themes.
      * @ORM\ManyToMany(targetEntity="Type")
      * @ORM\JoinTable(name="game_type",
@@ -103,11 +143,23 @@ class Game
     private $types;
 
     /**
-     * Many Games have One Publisher.
-     * @ORM\ManyToOne(targetEntity="Publisher")
-     * @ORM\JoinColumn(name="publisher_id", referencedColumnName="id")
+     * Many Games have Many Publishers.
+     * @ORM\ManyToMany(targetEntity="Publisher")
+     * @ORM\JoinTable(name="game_publisher",
+     *      joinColumns={@ORM\JoinColumn(name="game_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="publisher_id", referencedColumnName="id")}
+     *      )
      */
-    private $publisher;
+    private $publishers;
+    /**
+     * Many Games have Many authors.
+     * @ORM\ManyToMany(targetEntity="Author")
+     * @ORM\JoinTable(name="game_author",
+     *      joinColumns={@ORM\JoinColumn(name="game_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="author_id", referencedColumnName="id")}
+     *      )
+     */
+    private $authors;
 
     /**
      * One Game has Many Copies.
