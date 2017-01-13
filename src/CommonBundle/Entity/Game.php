@@ -85,7 +85,7 @@ class Game
           *      min = 0,
           *      minMessage = "Le prix ne peut pas être inférieur à  {{ limit }}",
           * )
-     * @ORM\Column(name="prix", type="integer", length=255, nullable=true)
+     * @ORM\Column(name="price", type="integer", length=255, nullable=true)
      */
     private $price;
 
@@ -538,4 +538,173 @@ class Game
     {
         return $this->ageMax;
     }
+
+    /**
+     * Get the value of Nb Players
+     *
+     * @return integer
+     */
+    public function getNbPlayers()
+    {
+        return $this->nbPlayers;
+    }
+
+    /**
+     * Set the value of Nb Players
+     *
+     * @param integer nbPlayers
+     *
+     * @return self
+     */
+    public function setNbPlayers($nbPlayers)
+    {
+        $this->nbPlayers = $nbPlayers;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of Explanations Duration
+     *
+     * @return integer
+     */
+    public function getExplanationsDuration()
+    {
+        return $this->explanationsDuration;
+    }
+
+    /**
+     * Set the value of Explanations Duration
+     *
+     * @param integer explanationsDuration
+     *
+     * @return self
+     */
+    public function setExplanationsDuration($explanationsDuration)
+    {
+        $this->explanationsDuration = $explanationsDuration;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of Price
+     *
+     * @return integer
+     */
+    public function getPrice()
+    {
+        return $this->price;
+    }
+
+    /**
+     * Set the value of Price
+     *
+     * @param integer price
+     *
+     * @return self
+     */
+    public function setPrice($price)
+    {
+        $this->price = $price;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of Country
+     *
+     * @return integer
+     */
+    public function getCountry()
+    {
+        return $this->country;
+    }
+
+    /**
+     * Set the value of Country
+     *
+     * @param integer country
+     *
+     * @return self
+     */
+    public function setCountry($country)
+    {
+        $this->country = $country;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of Congestion
+     *
+     * @return integer
+     */
+    public function getCongestion()
+    {
+        return $this->congestion;
+    }
+
+    /**
+     * Set the value of Congestion
+     *
+     * @param integer congestion
+     *
+     * @return self
+     */
+    public function setCongestion($congestion)
+    {
+        $this->congestion = $congestion;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of Many Games have Many Publishers.
+     *
+     * @return mixed
+     */
+    public function getPublishers()
+    {
+        return $this->publishers;
+    }
+
+    /**
+     * Set the value of Many Games have Many Publishers.
+     *
+     * @param mixed publishers
+     *
+     * @return self
+     */
+    public function setPublishers($publishers)
+    {
+        $this->publishers = $publishers;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of Many Games have Many authors.
+     *
+     * @return mixed
+     */
+    public function getAuthors()
+    {
+        return $this->authors;
+    }
+
+    /**
+     * Set the value of Many Games have Many authors.
+     *
+     * @param mixed authors
+     *
+     * @return self
+     */
+    public function setAuthors($authors)
+    {
+        $this->authors = $authors;
+
+        return $this;
+    }
+
 }
