@@ -6,12 +6,15 @@
     <table>
         <tbody>
             <tr>
-                <th>Id</th>
-                <td>{{ copy.id }}</td>
+              <th>Référence</th>
+              <th>Etat</th>
+              <th>Emplacement</th>
             </tr>
             <tr>
-                <th>Reference</th>
-                <td>{{ copy.reference }}</td>
+              <td>{{ copy.reference }}</td>
+              <td>{{ copy.status.name }}</td>
+              <td>{{ copy.localisation.name }}</td>
+
             </tr>
         </tbody>
     </table>
