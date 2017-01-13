@@ -100,7 +100,10 @@ class Game
 
     /**
      * Many Games have Many Themes.
-     * @ORM\ManyToMany(targetEntity="Theme")
+     * @Assert\Count(
+     *      min = "1",
+     *      minMessage = "Merci de choisir au moins un thème",
+     * )
      * @ORM\JoinTable(name="game_theme",
      *      joinColumns={@ORM\JoinColumn(name="game_id", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="theme_id", referencedColumnName="id")}
@@ -111,6 +114,7 @@ class Game
     /**
      *  @var integer
      * Many Games have One Country.
+
      * @ORM\ManyToOne(targetEntity="Country")
      * @ORM\JoinColumn(name="country_id", referencedColumnName="id")
      *
@@ -119,6 +123,7 @@ class Game
 
     /**
      * @var integer
+     *
      * Many Games have One Congestion.
      * @ORM\ManyToOne(targetEntity="Congestion")
      * @ORM\JoinColumn(name="congestion_id", referencedColumnName="id")
@@ -129,6 +134,10 @@ class Game
     /**
      *
      * Many Games have Many Themes.
+     * @Assert\Count(
+     *      min = "1",
+     *      minMessage = "Merci de choisir au moins un type de jeu",
+     * )
      * @ORM\ManyToMany(targetEntity="Type")
      * @ORM\JoinTable(name="game_type",
      *      joinColumns={@ORM\JoinColumn(name="game_id", referencedColumnName="id")},
@@ -139,7 +148,10 @@ class Game
 
     /**
      * Many Games have Many Publishers.
-     * @ORM\ManyToMany(targetEntity="Publisher")
+     * @Assert\Count(
+     *      min = "1",
+     *      minMessage = "Merci de choisir au moins un éditeur",
+     * )     * @ORM\ManyToMany(targetEntity="Publisher")
      * @ORM\JoinTable(name="game_publisher",
      *      joinColumns={@ORM\JoinColumn(name="game_id", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="publisher_id", referencedColumnName="id")}
@@ -148,7 +160,10 @@ class Game
     private $publishers;
     /**
      * Many Games have Many authors.
-     * @ORM\ManyToMany(targetEntity="Author")
+     * @Assert\Count(
+     *      min = "1",
+     *      minMessage = "Merci de choisir au moins un auteur",
+     * )     * @ORM\ManyToMany(targetEntity="Author")
      * @ORM\JoinTable(name="game_author",
      *      joinColumns={@ORM\JoinColumn(name="game_id", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="author_id", referencedColumnName="id")}
@@ -685,4 +700,28 @@ class Game
         return $this;
     }
 
+
+    /**
+     * Add author
+     *
+     * @param \CommonBundle\Entity\Author $author
+     *
+     * @return Game
+     */
+    public function addAuthor(\CommonBundle\Entity\Author $author)
+    {
+        $this->authors[] = $author;
+
+        return $this;
+    }
+
+    /**
+     * Remove author
+     *
+     * @param \CommonBundle\Entity\Author $author
+     */
+    public function removeAuthor(\CommonBundle\Entity\Author $author)
+    {
+        $this->authors->removeElement($author);
+    }
 }
