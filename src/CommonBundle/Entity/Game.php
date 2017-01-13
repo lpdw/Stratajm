@@ -55,13 +55,8 @@ class Game
     /**
      * @var integer
      *
-     * @Assert\Type("integer")
-
-     * @Assert\Range(
-          *      min = 0,
-          *      minMessage = "Le nombre de joueurs doit être supérieur à {{ limit }}",
-          * )
-     * @ORM\Column(name="nbPlayers", type="integer", length=255)
+     * @ORM\ManyToOne(targetEntity="Players")
+     * @ORM\JoinColumn(name="players_id", referencedColumnName="id")
      */
     private $nbPlayers;
     /**
@@ -493,18 +488,6 @@ class Game
         return $this->ageMin;
     }
 
-    /**
-     * Set ageMax
-     *
-     * @param string $ageMax
-     *
-     * @return Game
-     */
-    public function setAgeMax($ageMax)
-    {
-        $this->ageMax = $ageMax;
-        return $this;
-    }
 
     /**
      * Get the value of Image
@@ -529,39 +512,6 @@ class Game
         return $this;
     }
 
-    /**
-     * Get ageMax
-     *
-     * @return string
-     */
-    public function getAgeMax()
-    {
-        return $this->ageMax;
-    }
-
-    /**
-     * Get the value of Nb Players
-     *
-     * @return integer
-     */
-    public function getNbPlayers()
-    {
-        return $this->nbPlayers;
-    }
-
-    /**
-     * Set the value of Nb Players
-     *
-     * @param integer nbPlayers
-     *
-     * @return self
-     */
-    public function setNbPlayers($nbPlayers)
-    {
-        $this->nbPlayers = $nbPlayers;
-
-        return $this;
-    }
 
     /**
      * Get the value of Explanations Duration
@@ -703,6 +653,31 @@ class Game
     public function setAuthors($authors)
     {
         $this->authors = $authors;
+
+        return $this;
+    }
+
+
+    /**
+     * Get the value of Nb Players
+     *
+     * @return integer
+     */
+    public function getNbPlayers()
+    {
+        return $this->nbPlayers;
+    }
+
+    /**
+     * Set the value of Nb Players
+     *
+     * @param integer nbPlayers
+     *
+     * @return self
+     */
+    public function setNbPlayers($nbPlayers)
+    {
+        $this->nbPlayers = $nbPlayers;
 
         return $this;
     }
