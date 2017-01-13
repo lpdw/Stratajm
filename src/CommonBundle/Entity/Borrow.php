@@ -49,6 +49,13 @@ class Borrow
      */
     private $member;
 
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="ongoing", type="boolean")
+     */
+    private $onGoing;
+
 
     /**
      * Get id
@@ -157,4 +164,33 @@ class Borrow
     {
         return $this->member;
     }
+
+    /**
+     * Get onGoing
+     *
+     * @return boolean
+     */
+    public function getOnGoing()
+    {
+        return $this->onGoing;
+    }
+
+
+    /**
+     * Set onGoing
+     *
+     * @param boolean $onGoin
+     *
+     * @return Borrow
+     */
+    public function setOnGoing($onGoing)
+    {
+        $this->onGoing = $onGoing;
+
+        return $this;
+    }
+
+
+
+
 }

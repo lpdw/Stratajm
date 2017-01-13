@@ -25,7 +25,7 @@ class BorrowController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $borrowings = $em->getRepository('CommonBundle:Borrow')->findAll();
-        
+
 
         /* TODO : comment gérer la fin d'un emprunt ?
         $date = new \DateTime();
@@ -51,7 +51,10 @@ class BorrowController extends Controller
     public function newAction(Request $request)
     {
         $borrow = new Borrow();
-        $form = $this->createForm('CommonBundle\Form\BorrowType', $borrow);
+        $borrow->setOnGoing(false);
+        $form = $this->createForm('CommonBundle\Form\BorrowType', $borrow, array(
+          'copiesgetter' => $this->get('app.copiesgetter')
+        ));
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

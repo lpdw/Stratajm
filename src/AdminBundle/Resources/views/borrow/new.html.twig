@@ -1,7 +1,7 @@
 {% extends "AdminBundle::admin-layout.html.twig" %}
 
 {% block content %}
-    <h1>Borrow creation</h1>
+    <h1>Déclarer un emprunt</h1>
 
     {{ form_start(form) }}
         {{ form_widget(form) }}
@@ -10,7 +10,7 @@
 
     <ul>
         <li>
-            <a href="{{ path('admin_borrow_index') }}">Back to the list</a>
+            <a href="{{ path('admin_borrow_index') }}">retour à la liste</a>
         </li>
     </ul>
 {% endblock %}

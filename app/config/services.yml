@@ -16,3 +16,7 @@ services:
     app.copygenerator:
       class: AdminBundle\Services\CopyGeneratorService
       arguments: ['@doctrine', gameid, nbcopy]
+
+    app.copiesgetter:
+      class: AdminBundle\Services\CopiesGetterService
+      arguments: ['@doctrine']
