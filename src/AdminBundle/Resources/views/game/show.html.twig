@@ -1,94 +1,84 @@
 {% extends "AdminBundle::admin-layout.html.twig" %}
 
 {% block content %}
-    <h1>Game</h1>
-
-    <table>
-        <tbody>
-            <tr>
-                <th>Image</th>
-                <td><img style="width:30%;" src="{{ asset('uploads/images/' ~ game.image) }}"/></td>
-            </tr>
-            <tr>
-                <th>Id</th>
-                <td>{{ game.id }}</td>
-            </tr>
-            <tr>
-                <th>Nom</th>
-                <td>{{ game.name }}</td>
-            </tr>
-            <tr>
-                <th>Durée moyenne d'une partie</th>
-                <td>{{ duration }}</td>
-            </tr>
-            <tr>
-                <th>Age</th>
-                <td>{{ game.ageMin }}</td>
-            </tr>
-            <tr>
-                <th>Règles</th>
-                <td>{{ game.rules }}</td>
-            </tr>
-            <tr>
-                <th>Date de sortie</th>
-                <td>{% if game.releaseDate %}{{ game.releaseDate|date('Y-m-d H:i:s') }}{% endif %}</td>
-            </tr>
-        </tbody>
-    </table>
-
-    {% if copies %}
-    <h3> {{ copies|length}} exemplaire(s) trouvé(s)</h3>
-    <table  class="table table-bordered">
-      <thead>
+<div class="row top-game">
+    <img src="{{ asset('uploads/images/' ~ game.image) }}" onerror="this.style.display='none'"/>
+    <h1>{{ game.name }}</h1>
+</div>
+<div class="row col-sm-offset-3 col-sm-6 col-lg-offset-3 col-lg-6 show-game">
+    <table class="table table-responsive table-striped">
         <tr>
-            <th>Référence</th>
-            <th>Etat</th>
-            <th>Emplacement</th>
-            <th>Gérer</th>
+            <th>Nom</th>
+            <td>{{ game.name }}</td>
         </tr>
-      </thead>
-      <tbody>
-      {% for copy in copies %}
+        <tr>
+            <th>Durée moyenne d'une partie</th>
+            <td>{{ duration }}</td>
+        </tr>
+        <tr>
+            <th>Age</th>
+            <td>{{ game.ageMin }} </td>
+        </tr>
+        <tr>
+            <th>Règles</th>
+            <td>{{ game.rules }}</td>
+        </tr>
+        <tr>
+            <th>Date de sortie</th>
+            <td>{% if game.releaseDate %}{{ game.releaseDate|date('Y') }}{% endif %}</td>
+        </tr>
+    </table>
+</div>
 
-      <tr>
-        <td><a href="{{path('admin_copy_show', {'id': copy.id }) }}"> {{ copy.reference }}</a></td>
-        <td>
-        {% if copy.status == null %}
-          null
+<div class="row col-sm-offset-3 col-sm-6 col-lg-offset-3 col-lg-6 show-game">
+    <a href="{{ path('admin_index') }}"><button type="button" class="btn btn-primary">Retour à la liste</button></a>
+    <a href="{{ path('admin_edit', { 'id': game.id }) }}"><button type="button" class="btn btn-success">Modifier</button></a>
+    {{ form_start(delete_form) }}
+        <input type="submit" class="btn btn-danger" value="Supprimer">
+    {{ form_end(delete_form) }}
+</div>
+
+{% if copies %}
+<div class="row col-lg-12 col-sm-12">
+    <h3> {{ copies|length}} exemplaire(s) trouvé(s)</h3>
+    <table  class="table table-bordered table-responsive">
+        <thead>
+            <tr>
+                <th>Référence</th>
+                <th>Etat</th>
+                <th>Emplacement</th>
+                <th>Gérer</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for copy in copies %}
+
+            <tr>
+                <td><a href="{{path('admin_copy_show', {'id': copy.id }) }}"> {{ copy.reference }}</a></td>
+                <td>
+                    {% if copy.status == null %}
+                    null
+                    {% else %}
+                    {{copy.status.name}}
+                    {% endif %}
+                </td>
+                <td>
+                    {% if copy.localisation == null %}
+                    null
+                    {% else %}
+                    {{copy.localisation.name}}
+                    {% endif %}</td>
+                    <td><a href="{{path('admin_copy_edit', {'id': copy.id }) }}"><button type="button" class="btn btn-default">Editer</button></a></td>
+                </tr>
+
+                {% endfor %}
+            </tbody>
+        </table>
+
         {% else %}
-          {{copy.status.name}}
-        {% endif %}
-        </td>
-        <td>
-        {% if copy.localisation == null %}
-          null
-        {% else %}
-          {{copy.localisation.name}}
-        {% endif %}</td>
-        <td><a href="{{path('admin_copy_edit', {'id': copy.id }) }}"><button type="button" class="btn btn-default">Editer</button></a></td>
-      </tr>
-
-      {% endfor %}
-    </tbody>
-  </table>
-
-    {% else %}
-      <span>Aucun exemplaire en BD. </span>
+        <span>Aucun exemplaire en BD. </span>
     {% endif %}</span>
-
-    <ul>
-        <li>
-            <a href="{{ path('admin_index') }}">Back to the list</a>
-        </li>
-        <li>
-            <a href="{{ path('admin_edit', { 'id': game.id }) }}">Edit</a>
-        </li>
-        <li>
-            {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
-            {{ form_end(delete_form) }}
-        </li>
-    </ul>
+</div>
 
 
 {% endblock %}

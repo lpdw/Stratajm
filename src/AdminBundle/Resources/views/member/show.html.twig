@@ -43,7 +43,7 @@
             </tr>
             <tr>
                 <th class="col-lg-2">Email: </th>
-                <td>{{ member.email }}</td>
+                <td><a href="mailto:{{ member.email }}" >{{ member.email }}</a></td>
             </tr>
             <tr>
                 <th class="col-lg-2">Numéro Tel: </th>
@@ -55,6 +55,6 @@
     <a href="{{ path('admin_member_index') }}"><button class="btn btn-default col-lg-offset-2">Retour à la liste</button></a>
     <a href="{{ path('admin_member_edit', { 'id': member.id }) }}"><input type='button' class='btn btn-default' value='Modifier'></a>
     {{ form_start(delete_form) }}
-        <input type="submit" class="btn btn-danger col-lg-offset-2" style="margin-top:10px;" value="Supprimer" disabled>
+        <input type="submit" class="btn btn-danger col-lg-offset-2" style="margin-top:10px;" value="Supprimer" >
     {{ form_end(delete_form) }}
 {% endblock %}
