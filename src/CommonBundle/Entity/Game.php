@@ -156,6 +156,7 @@ class Game
      */
     private $authors;
 
+
     /**
      * One Game has Many Copies.
      * @ORM\OneToMany(targetEntity="Copy", mappedBy="game")
@@ -352,29 +353,6 @@ class Game
         return $this->types;
     }
 
-    /**
-     * Set publisher
-     *
-     * @param \CommonBundle\Entity\Publisher $publisher
-     *
-     * @return Game
-     */
-    public function setPublisher(\CommonBundle\Entity\Publisher $publisher = null)
-    {
-        $this->publisher = $publisher;
-
-        return $this;
-    }
-
-    /**
-     * Get publisher
-     *
-     * @return \CommonBundle\Entity\Publisher
-     */
-    public function getPublisher()
-    {
-        return $this->publisher;
-    }
 
     /**
      * Add copy
@@ -514,6 +492,7 @@ class Game
 
 
     /**
+<<<<<<< HEAD
      * Get the value of Explanations Duration
      *
      * @return integer
@@ -545,6 +524,39 @@ class Game
     public function getPrice()
     {
         return $this->price;
+      }
+/**
+     * Add publisher
+     *
+     * @param \CommonBundle\Entity\Publisher $publisher
+     *
+     * @return Game
+     */
+    public function addPublisher(\CommonBundle\Entity\Publisher $publisher)
+    {
+        $this->publishers[] = $publisher;
+
+        return $this;
+    }
+
+    /**
+     * Remove publisher
+     *
+     * @param \CommonBundle\Entity\Publisher $publisher
+     */
+    public function removePublisher(\CommonBundle\Entity\Publisher $publisher)
+    {
+        $this->publishers->removeElement($publisher);
+    }
+
+    /**
+     * Get publishers
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getPublishers()
+    {
+        return $this->publishers;
     }
 
     /**
@@ -609,15 +621,6 @@ class Game
         return $this;
     }
 
-    /**
-     * Get the value of Many Games have Many Publishers.
-     *
-     * @return mixed
-     */
-    public function getPublishers()
-    {
-        return $this->publishers;
-    }
 
     /**
      * Set the value of Many Games have Many Publishers.

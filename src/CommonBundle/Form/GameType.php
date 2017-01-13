@@ -11,7 +11,7 @@ use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
-use Symfony\Component\Form\FormEvents;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 
 class GameType extends AbstractType
 {
@@ -47,12 +47,14 @@ class GameType extends AbstractType
                         '<20 minutes' => 1,
                         '>20 minutes' => 2,
                     )))
-                ->add('releaseDate',DateType::class)
+                ->add('releaseDate', DateTimeType::class, array(
+                    'widget' => 'single_text',
+                    'attr' => array('id' => 'datepicker'),
+                    'format' => 'yyyy-MM-dd',
+                ))
                 ->add('country',EntityType::class, array(
                   'class' => 'CommonBundle:Country',
-                  'choice_label' => 'name',
-
-                ))
+                  'choice_label' => 'name'))
                 ->add('themes',EntityType::class, array(
                   'class' => 'CommonBundle:Theme',
                   'choice_label' => 'name',
@@ -76,6 +78,7 @@ class GameType extends AbstractType
                   'choice_label' => 'name',
                   'expanded' => true,
                   'multiple' => true
+
                 ))
                 ->add('nbcopies', IntegerType::class, array(
                   'label' => 'Nombre d\'exemplaires',

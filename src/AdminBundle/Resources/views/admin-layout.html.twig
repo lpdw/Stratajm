@@ -15,8 +15,10 @@
 
         %}
 
+
         <link rel="stylesheet" href="{{ asset_url }}" />
         {% endstylesheets %}
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     {% endblock %}
 {% endblock %}
 {% block body %}
@@ -76,6 +78,7 @@
                    '@AdminBundle/Resources/public/js/tableExport.js'
                    '@AdminBundle/Resources/public/js/bootstrap-table-fr-FR.min.js'
     %}
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
     <script src="{{ asset_url }}"></script>
     {% endjavascripts %}
