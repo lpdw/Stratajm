@@ -32,3 +32,26 @@ td {
 .pagination-info {
     display:none;
 }
+
+.show-game {
+    position:relative;
+    padding:0;
+}
+
+.show-game .btn-danger {
+    position:absolute;
+    top:0;
+    right:0;
+}
+
+.top-game img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width:20%;
+    height:auto;
+}
+
+.top-game h1 {
+    text-align:center;
+}
