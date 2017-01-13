@@ -53,19 +53,36 @@ class Game
      */
     private $ageMin;
     /**
-     * @var string
+     * @var integer
+     *
+     * @ORM\ManyToOne(targetEntity="Players")
+     * @ORM\JoinColumn(name="players_id", referencedColumnName="id")
+     */
+    private $nbPlayers;
+    /**
+     * @var integer
      *
      * @Assert\Type("integer")
 
      * @Assert\Range(
           *      min = 0,
-          *      max = 110,
-          *      minMessage = "L'âge doit être supérieur à {{ limit }}",
-          *      maxMessage = "L'âge ne peut pas être supérieur à  {{ limit }}"
+          *      minMessage = "La durée des explications ne peut pas être inférieure à {{ limit }}",
           * )
-     * @ORM\Column(name="ageMax", type="integer", length=255)
+     * @ORM\Column(name="explanationsDuration", type="integer", length=255)
      */
-    private $ageMax;
+    private $explanationsDuration;
+    /**
+     * @var integer
+     *
+     * @Assert\Type("integer")
+
+     * @Assert\Range(
+          *      min = 0,
+          *      minMessage = "Le prix ne peut pas être inférieur à  {{ limit }}",
+          * )
+     * @ORM\Column(name="price", type="integer", length=255, nullable=true)
+     */
+    private $price;
 
     /**
      * @var string
@@ -91,8 +108,26 @@ class Game
      */
     private $themes;
 
+    /**
+     *  @var integer
+     * Many Games have One Country.
+     * @ORM\ManyToOne(targetEntity="Country")
+     * @ORM\JoinColumn(name="country_id", referencedColumnName="id")
+     *
+     */
+    private $country;
 
     /**
+     * @var integer
+     * Many Games have One Congestion.
+     * @ORM\ManyToOne(targetEntity="Congestion")
+     * @ORM\JoinColumn(name="congestion_id", referencedColumnName="id")
+     *
+     */
+    private $congestion;
+
+    /**
+     *
      * Many Games have Many Themes.
      * @ORM\ManyToMany(targetEntity="Type")
      * @ORM\JoinTable(name="game_type",
@@ -103,11 +138,24 @@ class Game
     private $types;
 
     /**
-     * Many Games have One Publisher.
-     * @ORM\ManyToOne(targetEntity="Publisher")
-     * @ORM\JoinColumn(name="publisher_id", referencedColumnName="id")
+     * Many Games have Many Publishers.
+     * @ORM\ManyToMany(targetEntity="Publisher")
+     * @ORM\JoinTable(name="game_publisher",
+     *      joinColumns={@ORM\JoinColumn(name="game_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="publisher_id", referencedColumnName="id")}
+     *      )
      */
-    private $publisher;
+    private $publishers;
+    /**
+     * Many Games have Many authors.
+     * @ORM\ManyToMany(targetEntity="Author")
+     * @ORM\JoinTable(name="game_author",
+     *      joinColumns={@ORM\JoinColumn(name="game_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="author_id", referencedColumnName="id")}
+     *      )
+     */
+    private $authors;
+
 
     /**
      * One Game has Many Copies.
@@ -305,29 +353,6 @@ class Game
         return $this->types;
     }
 
-    /**
-     * Set publisher
-     *
-     * @param \CommonBundle\Entity\Publisher $publisher
-     *
-     * @return Game
-     */
-    public function setPublisher(\CommonBundle\Entity\Publisher $publisher = null)
-    {
-        $this->publisher = $publisher;
-
-        return $this;
-    }
-
-    /**
-     * Get publisher
-     *
-     * @return \CommonBundle\Entity\Publisher
-     */
-    public function getPublisher()
-    {
-        return $this->publisher;
-    }
 
     /**
      * Add copy
@@ -441,18 +466,6 @@ class Game
         return $this->ageMin;
     }
 
-    /**
-     * Set ageMax
-     *
-     * @param string $ageMax
-     *
-     * @return Game
-     */
-    public function setAgeMax($ageMax)
-    {
-        $this->ageMax = $ageMax;
-        return $this;
-    }
 
     /**
      * Get the value of Image
@@ -477,13 +490,199 @@ class Game
         return $this;
     }
 
+
     /**
-     * Get ageMax
+<<<<<<< HEAD
+     * Get the value of Explanations Duration
      *
-     * @return string
+     * @return integer
      */
-    public function getAgeMax()
+    public function getExplanationsDuration()
     {
-        return $this->ageMax;
+        return $this->explanationsDuration;
     }
+
+    /**
+     * Set the value of Explanations Duration
+     *
+     * @param integer explanationsDuration
+     *
+     * @return self
+     */
+    public function setExplanationsDuration($explanationsDuration)
+    {
+        $this->explanationsDuration = $explanationsDuration;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of Price
+     *
+     * @return integer
+     */
+    public function getPrice()
+    {
+        return $this->price;
+      }
+/**
+     * Add publisher
+     *
+     * @param \CommonBundle\Entity\Publisher $publisher
+     *
+     * @return Game
+     */
+    public function addPublisher(\CommonBundle\Entity\Publisher $publisher)
+    {
+        $this->publishers[] = $publisher;
+
+        return $this;
+    }
+
+    /**
+     * Remove publisher
+     *
+     * @param \CommonBundle\Entity\Publisher $publisher
+     */
+    public function removePublisher(\CommonBundle\Entity\Publisher $publisher)
+    {
+        $this->publishers->removeElement($publisher);
+    }
+
+    /**
+     * Get publishers
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getPublishers()
+    {
+        return $this->publishers;
+    }
+
+    /**
+     * Set the value of Price
+     *
+     * @param integer price
+     *
+     * @return self
+     */
+    public function setPrice($price)
+    {
+        $this->price = $price;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of Country
+     *
+     * @return integer
+     */
+    public function getCountry()
+    {
+        return $this->country;
+    }
+
+    /**
+     * Set the value of Country
+     *
+     * @param integer country
+     *
+     * @return self
+     */
+    public function setCountry($country)
+    {
+        $this->country = $country;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of Congestion
+     *
+     * @return integer
+     */
+    public function getCongestion()
+    {
+        return $this->congestion;
+    }
+
+    /**
+     * Set the value of Congestion
+     *
+     * @param integer congestion
+     *
+     * @return self
+     */
+    public function setCongestion($congestion)
+    {
+        $this->congestion = $congestion;
+
+        return $this;
+    }
+
+
+    /**
+     * Set the value of Many Games have Many Publishers.
+     *
+     * @param mixed publishers
+     *
+     * @return self
+     */
+    public function setPublishers($publishers)
+    {
+        $this->publishers = $publishers;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of Many Games have Many authors.
+     *
+     * @return mixed
+     */
+    public function getAuthors()
+    {
+        return $this->authors;
+    }
+
+    /**
+     * Set the value of Many Games have Many authors.
+     *
+     * @param mixed authors
+     *
+     * @return self
+     */
+    public function setAuthors($authors)
+    {
+        $this->authors = $authors;
+
+        return $this;
+    }
+
+
+    /**
+     * Get the value of Nb Players
+     *
+     * @return integer
+     */
+    public function getNbPlayers()
+    {
+        return $this->nbPlayers;
+    }
+
+    /**
+     * Set the value of Nb Players
+     *
+     * @param integer nbPlayers
+     *
+     * @return self
+     */
+    public function setNbPlayers($nbPlayers)
+    {
+        $this->nbPlayers = $nbPlayers;
+
+        return $this;
+    }
+
 }

@@ -15,9 +15,11 @@
             </a>
             <div class="game-sticker-info">
                 <div>{{ game.name }}</div>
-                <div>Editeur :
-                    <a href="{{ game.publisher.url | external_link }}">{{ game.publisher.name }}
-                    </a>
+                <div>Editeur(s) :
+                    {% for publisher in game.publishers %}
+                    <a href="{{ publisher.url | external_link }}"> {{ game.publisher.name }}
+                    </a>,
+                    {% endfor %}
                 </div>
             </div>
 

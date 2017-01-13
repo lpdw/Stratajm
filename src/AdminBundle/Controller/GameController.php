@@ -215,7 +215,7 @@ class GameController extends Controller
             $line['id'] = $game->getId();
             $line['image'] = $game->getImage();
             $line['name'] = $game->getName();
-            $line['age'] = $game->getAgeMin().' - '.$game->getAgeMax();
+            $line['age'] = $game->getAgeMin();
             $line['duration'] = $game->getDuration();
             $line['rules'] = $game->getRules();
             $line['releaseDate'] = date_format($game->getReleaseDate(), "Y");

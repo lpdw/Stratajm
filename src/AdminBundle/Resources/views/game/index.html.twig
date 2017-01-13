@@ -2,6 +2,7 @@
 
 {% block content %}
     <div class="row top-table">
+
         <h1 class="col-lg-4 col-sm-4">Liste des jeux</h1>
         <div>
             <a href="{{ path('admin_new') }}"><input type='button' class='btn btn-primary' value='Créer un nouveau jeu'></a>
@@ -37,11 +38,6 @@
         </thead>
     </table>
 
-    <div class="row">
-        <div class="col-lg-2">
-            <a href="{{ path('admin_new') }}"><input type='button' class='btn btn-primary' value='Créer un nouveau jeu'></a>
-        </div>
-    </div>
 {% endblock %}
 
 {% block javascripts %}
