@@ -17,7 +17,7 @@
                 <div>{{ game.name }}</div>
                 <div>Editeur(s) :
                     {% for publisher in game.publishers %}
-                    <a href="{{ publisher.url | external_link }}"> {{ game.publisher.name }}
+                    <a href="{{ publisher.url | external_link }}"> {{ publisher.name }}
                     </a>,
                     {% endfor %}
                 </div>
