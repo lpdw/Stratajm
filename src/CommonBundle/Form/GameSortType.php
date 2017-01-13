@@ -58,7 +58,6 @@ class GameSortType extends AbstractType
               'expanded' => true,
               'multiple' => true))
 
-        ->add('age_min', IntegerType::class)
-        ->add('age_max', IntegerType::class);
+        ->add('age_min', IntegerType::class);
     }
 }

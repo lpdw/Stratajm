@@ -6,9 +6,12 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+  use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\FormEvents;
 
 class GameType extends AbstractType
 {
@@ -27,9 +30,28 @@ class GameType extends AbstractType
                         'Très longue +1h' => 3,
                     )))
                 ->add('ageMin')
-                ->add('ageMax')
+                ->add('nbPlayers')
+                ->add('price')
+                ->add('congestion',EntityType::class,array(
+                  'class' => 'CommonBundle:Congestion',
+                  'choice_label' => 'name',
+                  'expanded' => true,
+                  'multiple' => false
+                ))
                 ->add('rules')
-                ->add('releaseDate')
+                ->add('explanationsDuration',ChoiceType::class, array(
+                    'choices'  => array(
+                        '<10 minutes' => 0,
+                        '<20 minutes' => 1,
+                        '>20 minutes' => 2,
+                    )))
+                ->add('releaseDate',DateType::class)
+                ->add('country',EntityType::class, array(
+                  'class' => 'CommonBundle:Country',
+                  'choice_label' => 'name',
+                  'expanded' => true,
+                  'multiple' => false
+                ))
                 ->add('themes',EntityType::class, array(
                   'class' => 'CommonBundle:Theme',
                   'choice_label' => 'name',
@@ -39,17 +61,26 @@ class GameType extends AbstractType
                 ->add('types',EntityType::class, array(
                   'class' => 'CommonBundle:Type',
                   'choice_label' => 'name',
-                  'expanded' => false,
+                  'expanded' => true,
                   'multiple' => true
                 ))
-                ->add('publisher', EntityType::class, array(
+                ->add('authors', EntityType::class, array(
+                  'class' => 'CommonBundle:Author',
+                  'choice_label' => 'name',
+                  'expanded' => true,
+                  'multiple' => true
+                ))
+                ->add('publishers', EntityType::class, array(
                   'class' => 'CommonBundle:Publisher',
-                  'choice_label' => 'name'
+                  'choice_label' => 'name',
+                  'expanded' => true,
+                  'multiple' => true
                 ))
                 ->add('nbcopies', IntegerType::class, array(
                   'label' => 'Nombre d\'exemplaires',
                   'mapped' => false,
                 ));
+
     }
 
     /**
