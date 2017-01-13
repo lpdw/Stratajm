@@ -1,32 +1,35 @@
 {% extends "AdminBundle::admin-layout.html.twig" %}
 
 {% block content %}
-    <h1>Exemplaire du jeu {{ copy.game.name }}</h1>
-
-    <table>
-        <tbody>
+    <div class="row top">
+        <h1>Exemplaire d'un jeu {{ copy.game.name }}</h1>
+    </div>
+    <div class="row col-sm-offset-3 col-sm-6 col-lg-offset-3 col-lg-6 show">
+        <table class="table table-responsive table-striped">
             <tr>
-                <th>Id</th>
-                <td>{{ copy.id }}</td>
-            </tr>
-            <tr>
-                <th>Reference</th>
+                <th>Référence</th>
                 <td>{{ copy.reference }}</td>
             </tr>
-        </tbody>
-    </table>
+            <tr>
+                <th>Jeu</th>
+                <td>{{ copy.game.name }}</td>
+            </tr>
+            <tr>
+                <th>État</th>
+                <td>{{ copy.status }}</td>
+            </tr>
+            <tr>
+                <th>Emplacement</th>
+                <td>{{ copy.localisation }}</td>
+            </tr>
+        </table>
+    </div>
 
-    <ul>
-        <li>
-            <a href="{{ path('admin_copy_index') }}">Back to the list</a>
-        </li>
-        <li>
-            <a href="{{ path('admin_copy_edit', { 'id': copy.id }) }}">Edit</a>
-        </li>
-        <li>
-            {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
-            {{ form_end(delete_form) }}
-        </li>
-    </ul>
+    <div class="row col-sm-offset-3 col-sm-6 col-lg-offset-3 col-lg-6 show">
+        <a href="{{ path('admin_copy_index') }}"><button type="button" class="btn btn-primary">Retour à la liste</button></a>
+        <a href="{{ path('admin_copy_edit', { 'id': copy.id }) }}"><button type="button" class="btn btn-success">Modifier</button></a>
+        {{ form_start(delete_form) }}
+            <input type="submit" class="btn btn-danger" value="Supprimer">
+        {{ form_end(delete_form) }}
+    </div>
 {% endblock %}
