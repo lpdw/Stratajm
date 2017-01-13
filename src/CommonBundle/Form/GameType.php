@@ -9,6 +9,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 
 class GameType extends AbstractType
 {
@@ -27,24 +28,29 @@ class GameType extends AbstractType
                         'Très longue +1h' => 3,
                     )))
                 ->add('ageMin')
-                ->add('ageMax')
                 ->add('rules')
-                ->add('releaseDate')
+                ->add('releaseDate', DateTimeType::class, array(
+                    'widget' => 'single_text',
+                    'attr' => array('id' => 'datepicker'),
+                    'format' => 'yyyy-MM-dd',
+                ))
                 ->add('themes',EntityType::class, array(
                   'class' => 'CommonBundle:Theme',
                   'choice_label' => 'name',
-                  'expanded' => false,
+                  'expanded' => true,
                   'multiple' => true
                 ))
                 ->add('types',EntityType::class, array(
                   'class' => 'CommonBundle:Type',
                   'choice_label' => 'name',
-                  'expanded' => false,
+                  'expanded' => true,
                   'multiple' => true
                 ))
-                ->add('publisher', EntityType::class, array(
+                ->add('publishers', EntityType::class, array(
                   'class' => 'CommonBundle:Publisher',
-                  'choice_label' => 'name'
+                    'choice_label' => 'name',
+                    'expanded' => true,
+                    'multiple' => true,
                 ))
                 ->add('nbcopies', IntegerType::class, array(
                   'label' => 'Nombre d\'exemplaires',

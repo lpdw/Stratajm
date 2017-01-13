@@ -52,20 +52,6 @@ class Game
      * @ORM\Column(name="ageMin", type="integer", length=255)
      */
     private $ageMin;
-    /**
-     * @var string
-     *
-     * @Assert\Type("integer")
-
-     * @Assert\Range(
-          *      min = 0,
-          *      max = 110,
-          *      minMessage = "L'âge doit être supérieur à {{ limit }}",
-          *      maxMessage = "L'âge ne peut pas être supérieur à  {{ limit }}"
-          * )
-     * @ORM\Column(name="ageMax", type="integer", length=255)
-     */
-    private $ageMax;
 
     /**
      * @var string
@@ -103,11 +89,14 @@ class Game
     private $types;
 
     /**
-     * Many Games have One Publisher.
-     * @ORM\ManyToOne(targetEntity="Publisher")
-     * @ORM\JoinColumn(name="publisher_id", referencedColumnName="id")
+     * Many Games have Many Themes.
+     * @ORM\ManyToMany(targetEntity="Publisher")
+     * @ORM\JoinTable(name="game_publisher",
+     *      joinColumns={@ORM\JoinColumn(name="game_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="publisher_id", referencedColumnName="id")}
+     *      )
      */
-    private $publisher;
+    private $publishers;
 
     /**
      * One Game has Many Copies.
@@ -305,29 +294,6 @@ class Game
         return $this->types;
     }
 
-    /**
-     * Set publisher
-     *
-     * @param \CommonBundle\Entity\Publisher $publisher
-     *
-     * @return Game
-     */
-    public function setPublisher(\CommonBundle\Entity\Publisher $publisher = null)
-    {
-        $this->publisher = $publisher;
-
-        return $this;
-    }
-
-    /**
-     * Get publisher
-     *
-     * @return \CommonBundle\Entity\Publisher
-     */
-    public function getPublisher()
-    {
-        return $this->publisher;
-    }
 
     /**
      * Add copy
@@ -441,18 +407,6 @@ class Game
         return $this->ageMin;
     }
 
-    /**
-     * Set ageMax
-     *
-     * @param string $ageMax
-     *
-     * @return Game
-     */
-    public function setAgeMax($ageMax)
-    {
-        $this->ageMax = $ageMax;
-        return $this;
-    }
 
     /**
      * Get the value of Image
@@ -478,12 +432,36 @@ class Game
     }
 
     /**
-     * Get ageMax
+     * Add publisher
      *
-     * @return string
+     * @param \CommonBundle\Entity\Publisher $publisher
+     *
+     * @return Game
      */
-    public function getAgeMax()
+    public function addPublisher(\CommonBundle\Entity\Publisher $publisher)
     {
-        return $this->ageMax;
+        $this->publishers[] = $publisher;
+
+        return $this;
+    }
+
+    /**
+     * Remove publisher
+     *
+     * @param \CommonBundle\Entity\Publisher $publisher
+     */
+    public function removePublisher(\CommonBundle\Entity\Publisher $publisher)
+    {
+        $this->publishers->removeElement($publisher);
+    }
+
+    /**
+     * Get publishers
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getPublishers()
+    {
+        return $this->publishers;
     }
 }
