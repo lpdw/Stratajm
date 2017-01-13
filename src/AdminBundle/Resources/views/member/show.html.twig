@@ -1,60 +1,68 @@
 {% extends "AdminBundle::admin-layout.html.twig" %}
 
 {% block content %}
-    <h1>Page membre</h1>
-    <table class="table table-bordered">
+    <div class="row top">
+        <h1>{{ member.firstname }} {{ member.lastname }}</h1>
+    </div>
+    <div class="row col-sm-offset-3 col-sm-6 col-lg-offset-3 col-lg-6 show">
+        <h3>Adhésion</h3>
+        <table class="table table-bordered ">
 
-        <thead>
-        <tr>
-            <th>Montant</th>
-            <th>Date début</th>
-            <th>Moyen de paiement</th>
-        </tr>
-        </thead>
-        <tbody>
-        {% for membership in memberships %}
-
+            <thead>
             <tr>
-
-                {% if( membership.beginDate|date('Y')  == "now"|date("Y")) %}
-                    <td class="success">{{ membership.amount }}€</td>
-                    <td class="success">{% if membership.beginDate %}{{ membership.beginDate|date('Y-m-d') }}{% endif %}</td>
-                    <td class="success">{{ membership.paymentMethod.name }}</td>
-                {% else %}
-                    <td class="danger">{{ membership.amount }}€</td>
-                    <td class="danger">{% if membership.beginDate %}{{ membership.beginDate|date('Y-m-d') }}{% endif %}</td>
-                    <td class="danger">{{ membership.paymentMethod.name }}</td>
-                {% endif %}
-
-
+                <th>Montant</th>
+                <th>Date début</th>
+                <th>Moyen de paiement</th>
             </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-    <table>
-        <tbody>
+            </thead>
+            <tbody>
+            {% for membership in memberships %}
+
+                <tr>
+
+                    {% if( membership.beginDate|date('Y')  == "now"|date("Y")) %}
+                        <td class="success">{{ membership.amount }}€</td>
+                        <td class="success">{% if membership.beginDate %}{{ membership.beginDate|date('Y-m-d') }}{% endif %}</td>
+                        <td class="success">{{ membership.paymentMethod.name }}</td>
+                    {% else %}
+                        <td class="danger">{{ membership.amount }}€</td>
+                        <td class="danger">{% if membership.beginDate %}{{ membership.beginDate|date('Y-m-d') }}{% endif %}</td>
+                        <td class="danger">{{ membership.paymentMethod.name }}</td>
+                    {% endif %}
+
+
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div class="row col-sm-offset-3 col-sm-6 col-lg-offset-3 col-lg-6 show">
+        <h3>Informations membre</h3>
+        <table class="table table-responsive table-striped">
             <tr>
-                <th class="col-lg-2">Prénom: </th>
-                <td>{{ member.firstName }}</td>
-            </tr>
-            <tr>
-                <th class="col-lg-2">Nom</th>
-                <td>{{ member.lastName }}</td>
-            </tr>
-            <tr>
-                <th class="col-lg-2">Email: </th>
-                <td><a href="mailto:{{ member.email }}" >{{ member.email }}</a></td>
+                <th>Prénom</th>
+                <td>{{ member.firstname }}</td>
             </tr>
             <tr>
-                <th class="col-lg-2">Numéro Tel: </th>
+                <th>Nom</th>
+                <td>{{ member.lastname}}</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td>{{ member.email }}</td>
+            </tr>
+            <tr>
+                <th>Téléphone</th>
                 <td>{{ member.telNum }}</td>
             </tr>
-        </tbody>
-    </table>
+        </table>
+    </div>
 
-    <a href="{{ path('admin_member_index') }}"><button class="btn btn-default col-lg-offset-2">Retour à la liste</button></a>
-    <a href="{{ path('admin_member_edit', { 'id': member.id }) }}"><input type='button' class='btn btn-default' value='Modifier'></a>
-    {{ form_start(delete_form) }}
-        <input type="submit" class="btn btn-danger col-lg-offset-2" style="margin-top:10px;" value="Supprimer" >
-    {{ form_end(delete_form) }}
+    <div class="row col-sm-offset-3 col-sm-6 col-lg-offset-3 col-lg-6 show">
+        <a href="{{ path('admin_member_index') }}"><button type="button" class="btn btn-primary">Retour à la liste</button></a>
+        <a href="{{ path('admin_member_edit', { 'id': member.id }) }}"><button type="button" class="btn btn-success">Modifier</button></a>
+        {{ form_start(delete_form) }}
+            <input type="submit" class="btn btn-danger" value="Supprimer">
+        {{ form_end(delete_form) }}
+    </div>
 {% endblock %}
