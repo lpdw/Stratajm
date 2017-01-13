@@ -44,7 +44,7 @@ class PlayersController extends Controller
      */
     public function newAction(Request $request)
     {
-        $player = new Player();
+        $player = new Players();
         $form = $this->createForm('CommonBundle\Form\PlayersType', $player);
         $form->handleRequest($request);
 
@@ -53,7 +53,7 @@ class PlayersController extends Controller
             $em->persist($player);
             $em->flush($player);
 
-            return $this->redirectToRoute('players_show', array('id' => $player->getId()));
+            return $this->redirectToRoute('admin_players_show', array('id' => $player->getId()));
         }
 
         return $this->render('AdminBundle:players:new.html.twig', array(
@@ -93,7 +93,7 @@ class PlayersController extends Controller
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('players_edit', array('id' => $player->getId()));
+            return $this->redirectToRoute('admin_players_edit', array('id' => $player->getId()));
         }
 
         return $this->render('AdminBundle:players:edit.html.twig', array(
@@ -120,7 +120,7 @@ class PlayersController extends Controller
             $em->flush($player);
         }
 
-        return $this->redirectToRoute('players_index');
+        return $this->redirectToRoute('admin_players_index');
     }
 
     /**
@@ -133,7 +133,7 @@ class PlayersController extends Controller
     private function createDeleteForm(Players $player)
     {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('players_delete', array('id' => $player->getId())))
+            ->setAction($this->generateUrl('admin_players_delete', array('id' => $player->getId())))
             ->setMethod('DELETE')
             ->getForm()
         ;

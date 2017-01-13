@@ -31,7 +31,7 @@ class AuthorController extends Controller
 
         $authors = $em->getRepository('CommonBundle:Author')->findAll();
 
-        return $this->render('author/index.html.twig', array(
+        return $this->render('AdminBundle:author:index.html.twig', array(
             'authors' => $authors,
         ));
     }
@@ -56,7 +56,7 @@ class AuthorController extends Controller
             return $this->redirectToRoute('admin_author_show', array('id' => $author->getId()));
         }
 
-        return $this->render('author/new.html.twig', array(
+        return $this->render('AdminBundle:author:new.html.twig', array(
             'author' => $author,
             'form' => $form->createView(),
         ));
@@ -72,7 +72,7 @@ class AuthorController extends Controller
     {
         $deleteForm = $this->createDeleteForm($author);
 
-        return $this->render('author/show.html.twig', array(
+        return $this->render('AdminBundle:author:show.html.twig', array(
             'author' => $author,
             'delete_form' => $deleteForm->createView(),
         ));
@@ -96,7 +96,7 @@ class AuthorController extends Controller
             return $this->redirectToRoute('admin_author_edit', array('id' => $author->getId()));
         }
 
-        return $this->render('author/edit.html.twig', array(
+        return $this->render('AdminBundle:author:edit.html.twig', array(
             'author' => $author,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),

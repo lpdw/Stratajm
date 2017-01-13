@@ -1,6 +1,6 @@
 {% extends 'AdminBundle::admin-layout.html.twig' %}
 
-{% block body %}
+{% block content %}
     <h1>Countries list</h1>
 
     <table>
@@ -21,6 +21,9 @@
                         <li>
                             <a href="{{ path('admin_country_show', { 'id': country.id }) }}">show</a>
                         </li>
+                        <li>
+                            <a href="{{ path('admin_country_edit', { 'id': country.id }) }}">edit</a>
+                        </li>
                     </ul>
                 </td>
             </tr>
@@ -28,5 +31,9 @@
         </tbody>
     </table>
 
-
+    <ul>
+        <li>
+            <a href="{{ path('admin_country_new') }}">Create a new country</a>
+        </li>
+    </ul>
 {% endblock %}

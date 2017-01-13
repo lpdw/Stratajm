@@ -55,7 +55,7 @@ class CongestionController extends Controller
             return $this->redirectToRoute('admin_congestion_show', array('id' => $congestion->getId()));
         }
 
-        return $this->render('congestion/new.html.twig', array(
+        return $this->render('AdminBundle:congestion:new.html.twig', array(
             'congestion' => $congestion,
             'form' => $form->createView(),
         ));
@@ -71,7 +71,7 @@ class CongestionController extends Controller
     {
         $deleteForm = $this->createDeleteForm($congestion);
 
-        return $this->render('congestion/show.html.twig', array(
+        return $this->render('AdminBundle:congestion:show.html.twig', array(
             'congestion' => $congestion,
             'delete_form' => $deleteForm->createView(),
         ));
@@ -95,7 +95,7 @@ class CongestionController extends Controller
             return $this->redirectToRoute('admin_congestion_edit', array('id' => $congestion->getId()));
         }
 
-        return $this->render('congestion/edit.html.twig', array(
+        return $this->render('AdminBundle:congestion:edit.html.twig', array(
             'congestion' => $congestion,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),

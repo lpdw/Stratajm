@@ -30,13 +30,15 @@ class GameType extends AbstractType
                         'Très longue +1h' => 3,
                     )))
                 ->add('ageMin')
-                ->add('nbPlayers')
+                ->add('nbPlayers',EntityType::class,array(
+                  'class' => 'CommonBundle:Players',
+                  'choice_label' => 'name',
+                ))
                 ->add('price')
                 ->add('congestion',EntityType::class,array(
                   'class' => 'CommonBundle:Congestion',
                   'choice_label' => 'name',
-                  'expanded' => true,
-                  'multiple' => false
+
                 ))
                 ->add('rules')
                 ->add('explanationsDuration',ChoiceType::class, array(
@@ -49,13 +51,12 @@ class GameType extends AbstractType
                 ->add('country',EntityType::class, array(
                   'class' => 'CommonBundle:Country',
                   'choice_label' => 'name',
-                  'expanded' => true,
-                  'multiple' => false
+
                 ))
                 ->add('themes',EntityType::class, array(
                   'class' => 'CommonBundle:Theme',
                   'choice_label' => 'name',
-                  'expanded' => false,
+                  'expanded' => true,
                   'multiple' => true
                 ))
                 ->add('types',EntityType::class, array(
