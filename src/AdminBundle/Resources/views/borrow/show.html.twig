@@ -1,36 +1,39 @@
 {% extends "AdminBundle::admin-layout.html.twig" %}
 
 {% block content %}
-    <h1>Borrow</h1>
+    <div class="row top">
+        <h1>Emprunt n°{{ borrow.id }}</h1>
+    </div>
+    <div class="row col-sm-offset-3 col-sm-6 col-lg-offset-3 col-lg-6 show">
+        <table class="table table-responsive table-striped">
+            <tr>
+                <th>Jeu empruntée</th>
+                <td>{{ borrow.copy.game.name }}</td>
+            </tr>
+            <tr>
+                <th>Copie empruntée</th>
+                <td>{{ borrow.copy.reference }}</td>
+            </tr>
+            <tr>
+                <th>Emprunté par</th>
+                <td><a href="{{ path('admin_member_show', { id: borrow.member.id }) }}">{{ borrow.member.firstName }} {{ borrow.member.lastName }}</a></td>
+            </tr>
+            <tr>
+                <th>Date de début</th>
+                <td>{{ borrow.beginDate|date('d/m/Y') }}</td>
+            </tr>
+            <tr>
+                <th>Date de fin</th>
+                <td>{{ borrow.endDate|date('d/m/Y') }}</td>
+            </tr>
+        </table>
+    </div>
 
-    <table>
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ borrow.id }}</td>
-            </tr>
-            <tr>
-                <th>Begindate</th>
-                <td>{% if borrow.beginDate %}{{ borrow.beginDate|date('Y-m-d H:i:s') }}{% endif %}</td>
-            </tr>
-            <tr>
-                <th>Enddate</th>
-                <td>{% if borrow.endDate %}{{ borrow.endDate|date('Y-m-d H:i:s') }}{% endif %}</td>
-            </tr>
-        </tbody>
-    </table>
-
-    <ul>
-        <li>
-            <a href="{{ path('admin_borrow_index') }}">Back to the list</a>
-        </li>
-        <li>
-            <a href="{{ path('admin_borrow_edit', { 'id': borrow.id }) }}">Edit</a>
-        </li>
-        <li>
-            {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
-            {{ form_end(delete_form) }}
-        </li>
-    </ul>
+    <div class="row col-sm-offset-3 col-sm-6 col-lg-offset-3 col-lg-6 show">
+        <a href="{{ path('admin_borrow_index') }}"><button type="button" class="btn btn-primary">Retour à la liste</button></a>
+        <a href="{{ path('admin_borrow_edit', { 'id': borrow.id }) }}"><button type="button" class="btn btn-success">Modifier</button></a>
+        {{ form_start(delete_form) }}
+            <input type="submit" class="btn btn-danger" value="Supprimer">
+        {{ form_end(delete_form) }}
+    </div>
 {% endblock %}
