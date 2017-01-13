@@ -1,11 +1,12 @@
 {% extends "AdminBundle::admin-layout.html.twig" %}
 
 {% block content %}
-    <div class="row top-table">
-
-        <h1 class="col-lg-4 col-sm-4">Liste des jeux</h1>
-        <div>
-            <a href="{{ path('admin_new') }}"><input type='button' class='btn btn-primary' value='Créer un nouveau jeu'></a>
+    <div class="row top-list">
+        <div class="row">
+            <h1 class="col-lg-4 col-sm-4">Liste des jeux</h1>
+        </div>
+        <div class="row">
+            <a href="{{ path('admin_new') }}"><button class="btn btn-primary pull-right"><span class="glyphicon glyphicon-plus"></span> Créer un nouveau jeu</button></a>
         </div>
     </div>
     <table id="table"

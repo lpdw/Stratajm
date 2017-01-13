@@ -1,39 +1,32 @@
 {% extends "AdminBundle::admin-layout.html.twig" %}
 
 {% block content %}
-    <h1>Congestions list</h1>
+    <div class="row top-list">
+        <div class="row">
+            <h1 class="col-lg-5 col-sm-5">Types d'emcombrement</h1>
+        </div>
+        <div class="row">
+            <a href="{{ path('admin_congestion_new') }}"><button class="btn btn-primary pull-right"><span class="glyphicon glyphicon-plus"></span> Créer un nouveau type d'emcombrement</button></a>
+        </div>
+    </div>
 
-    <table>
+    <table class="table table-bordered table-responsive table-striped" id="table">
         <thead>
             <tr>
-                <th>Id</th>
-                <th>Name</th>
+                <th>Nom</th>
                 <th>Actions</th>
             </tr>
         </thead>
         <tbody>
         {% for congestion in congestions %}
             <tr>
-                <td><a href="{{ path('admin_congestion_show', { 'id': congestion.id }) }}">{{ congestion.id }}</a></td>
                 <td>{{ congestion.name }}</td>
                 <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('admin_congestion_show', { 'id': congestion.id }) }}">show</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('admin_congestion_edit', { 'id': congestion.id }) }}">edit</a>
-                        </li>
-                    </ul>
+                    <a href="{{ path('admin_congestion_show', { 'id': congestion.id }) }}"><input type='button' class='btn btn-default' value='Voir'></a>
+                    <a href="{{ path('admin_congestion_edit', { 'id': congestion.id }) }}"><input type='button' class='btn btn-default' value='Modifier'></a>
                 </td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
-
-    <ul>
-        <li>
-            <a href="{{ path('admin_congestion_new') }}">Create a new congestion</a>
-        </li>
-    </ul>
 {% endblock %}

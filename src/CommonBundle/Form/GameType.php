@@ -21,7 +21,7 @@ class GameType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('image', FileType::class, array('label' => 'Image (png, jpg)', 'required' => false))
-                ->add('name')
+                ->add('name', TextType::class, array('label' => 'Nom'))
                 ->add('duration', ChoiceType::class, array(
                     'choices'  => array(
                         'Courte <= 30mn' => 0,

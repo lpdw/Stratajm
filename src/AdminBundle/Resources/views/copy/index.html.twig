@@ -1,13 +1,19 @@
 {% extends "AdminBundle::admin-layout.html.twig" %}
 
 {% block content %}
-    <h1>Copies list</h1>
+    <div class="row top-list">
+        <div class="row">
+            <h1 class="col-lg-4 col-sm-4">Liste des exemplaires</h1>
+        </div>
+        <div class="row">
+            <a href="{{ path('admin_copy_new') }}"><button class="btn btn-primary pull-right"><span class="glyphicon glyphicon-plus"></span> Créer un nouvel exemplaire</button></a>
+        </div>
+    </div>
 
-    <table>
+    <table class="table table-bordered table-responsive table-striped" id="table">
         <thead>
             <tr>
-                <th>Id</th>
-                <th>Reference</th>
+                <th>Référence</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -17,23 +23,11 @@
                 <td><a href="{{ path('admin_copy_show', { 'id': copy.id }) }}">{{ copy.id }}</a></td>
                 <td>{{ copy.reference }}</td>
                 <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('admin_copy_show', { 'id': copy.id }) }}">show</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('admin_copy_edit', { 'id': copy.id }) }}">edit</a>
-                        </li>
-                    </ul>
+                    <a href="{{ path('admin_copy_show', { 'id': copy.id }) }}"><input type='button' class='btn btn-default' value='Voir'></a>
+                    <a href="{{ path('admin_copy_edit', { 'id': copy.id }) }}"><input type='button' class='btn btn-default' value='Modifier'></a>
                 </td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
-
-    <ul>
-        <li>
-            <a href="{{ path('admin_copy_new') }}">Create a new copy</a>
-        </li>
-    </ul>
 {% endblock %}

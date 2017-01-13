@@ -1,13 +1,15 @@
 {% extends "AdminBundle::admin-layout.html.twig" %}
 
 {% block content %}
-    <div class="row top-table">
+    <div class="row top-list">
+        <div class="row">
         <h1 class="col-lg-4 col-sm-4">Emprunts en cours</h1>
-        <div>
-            <a href="{{ path('admin_borrow_new') }}"><input type='button' class='btn btn-primary' value='Déclarer un nouvel emprunt'></a>
+        </div>
+        <div class="row">
+            <a href="{{ path('admin_borrow_new') }}"><button class="btn btn-primary pull-right"><span class="glyphicon glyphicon-plus"></span> Déclarer un nouvel emprunt</button></a>
         </div>
     </div>
-    <table id="table"
+    <table class="table-striped" id="table"
            data-toggle="table"
            data-url="{{ path("borrows_resp") }}"
            data-show-columns="true"
@@ -34,12 +36,6 @@
         </tr>
         </thead>
     </table>
-
-    <div class="row">
-        <div class="col-lg-2">
-            <a href="{{ path('admin_borrow_new') }}"><input type='button' class='btn btn-primary' value='Déclarer un nouvel emprunt'></a>
-        </div>
-    </div>
 {% endblock %}
 
 {% block javascripts %}

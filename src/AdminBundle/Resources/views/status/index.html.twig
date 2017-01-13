@@ -1,12 +1,19 @@
 {% extends "AdminBundle::admin-layout.html.twig" %}
 
 {% block content %}
-    <h1>Statuses list</h1>
+    <div class="row top-list">
+        <div class="row">
+            <h1 class="col-lg-4 col-sm-4">Liste des statuts</h1>
+        </div>
+        <div class="row">
+            <a href="{{ path('admin_status_new') }}"><button class="btn btn-primary pull-right"><span class="glyphicon glyphicon-plus"></span> Créer un nouveau statut</button></a>
+        </div>
+    </div>
 
-    <table class="table table-bordered table-responsive">
+    <table class="table table-bordered table-responsive table-striped" id="table">
         <thead>
             <tr>
-                <th>Name</th>
+                <th>Nom</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -15,23 +22,11 @@
             <tr>
                 <td>{{ status.name }}</td>
                 <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('admin_status_show', { 'id': status.id }) }}">show</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('admin_status_edit', { 'id': status.id }) }}">edit</a>
-                        </li>
-                    </ul>
+                    <a href="{{ path('admin_status_show', { 'id': status.id }) }}"><input type='button' class='btn btn-default' value='Voir'></a>
+                    <a href="{{ path('admin_status_edit', { 'id': status.id }) }}"><input type='button' class='btn btn-default' value='Modifier'></a>
                 </td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
-
-    <ul>
-        <li>
-            <a href="{{ path('admin_status_new') }}">Create a new status</a>
-        </li>
-    </ul>
 {% endblock %}

@@ -1,41 +1,34 @@
 {% extends "AdminBundle::admin-layout.html.twig" %}
 
 {% block content %}
-    <h1>Memberships list</h1>
+    <div class="row top-list">
+        <div class="row">
+            <h1 class="col-lg-4 col-sm-4">Liste des adhésions</h1>
+        </div>
+        <div class="row">
+            <a href="{{ path('admin_membership_new') }}"><button class="btn btn-primary pull-right"><span class="glyphicon glyphicon-plus"></span> Déclarer une nouvelle adhésion</button></a>
+        </div>
+    </div>
 
-    <table>
+    <table class="table table-bordered table-responsive table-striped" id="table">
         <thead>
             <tr>
-                <th>Id</th>
-                <th>Amount</th>
-                <th>Begindate</th>
+                <th>Montant</th>
+                <th>Date de début</th>
                 <th>Actions</th>
             </tr>
         </thead>
         <tbody>
         {% for membership in memberships %}
             <tr>
-                <td><a href="{{ path('admin_membership_show', { 'id': membership.id }) }}">{{ membership.id }}</a></td>
-                <td>{{ membership.amount }}</td>
-                <td>{% if membership.beginDate %}{{ membership.beginDate|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{{ membership.amount }}€</td>
+                <td>{% if membership.beginDate %}{{ membership.beginDate|date('d/m/Y') }}{% endif %}</td>
                 <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('admin_membership_show', { 'id': membership.id }) }}">show</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('admin_membership_edit', { 'id': membership.id }) }}">edit</a>
-                        </li>
-                    </ul>
+                    <a href="{{ path('admin_membership_show', { 'id': membership.id }) }}"><input type='button' class='btn btn-default' value='Voir'></a>
+                    <a href="{{ path('admin_membership_edit', { 'id': membership.id }) }}"><input type='button' class='btn btn-default' value='Modifier'></a>
                 </td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
-
-    <ul>
-        <li>
-            <a href="{{ path('admin_membership_new') }}">Create a new membership</a>
-        </li>
-    </ul>
 {% endblock %}

@@ -1,12 +1,19 @@
 {% extends "AdminBundle::admin-layout.html.twig" %}
 
 {% block content %}
-    <h1>Users list</h1>
+    <div class="row top-list">
+        <div class="row">
+            <h1 class="col-lg-4 col-sm-4">Liste des administrateurs</h1>
+        </div>
+        <div class="row">
+            <a href="{{ path('admin_user_new') }}"><button class="btn btn-primary pull-right"><span class="glyphicon glyphicon-plus"></span> Créer un nouvel administrateur</button></a>
+        </div>
+    </div>
 
-    <table class="table table-bordered table-responsive">
+    <table class="table table-bordered table-responsive table-striped" id="table">
         <thead>
             <tr>
-                <th>Username</th>
+                <th>Nom d'utilisateur</th>
                 <th>Email</th>
                 <th>Actions</th>
             </tr>
@@ -17,23 +24,11 @@
                 <td>{{ user.username }}</td>
                 <td>{{ user.email }}</td>
                 <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('admin_user_show', { 'id': user.id }) }}">show</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('admin_user_edit', { 'id': user.id }) }}">edit</a>
-                        </li>
-                    </ul>
+                    <a href="{{ path('admin_user_show', { 'id': user.id }) }}"><input type='button' class='btn btn-default' value='Voir'></a>
+                    <a href="{{ path('admin_user_edit', { 'id': user.id }) }}"><input type='button' class='btn btn-default' value='Modifier'></a>
                 </td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
-
-    <ul>
-        <li>
-            <a href="{{ path('admin_user_new') }}">Create a new user</a>
-        </li>
-    </ul>
 {% endblock %}

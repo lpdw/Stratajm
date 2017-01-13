@@ -2,12 +2,13 @@
 
 namespace CommonBundle\Form;
 
-use Doctrine\DBAL\Types\IntegerType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 
 class MembershipType extends AbstractType
 {
@@ -16,8 +17,9 @@ class MembershipType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('amount')
+        $builder->add('amount', TextType::class, array('label' => 'Montant'))
             ->add('paymentMethod', EntityType::class, array(
+                'label' => 'Moyen de paiement',
                 'class' => 'CommonBundle:PaymentMethod',
                 'choice_label' => 'name'
             ))

@@ -3,6 +3,10 @@ td {
     vertical-align: middle;
 }
 
+#table {
+    margin-top: 15px;
+}
+
 #table td {
     width:15%;
     vertical-align: middle;
@@ -18,15 +22,12 @@ td {
     height:auto;
 }
 
-.top-table {
-    position:relative;
+.top-list {
     margin:0;
 }
 
-.top-table div {
-    position:absolute;
-    bottom:10px;
-    right:0;
+.top-list .row {
+    margin-right:0;
 }
 
 .pagination-info {
