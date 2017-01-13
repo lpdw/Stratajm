@@ -24,18 +24,20 @@ class BorrowController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $borrows = $em->getRepository('CommonBundle:Borrow')->findAll();
+        $borrowings = $em->getRepository('CommonBundle:Borrow')->findAll();
         $date = new \DateTime();
+
+        /* TODO : comment gérer la fin d'un emprunt ?
         $currentDate = $date->format('Y-m-d H:i:s');
 
         $currentBorrowings = $em->getRepository('CommonBundle:Borrow')->findCurrentBorrowings($currentDate);
         $endedBorrowings = $em->getRepository('CommonBundle:Borrow')->findEndedBorrowings($currentDate);
-        var_dump($currentBorrowings);
+        */
 
         return $this->render('AdminBundle:borrow:index.html.twig', array(
-            'borrows' => $borrows,
-            'currentBorrowings' => $currentBorrowings,
-            'endedBorrowings' => $endedBorrowings
+            'borrowings' => $borrowings,
+            //'currentBorrowings' => $currentBorrowings,
+            //'endedBorrowings' => $endedBorrowings
         ));
     }
 

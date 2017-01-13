@@ -27,6 +27,8 @@ class BorrowRepository extends \Doctrine\ORM\EntityRepository
       ->select(array('b'))
       ->where("b.endDate >= :currentDate")
       ->setParameter('currentDate', $currentDate)
-      ->getQuery();
+      ->getQuery()
+      ->getResult();
   }
+
 }
