@@ -25,9 +25,10 @@ class BorrowController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $borrowings = $em->getRepository('CommonBundle:Borrow')->findAll();
-        $date = new \DateTime();
+        
 
         /* TODO : comment gérer la fin d'un emprunt ?
+        $date = new \DateTime();
         $currentDate = $date->format('Y-m-d H:i:s');
 
         $currentBorrowings = $em->getRepository('CommonBundle:Borrow')->findCurrentBorrowings($currentDate);

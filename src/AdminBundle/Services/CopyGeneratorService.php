@@ -46,6 +46,8 @@ class CopyGeneratorService {
     $em = $this->doctrine->getManager();
 
     $game = $em->getRepository('CommonBundle:Game')->findOneById($gameId);
+    $status = $em->getRepository('CommonBundle:Status')->findOneByName('Neuf');
+    $localisation = $em->getRepository('CommonBundle:Localisation')->findOneByName('Stock');
 
     for($i = 0 ; $i<$nbcopies ; $i++) {
 
@@ -60,11 +62,8 @@ class CopyGeneratorService {
       $copy = new Copy();
       $copy->setGame($game);
       $copy->setReference("CopyGeneratorService.createGameCopies:".$randomString);
-      /**
-      * TODO : fixer un statut et une localisation pour les jeux nouvellement créés
-      * $copy->setStatus("Statut à renseigner");
-      * $copy->setLocalisation('Localisation à renseigner');
-      */
+      $copy->setStatus($status);
+      $copy->setLocalisation($localisation);
 
       $em->persist($copy);
       $em->flush();
