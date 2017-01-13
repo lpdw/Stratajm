@@ -1,11 +1,11 @@
 {% extends "AdminBundle::admin-layout.html.twig" %}
 
 {% block content %}
-<div class="row top-game">
+<div class="row top">
     <img src="{{ asset('uploads/images/' ~ game.image) }}" onerror="this.style.display='none'"/>
     <h1>{{ game.name }}</h1>
 </div>
-<div class="row col-sm-offset-3 col-sm-6 col-lg-offset-3 col-lg-6 show-game">
+<div class="row col-sm-offset-3 col-sm-6 col-lg-offset-3 col-lg-6 show">
     <table class="table table-responsive table-striped">
         <tr>
             <th>Nom</th>
@@ -17,7 +17,7 @@
         </tr>
         <tr>
             <th>Age</th>
-            <td>{{ game.ageMin }} - {{ game.ageMax }}</td>
+            <td>{{ game.ageMin }} </td>
         </tr>
         <tr>
             <th>Règles</th>
@@ -30,7 +30,7 @@
     </table>
 </div>
 
-<div class="row col-sm-offset-3 col-sm-6 col-lg-offset-3 col-lg-6 show-game">
+<div class="row col-sm-offset-3 col-sm-6 col-lg-offset-3 col-lg-6 show">
     <a href="{{ path('admin_index') }}"><button type="button" class="btn btn-primary">Retour à la liste</button></a>
     <a href="{{ path('admin_edit', { 'id': game.id }) }}"><button type="button" class="btn btn-success">Modifier</button></a>
     {{ form_start(delete_form) }}

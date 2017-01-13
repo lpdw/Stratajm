@@ -37,9 +37,30 @@ class GameSortType extends AbstractType
                   'Longue (~1 heure)' => 2,
                   'Très long (+ 1 heure)' => 3,
               )))
+        ->add('country', EntityType::class, array(
+              'class' => 'CommonBundle:Country',
+              'label' => 'Origine du jeu' ,
+              'choice_label' => 'name',
+              'expanded' => true,
+              'multiple' => true))
+
+        ->add('players', EntityType::class, array(
+              'class' => 'CommonBundle:Players',
+              'label' => 'Nombre de joueurs' ,
+              'choice_label' => 'name',
+              'expanded' => true,
+              'multiple' => true))
+
         ->add('editeur', EntityType::class, array(
               'class' => 'CommonBundle:Publisher',
               'label' => 'Éditeurs' ,
+              'choice_label' => 'name',
+              'expanded' => true,
+              'multiple' => true))
+
+        ->add('authors', EntityType::class, array(
+              'class' => 'CommonBundle:Author',
+              'label' => 'Auteurs' ,
               'choice_label' => 'name',
               'expanded' => true,
               'multiple' => true))
@@ -51,6 +72,7 @@ class GameSortType extends AbstractType
               'expanded' => true,
               'multiple' => true))
 
+
         ->add('themes', EntityType::class, array(
               'class' => 'CommonBundle:Theme',
               'label' => 'Thèmes' ,
@@ -59,6 +81,11 @@ class GameSortType extends AbstractType
               'multiple' => true))
 
         ->add('age_min', IntegerType::class)
-        ->add('age_max', IntegerType::class);
+        ->add('congestion', EntityType::class, array(
+              'class' => 'CommonBundle:Congestion',
+              'label' => 'Encombrement du jeu' ,
+              'choice_label' => 'name',
+              'expanded' => true,
+              'multiple' => true));
     }
 }

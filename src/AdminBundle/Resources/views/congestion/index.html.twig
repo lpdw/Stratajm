@@ -1,0 +1,39 @@
+{% extends "AdminBundle::admin-layout.html.twig" %}
+
+{% block content %}
+    <h1>Congestions list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for congestion in congestions %}
+            <tr>
+                <td><a href="{{ path('admin_congestion_show', { 'id': congestion.id }) }}">{{ congestion.id }}</a></td>
+                <td>{{ congestion.name }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('admin_congestion_show', { 'id': congestion.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('admin_congestion_edit', { 'id': congestion.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('admin_congestion_new') }}">Create a new congestion</a>
+        </li>
+    </ul>
+{% endblock %}

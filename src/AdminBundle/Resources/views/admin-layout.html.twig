@@ -15,8 +15,10 @@
 
         %}
 
+
         <link rel="stylesheet" href="{{ asset_url }}" />
         {% endstylesheets %}
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     {% endblock %}
 {% endblock %}
 {% block body %}
@@ -38,6 +40,10 @@
                     <li><a href="{{ path('admin_theme_index') }}">Theme</a></li>
                     <li><a href="{{ path('admin_type_index') }}">Type</a></li>
                     <li><a href="{{ path('admin_publisher_index') }}">Éditeur</a></li>
+                    <li><a href="{{ path('admin_author_index') }}">Auteur</a></li>
+                    <li><a href="{{ path('admin_country_index') }}">Pays</a></li>
+                    <li><a href="{{ path('admin_players_index') }}">Nombre de joueurs</a></li>
+                    <li><a href="{{ path('admin_congestion_index') }}">Encombrement du jeu</a></li>
                     <li><a href="{{ path('admin_status_index') }}">Statut jeu</a></li>
                     <li><a href="{{ path('admin_localisation_index') }}">Emplacement</a></li>
                     <li><a href="{{ path('admin_paymentmethod_index') }}">Moyen de paiement</a></li>
@@ -72,6 +78,7 @@
                    '@AdminBundle/Resources/public/js/tableExport.js'
                    '@AdminBundle/Resources/public/js/bootstrap-table-fr-FR.min.js'
     %}
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
     <script src="{{ asset_url }}"></script>
     {% endjavascripts %}

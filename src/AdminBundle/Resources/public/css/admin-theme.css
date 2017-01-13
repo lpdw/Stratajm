@@ -33,18 +33,18 @@ td {
     display:none;
 }
 
-.show-game {
+.show {
     position:relative;
     padding:0;
 }
 
-.show-game .btn-danger {
+.show .btn-danger {
     position:absolute;
     top:0;
     right:0;
 }
 
-.top-game img {
+.top img {
     display: block;
     margin-left: auto;
     margin-right: auto;
@@ -52,6 +52,6 @@ td {
     height:auto;
 }
 
-.top-game h1 {
+.top h1 {
     text-align:center;
 }

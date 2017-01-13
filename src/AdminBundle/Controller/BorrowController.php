@@ -5,7 +5,9 @@ namespace AdminBundle\Controller;
 use CommonBundle\Entity\Borrow;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 /**
  * Borrow controller.
@@ -74,7 +76,7 @@ class BorrowController extends Controller
     /**
      * Finds and displays a borrow entity.
      *
-     * @Route("/{id}", name="admin_borrow_show")
+     * @Route("/{id}", name="admin_borrow_show", options={"expose"=true})
      * @Method("GET")
      */
     public function showAction(Borrow $borrow)
@@ -90,7 +92,7 @@ class BorrowController extends Controller
     /**
      * Displays a form to edit an existing borrow entity.
      *
-     * @Route("/{id}/edit", name="admin_borrow_edit")
+     * @Route("/{id}/edit", name="admin_borrow_edit", options={"expose"=true})
      * @Method({"GET", "POST"})
      */
     public function editAction(Request $request, Borrow $borrow)
@@ -110,6 +112,56 @@ class BorrowController extends Controller
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         ));
+    }
+
+    /**
+     * Lists all borrows entities.
+     *
+     * @Route("/json/borrows", name="borrows_resp" )
+     *
+     * @Method({"GET", "POST"})
+     */
+    public function dataAction(Request $request)
+    {
+        $search = $request->query->get('search');
+        $limit = $request->query->get('limit');
+        $offset = $request->query->get('offset');
+        $order = $request->query->get('order');
+
+        $em = $this->getDoctrine()->getManager();
+
+        //cas ou le nombre de caractère de la recherche est inférieur à 2
+        if( strlen($search)<2) {
+
+            //on recupère tous les emprunts
+            $borrows = $em->getRepository('CommonBundle:Borrow')->findAllByArg($order, $offset, $limit);
+
+            $nbRows = $em->getRepository('CommonBundle:Borrow')->countAll();
+        } else {
+            //cas d'une recherche
+            $borrows = $em->getRepository('CommonBundle:Borrow')->findBySearch($search,$order,$offset,$limit);
+
+            $nbRows = $em->getRepository('CommonBundle:Borrow')->countAllBySearch($search);
+        }
+        $rows =[];
+
+        //on commence le formatage du tableau
+        foreach ($borrows as $borrow) {
+            $copy = $borrow->getCopy();
+            $member = $borrow->getMember();
+
+            $line['id'] = $borrow->getId();
+            $line['game'] = $copy->getGame()->getName();
+            $line['reference'] = $copy->getReference();
+            $line['borrower'] = [$member->getId(), $member->getFirstName(), $member->getLastName()];
+            $line['borrowdate'] = date_format($borrow->getBeginDate(), "m/d/Y");
+
+            $rows[] = $line;
+        }
+        $result['total'] = $nbRows;
+        $result['rows'] = $rows;
+
+        return new JsonResponse($result);
     }
 
     /**

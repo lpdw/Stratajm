@@ -35,7 +35,16 @@ $(document).ready(function() {
     $("#game_sort_age_min").on('change', function() {
         sort(true);
     });
-    $("#game_sort_age_max").on('change', function() {
+    $("#game_sort_country").on('change', function() {
+        sort(true);
+    });
+    $("#game_sort_authors").on('change', function() {
+        sort(true);
+    });
+    $("#game_sort_players").on('change', function() {
+        sort(true);
+    });
+    $("#game_sort_congestion").on('change', function() {
         sort(true);
     });
     $("#game_sort_duree").on('change', function() {
@@ -60,7 +69,6 @@ $(document).ready(function() {
                 return this.value;
             }).get();
             var ageMin = $("#game_sort_age_min").val();
-            var ageMax = $("#game_sort_age_max").val();
             var orderby = $("#game_sort_trier_par").val();
             var duration = $("#game_sort_duree").val();
             var types = $("#game_sort_categorie :checked").map(function() {
@@ -69,11 +77,26 @@ $(document).ready(function() {
             var themes = $("#game_sort_themes :checked").map(function() {
                 return this.value;
             }).get();
+            var authors = $("#game_sort_authors :checked").map(function() {
+                return this.value;
+            }).get();
+            var players = $("#game_sort_players :checked").map(function() {
+                return this.value;
+            }).get();
+            var country = $("#game_sort_country :checked").map(function() {
+                return this.value;
+            }).get();
+            var congestion = $("#game_sort_congestion :checked").map(function() {
+                return this.value;
+            }).get();
 
         } else {
             var publishers = "";
             var ageMin = "";
-            var ageMax = "";
+            var authors = "";
+            var players = "";
+            var country = "";
+            var congestion = "";
             var types = "";
             var orderby = "publication_asc";
             var duration = "";
@@ -87,12 +110,15 @@ $(document).ready(function() {
             url: Routing.generate('display_games'),
             data: {
                 ageMin: ageMin,
-                ageMax: ageMax,
                 orderby: orderby,
                 publishers: publishers,
                 duration: duration,
                 types: types,
-                themes: themes
+                themes: themes,
+                authors: authors,
+                players: players,
+                country: country,
+                congestion: congestion
             },
             dataType: 'json',
             /*beforeSend: function(){
