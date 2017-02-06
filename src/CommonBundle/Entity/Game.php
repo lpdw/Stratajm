@@ -104,6 +104,7 @@ class Game
      *      min = "1",
      *      minMessage = "Merci de choisir au moins un thème",
      * )
+     * @ORM\ManyToMany(targetEntity="Theme")
      * @ORM\JoinTable(name="game_theme",
      *      joinColumns={@ORM\JoinColumn(name="game_id", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="theme_id", referencedColumnName="id")}

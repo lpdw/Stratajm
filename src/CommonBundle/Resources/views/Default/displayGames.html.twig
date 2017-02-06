@@ -18,11 +18,17 @@
             {{ form_end(searchForm) }}
 
             {{ form_start(sortForm)  }}
-            {{ form_widget(sortForm.reinitialiser_les_filtres) }}
+            {{ form_widget(sortForm.reinitialiser_les_filtres,{'attr':{'class':'form-group'}})  }}
 
             {{ form_widget(sortForm.trier_par, {'attr':{'class':'form-group'}}) }}
             {{ form_widget(sortForm.duree, {'attr':{'class':'form-group','label':'Durée du jeu'}}) }}
-            {{ form_widget(sortForm.age_min, {'attr':{'class':'form-group', 'label':'Âge'}}) }}
+            <div class="form-group">
+                <label id="age-label">
+
+            </label>
+            <div id="age-slider">
+            </div>
+          </div>
 
               <div class="dropdown form-group">
                 <button class="btn btn-default dropdown-toggle" type="button" id="dropdown-categories" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
@@ -81,7 +87,9 @@
 
 
 
-
+        <div id="loader">
+          <img src="{{ asset('images/loader.gif') }}"/>
+        </div>
         <div id="games-panel">
 
         {{ include('CommonBundle:Default:listGames.html.twig', { 'pagination': pagination }) }}

@@ -49,7 +49,7 @@ class GameRepository extends \Doctrine\ORM\EntityRepository
 
 
 
-    public function sortBy($publishersID, $orderby, $ageMin,$duration,$types,$themes,$authors,$country,$congestion,$players)
+    public function sortBy($publishersID, $orderby, $ageMin,$ageMax,$duration,$types,$themes,$authors,$country,$congestion,$players)
     {
         if ($orderby=="publication_asc") {
             $sort='g.releaseDate';
@@ -89,7 +89,8 @@ class GameRepository extends \Doctrine\ORM\EntityRepository
         ->andWhere('c.id IN (:countries)')
         ->andWhere('con.id IN (:congestions)')
         ->andWhere('p.id IN (:players)')
-        ->andWhere("g.ageMin <= :ageMin")
+        ->andWhere("g.ageMin >= :ageMin")
+        ->andWhere("g.ageMin <= :ageMax")
         ->andwhere($requestDuree)
         ->setParameter('publisher_id', $publishersID)
         ->setParameter('themes_id',$themes)
@@ -99,6 +100,7 @@ class GameRepository extends \Doctrine\ORM\EntityRepository
         ->setParameter('players',$players)
         ->setParameter('types_id', $types)
         ->setParameter('ageMin', $ageMin)
+        ->setParameter('ageMax', $ageMax)
         ->setParameter('duration', $duration)
         ->orderBy($sort, $order)
         ->getQuery();

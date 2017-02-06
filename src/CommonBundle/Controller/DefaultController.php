@@ -80,6 +80,7 @@ class DefaultController extends Controller
           $publishersID=$request->request->get('publishers');
           $orderby=$request->request->get('orderby');
           $ageMin=$request->request->get('ageMin');
+          $ageMax=$request->request->get('ageMax');
           $duration=$request->request->get('duration');
           $types=$request->request->get('types');
           $themes=$request->request->get('themes');
@@ -113,11 +114,9 @@ class DefaultController extends Controller
             // Si aucun theme de jeu n'est selectionné, on les récupère tous
             $themes = $em->getRepository('CommonBundle:Theme')->findAll();
           }
-          if($ageMin==null){
-            $ageMin=200;
-        }
 
-          $gamesSorted = $em->getRepository('CommonBundle:Game')->sortBy($publishersID,$orderby,$ageMin,$duration,$types,$themes,$authors,$country,$congestion,$players);
+
+          $gamesSorted = $em->getRepository('CommonBundle:Game')->sortBy($publishersID,$orderby,$ageMin,$ageMax,$duration,$types,$themes,$authors,$country,$congestion,$players);
           $paginator  = $this->get('knp_paginator');
           $pagination = $paginator->paginate(
              $gamesSorted, /* query NOT result */
