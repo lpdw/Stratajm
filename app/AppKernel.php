@@ -20,6 +20,7 @@ class AppKernel extends Kernel
             new CommonBundle\CommonBundle(),
             new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
             new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
+             new Stfalcon\Bundle\TinymceBundle\StfalconTinymceBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

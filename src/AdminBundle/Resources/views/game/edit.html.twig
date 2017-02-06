@@ -27,6 +27,8 @@
 {% endblock %}
 {% block javascripts %}
     {{ parent() }}
+    {{ tinymce_init() }}
+
     <script>
         $( function() {
             $( "#commonbundle_game_releaseDate" ).datepicker(

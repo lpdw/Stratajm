@@ -9,6 +9,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
   use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
@@ -40,7 +41,7 @@ class GameType extends AbstractType
                   'choice_label' => 'name',
 
                 ))
-                ->add('rules')
+                ->add('rules',TextareaType::class, array('attr' => array('class' => 'tinymce')))
                 ->add('explanationsDuration',ChoiceType::class, array(
                     'choices'  => array(
                         '<10 minutes' => 0,
