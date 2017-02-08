@@ -3,6 +3,7 @@
 namespace CommonBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -48,6 +49,10 @@ class GameType extends AbstractType
                         '<20 minutes' => 1,
                         '>20 minutes' => 2,
                     )))
+                ->add('traditional', CheckboxType::class,array(
+                    'label' => 'Traditionnel',
+                    'attr' => array('class'=>'traditionnel'),
+                    'mapped' => false))
                 ->add('releaseDate', DateTimeType::class, array(
                     'widget' => 'single_text',
                     'attr' => array('id' => 'datepicker'),
