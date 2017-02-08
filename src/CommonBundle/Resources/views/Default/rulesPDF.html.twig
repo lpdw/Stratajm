@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+    </head>
+    <body>
+      {{ dump(absolute_url(asset('uploads/ef8872ef24a4a82b777d347adb9941f5.png'))) }}
+      <h1 class="text-center"> Règles du jeu  - {{ game.name }}</h1>
+      <div>
+        {{ game.rules | raw }}
+      </div>
+    </body>
+</html>
