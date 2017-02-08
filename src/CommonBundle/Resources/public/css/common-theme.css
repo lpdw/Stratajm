@@ -1,10 +1,23 @@
+/* RESET CSS */
+a:hover, a:active, a:visited, a:focus{
+  color: white;
+  text-decoration: none;
+  list-style-type: none;
+}
+
+
+
+
+
+
+
 body {
   background-color: #e8d8c9;
   width: 920px;
   height: 100%;
   margin: auto;
 }
-
+/* HEADER AND NAV */
 header {
 }
 
@@ -23,30 +36,79 @@ header {
   margin-top: -47px;
   width: 100%;
   height: 100%;
+  padding-top: 4px!important;
 }
 
 .nav-element {
   display: inline-block;
   color: #F2EAE9;
-  margin-left: 24px;
-  margin-right: 24px;
-  height:100%;
+  height: 100%;
 }
 
 .nav-element a {
   text-decoration: none;
   color: #FFFFFF;
+  height: 100%;
+  align-items: center;
+  display: flex;
+  cursor: pointer;
+  justify-content: center;
 }
 
 .nav-element:hover {
   background-color: #8D6053;
 }
 
-#nav-bar, #main-div {
+#main-div {
   padding: 14px;
-
+}
+#nav-bar{
+  padding: 0;
+  height: 47px;
+}
+#nav-bar>ul{
+  height: 100%;
+  width: 90%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 0;
+  margin: 0 auto;
+}
+.nav-element{
+  flex-grow: 1;
+}
+.first-ul, .second-ul{
+  display: none;
+}
+.nav-element:hover .first-ul, .sousmenu-li:hover .second-ul{   /* au hover du 1er li, on affiche le 1er sous menu ul*/
+  display: flex;
+  flex-direction: column;
+  background-color: red;
+  position: relative;
+  z-index: 10;
+}
+#nav-bar>ul>li>ul>li{
+  list-style-type: none;
+  background-color: blue;
+}
+#nav-bar>ul>li>ul>li>ul>li{
+  list-style-type: none;
+}
+.sousmenu-li{
+  position: relative;
+}
+.second-ul{
+  flex-direction: row;
+  position: absolute!important;
+  width: 150px;
+  right: -150px;
+  top: -20px;
 }
 
+
+
+/* END HEADER AND NAV */
 
 #pagetitle {
   color: #1E3F52;
