@@ -61,6 +61,18 @@ class GameController extends Controller
 
                 $game->setImage($fileName);
             }
+            if($game->getBoardImage())
+            {
+                $file = $game->getBoardImage();
+                $fileName = md5(uniqid()).'.'.$file->guessExtension();
+
+                $file->move(
+                    $this->getParameter('images_directory'),
+                    $fileName
+                );
+
+                $game->setBoardImage($fileName);
+            }
 
             $em = $this->getDoctrine()->getManager();
 
@@ -133,11 +145,18 @@ class GameController extends Controller
     public function editAction(Request $request, Game $game)
     {
         $oldImageName = $game->getImage();
+        $oldBoardImageName = $game->getBoardImage();
 
         if($game->getImage()) {
             //Transform the string filename in a file object for the FileType field
             $game->setImage(
                 new File($this->getParameter('images_directory').'/'.$game->getImage())
+            );
+        }
+        if($game->getBoardImage()) {
+            //Transform the string filename in a file object for the FileType field
+            $game->setBoardImage(
+                new File($this->getParameter('images_directory').'/'.$game->getBoardImage())
             );
         }
 
@@ -166,6 +185,25 @@ class GameController extends Controller
                 $game->setImage($oldImageName);
             }
 
+            if($game->getBoardImage()) {
+                if($oldBoardImageName)
+                    unlink($this->getParameter('images_directory').'/'.$oldBoardImageName);
+
+                $file = $game->getBoardImage();
+                $fileName = md5(uniqid()).'.'.$file->guessExtension();
+
+                $file->move(
+                    $this->getParameter('images_directory'),
+                    $fileName
+                );
+
+                $game->setBoardImage($fileName);
+            }
+            //else we keep the old image
+            else {
+                $game->setBoardImage($oldBoardImageName);
+            }
+
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('admin_show', array('id' => $game->getId()));
@@ -174,6 +212,7 @@ class GameController extends Controller
         return $this->render('AdminBundle:game:edit.html.twig', array(
             'game' => $game,
             'oldImageName' => $oldImageName,
+            'oldBoardImageName' => $oldBoardImageName,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         ));

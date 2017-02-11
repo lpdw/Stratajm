@@ -3,17 +3,12 @@ td {
     vertical-align: middle;
 }
 
-#table {
-    margin-top: 15px;
-}
-
 #table td {
     width:15%;
     vertical-align: middle;
 }
 
 #table td input{
-    width:80%;
     margin-top:3px;
 }
 
@@ -24,6 +19,7 @@ td {
 
 .top-list {
     margin:0;
+    margin-bottom:15px; 
 }
 
 .top-list .row {
