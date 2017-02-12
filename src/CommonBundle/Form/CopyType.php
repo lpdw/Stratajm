@@ -19,7 +19,7 @@ class CopyType extends AbstractType
         $builder
           ->add('reference', TextType::class, array('label' => 'Référence'))
           ->add('status', EntityType::class, array(
-            'label' => 'Statut',
+            'label' => 'Etat',
             'class' => 'CommonBundle:Status',
             'choice_label' => 'name'
           ))

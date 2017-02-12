@@ -60,16 +60,16 @@
                 <td><a href="{{path('admin_copy_show', {'id': copy.id }) }}"> {{ copy.reference }}</a></td>
                 <td>
                     {% if copy.status == null %}
-                    null
+                        Inconnu
                     {% else %}
-                    {{copy.status.name}}
+                        {{copy.status.name}}
                     {% endif %}
                 </td>
                 <td>
                     {% if copy.localisation == null %}
-                    null
+                        Inconnu
                     {% else %}
-                    {{copy.localisation.name}}
+                        {{copy.localisation.name}}
                     {% endif %}</td>
                     <td><a href="{{path('admin_copy_edit', {'id': copy.id }) }}"><button type="button" class="btn btn-default">Editer</button></a></td>
                 </tr>

@@ -85,9 +85,9 @@ class GameController extends Controller
             // création du nombre d'exemplaires saisis
             $nbcopies = $form['nbcopies']->getData();
             $copygenerator = $this->get('app.copygenerator');
-//            dump($copygenerator);die;
-            $copygenerator->createGameCopies($game->getId(), $nbcopies);
 
+            $copygenerator->createGameCopies($game->getId(), $nbcopies);
+//            dump($copygenerator);die;
             return $this->redirectToRoute('admin_show', array('id' => $game->getId()));
         }
 
@@ -251,15 +251,15 @@ class GameController extends Controller
             $nbRows = $em->getRepository('CommonBundle:Game')->countAllBySearch($search);
         }
         $rows =[];
-
         //on commence le formatage du tableau
         foreach ($games as $game) {
+//            dump($game);die;
             $line['id'] = $game->getId();
             $line['image'] = $game->getImage();
             $line['name'] = $game->getName();
             $line['age'] = $game->getAgeMin();
             $line['duration'] = $game->getDuration();
-            $line['rules'] = $game->getRules();
+            $line['explanationsDuration'] = $game->getExplanationsDuration();
             $line['releaseDate'] = date_format($game->getReleaseDate(), "Y");
 
             $rows[] = $line;
