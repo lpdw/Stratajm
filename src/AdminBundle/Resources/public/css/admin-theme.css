@@ -1,3 +1,7 @@
+form {
+    margin:15px;
+}
+
 td {
     text-align:center;
     vertical-align: middle;
@@ -51,4 +55,8 @@ td {
 
 .top h1 {
     text-align:center;
+}
+
+.row {
+    margin-top : 15px;
 }

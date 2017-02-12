@@ -5,12 +5,7 @@
 
     {{ form_start(form) }}
         {{ form_widget(form) }}
-        <input type="submit" value="Create" />
+        <a href="{{ path('admin_borrow_index') }}"><button type="button" class="btn btn-primary">Retour à la liste</button></a>
+        <button type="submit" class="btn btn-success pull-right">Créer</button>
     {{ form_end(form) }}
-
-    <ul>
-        <li>
-            <a href="{{ path('admin_borrow_index') }}">retour à la liste</a>
-        </li>
-    </ul>
 {% endblock %}

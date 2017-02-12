@@ -26,7 +26,8 @@ class BorrowType extends AbstractType
       $copiesgetter = $options['copiesgetter'];
 
       $builder
-        ->add('beginDate', DateType::class, array (
+        ->add('beginDate', DateType::class, array(
+          'label' => 'Date d\'emprunt',
           'placeholder' => array(
             'day'=>'Jour',
             'month'=>'Mois',

@@ -8,6 +8,9 @@
 
     <img  id="single-game-image" src="{{ asset('uploads/images/' ~ game.image) }}" alt="Image du jeu {{ game.name }}"/>
     <div id="single-game-text">
+      <div>
+        <a href="{{ asset('uploads/images/' ~ game.boardImage) }}" target="_blank"><button type="button" class="btn btn-default"><span class="glyphicon glyphicon-print"></span> Imprimer plateau</button></a>
+      </div>
       <a href="{{ path('rules_pdf', { 'id': game.id }) }}"> Générer un PDF </a>
       <p>Règles : {{ game.rules | raw }}</p>
       <p>Date de sortie : {{ game.releaseDate | date("d/m/Y") }}</p>
