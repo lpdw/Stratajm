@@ -8,12 +8,51 @@
 
     <img  id="single-game-image" src="{{ asset('uploads/images/' ~ game.image) }}" alt="Image du jeu {{ game.name }}"/>
     <div id="single-game-text">
+      <p>Éditeur(s) :
+      {% for publisher in game.publishers %}
+        <a href="{{ publisher.url | external_link }}"> {{ publisher.name }}
+        </a>{% if loop.last %}{% else %},{% endif %}
+        {% endfor %}</p>
+      <p>Auteur(s) :
+      {% for author in game.authors %}
+        {{ author.name }}
+        </a>{% if loop.last %}{% else %},{% endif %}
+        {% endfor %}</p>
+        <p>
+          Type de jeu : {% for type in game.types %}
+            {{ type.name }}
+            </a>{% if loop.last %}{% else %},{% endif %}
+            {% endfor %}</p>
+        </p>
+        <p>
+          Thème(s):   {% for theme in game.themes %}
+              {{ theme.name }}
+              </a>{% if loop.last %}{% else %},{% endif %}
+              {% endfor %}</p>
+        </p>
+        <p> Origine du jeu : {{ game.country.name }}</p>
+        <p>  Nombres de joueurs : {{ game.nbPlayers.name }}</p>
+        {% if game.boardImage %}
       <div>
         <a href="{{ asset('uploads/images/' ~ game.boardImage) }}" target="_blank"><button type="button" class="btn btn-default"><span class="glyphicon glyphicon-print"></span> Imprimer plateau</button></a>
       </div>
-      <a href="{{ path('rules_pdf', { 'id': game.id }) }}">Télécharger les règles du jeu</a>
-      <p>Date de sortie : {{ game.releaseDate | date("d/m/Y") }}</p>
+      {% endif %}
+
+      <p>Date de sortie : {{ game.releaseDate | date("Y") }}</p>
       <p> À partir de {{ game.ageMin }} ans</p>
+      <p> Taille du jeu : {{ game.congestion.name }} </p>
+      <p> Durée moyenne d'une partie :
+        {% if game.duration == 0  %} Courte (moins de 30 minutes)
+        {% elseif game.duration == 1 %} Moyenne (30-45 minutes)
+        {% elseif game.duration == 2 %} Longue (environ 1 heure)
+        {% elseif game.duration == 3 %} Très longue (plus d'une heure)
+        {% endif %} </p>
+      <div>
+      Durée d'explication du jeu : {% if game.explanationsDuration == 0  %} Moins de 10 minutes
+      {% elseif game.explanationsDuration == 1 %} Moins de 20 minutes
+      {% elseif game.explanationsDuration == 2 %} Plus de 20 minutes
+      {% endif %}<a href="{{ path('rules_pdf', { 'id': game.id }) }}"><button type="button" class="btn btn-default"><span class="glyphicon glyphicon-save"></span> Télécharger les règles du jeu</button></a>
+    </div>
     </div>
   </div>
 

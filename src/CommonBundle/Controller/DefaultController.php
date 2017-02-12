@@ -162,8 +162,11 @@ class DefaultController extends Controller
     {
     $pdfTemplate = $this->renderView('CommonBundle:Default:rulesPDF.html.twig', array('game'  => $game));
     $PDFname= sprintf($game->getName().'-%s.pdf', date('Y-m-d'));
+    $snappy = $this->get('knp_snappy.pdf');
+    $snappy->setOption('header-html', $this->renderView('CommonBundle:Default:headerPDF.html.twig'));
+    $snappy->setOption('footer-html',$this->renderView('CommonBundle:Default:footerPDF.html.twig'));
     return new Response(
-        $this->get('knp_snappy.pdf')->getOutputFromHtml($pdfTemplate),
+      $snappy->getOutputFromHtml($pdfTemplate),
         200,
         array(
             'Content-Type'          => 'application/pdf',
