@@ -43,7 +43,7 @@ class Game
     /**
      * @var boolean
      *
-     * @ORM\Column(name="traditional", type="boolean")
+     * @ORM\Column(name="traditional", type="boolean", nullable=true)
      */
     private $traditional;
 

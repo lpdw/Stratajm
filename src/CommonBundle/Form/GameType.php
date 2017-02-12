@@ -61,7 +61,8 @@ class GameType extends AbstractType
                 ->add('traditional', CheckboxType::class,array(
                     'label' => 'Traditionnel',
                     'attr' => array('class'=>'traditionnel'),
-                    'mapped' => false))
+                    'mapped' => false,
+                    'required'=>false))
                 ->add('releaseDate', DateTimeType::class, array(
                     'label' => 'Date de sortie',
                     'widget' => 'single_text',
