@@ -4,8 +4,62 @@
     <h1>Déclarer un emprunt</h1>
 
     {{ form_start(form) }}
-        {{ form_widget(form) }}
-        <a href="{{ path('admin_borrow_index') }}"><button type="button" class="btn btn-primary">Retour à la liste</button></a>
-        <button type="submit" class="btn btn-success pull-right">Créer</button>
+    {{ form_widget(form) }}
+    <input type="submit" value="Create" />
     {{ form_end(form) }}
+
+    <ul>
+        <li>
+            <a href="{{ path('admin_borrow_index') }}">retour à la liste</a>
+        </li>
+    </ul>
+{% endblock %}
+{% block javascript %}
+    <script>
+
+
+        $('#commonbundle_borrow_game').change( function () {
+            console.log($('#commonbundle_borrow_game option:selected').text());
+            console.log($('#commonbundle_borrow_game').val());
+            $("#commonbundle_borrow_copies").append("<option value='10' selected='selected'>Choisissez un exemplaire</option>");
+
+
+            var arr = [
+                {val : 1, text: 'One'},
+                {val : 2, text: 'Two'},
+                {val : 3, text: 'Three'}
+            ];
+
+            var sel = $('<select>').appendTo($(this));
+            $(arr).each(function() {
+                sel.append($("<option>").attr('value',this.val).text(this.text));
+            });
+
+
+        });
+        //        window.actionEvents = {
+        //            'click .action': function (e, value, row, index) {
+        //                id_demande = row.id;
+        //                url = $(this).attr('data-path');
+        //
+        //                console.log(url);
+        //                $.ajax({
+        //                    type: "GET",
+        //                    data: {'id_demande': id_demande},
+        //                    url: url,
+        //                    success: function (data) {
+        //                        if (typeof(data) !== 'undefined' && data == 1) {
+        //                            alert('La demande a été réactivée ! ');
+        //                            $('#table').bootstrapTable('refresh');
+        //                        } else if (typeof(data) !== 'undefined' && data == 0) {
+        //                            alert('La demande a été désactivée ! ');
+        //                            $('#table').bootstrapTable('refresh');
+        //                        }
+        //                        else alert(typeof(data))
+        //                    }
+        //                });
+        //
+        //            }
+        //        };
+    </script>
 {% endblock %}

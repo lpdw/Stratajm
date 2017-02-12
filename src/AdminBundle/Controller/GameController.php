@@ -75,6 +75,8 @@ class GameController extends Controller
             }
 
             $em = $this->getDoctrine()->getManager();
+            if($game->getTraditional())
+                $game->setReleaseDate(new \DateTime('1900-01-01'));
 
             // création du jeu
             $em->persist($game);
@@ -83,6 +85,7 @@ class GameController extends Controller
             // création du nombre d'exemplaires saisis
             $nbcopies = $form['nbcopies']->getData();
             $copygenerator = $this->get('app.copygenerator');
+//            dump($copygenerator);die;
             $copygenerator->createGameCopies($game->getId(), $nbcopies);
 
             return $this->redirectToRoute('admin_show', array('id' => $game->getId()));
