@@ -4,13 +4,8 @@
     <h1>Déclarer un emprunt</h1>
 
     {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <input type="submit" id="newBorrow" value="Créer" />
+        {{ form_widget(form) }}
+        <a href="{{ path('admin_borrow_index') }}"><button type="button" class="btn btn-primary">Retour à la liste</button></a>
+        <button type="submit" class="btn btn-success pull-right">Créer</button>
     {{ form_end(form) }}
-
-    <ul>
-        <li>
-            <a href="{{ path('admin_borrow_index') }}">retour à la liste</a>
-        </li>
-    </ul>
 {% endblock %}

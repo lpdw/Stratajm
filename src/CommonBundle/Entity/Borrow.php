@@ -57,7 +57,7 @@ class Borrow
      *
      * @ORM\Column(name="ongoing", type="boolean",options={"default" : true})
      */
-    private $onGoing;
+    private $onGoing = true;
 
 
     public function __construct(){
