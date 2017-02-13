@@ -4,7 +4,6 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "3d9149e8604b6c55d3d181814d8594e2",
     "content-hash": "e4c442fefeed738aeaa7c185517cc325",
     "packages": [
         {
@@ -286,18 +285,6 @@
         },
         {
             "name": "doctrine/dbal",
-<<<<<<< HEAD
-            "version": "v2.5.11",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/doctrine/dbal.git",
-                "reference": "1b1effbddbdc0f40d1c8f849f44bcddac4f52a48"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/dbal/zipball/1b1effbddbdc0f40d1c8f849f44bcddac4f52a48",
-                "reference": "1b1effbddbdc0f40d1c8f849f44bcddac4f52a48",
-=======
             "version": "v2.5.12",
             "source": {
                 "type": "git",
@@ -308,7 +295,6 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/doctrine/dbal/zipball/7b9e911f9d8b30d43b96853dab26898c710d8f44",
                 "reference": "7b9e911f9d8b30d43b96853dab26898c710d8f44",
->>>>>>> bc5c0648ac31c4dbbf0425c5221f635c5d9e02c6
                 "shasum": ""
             },
             "require": {
@@ -367,10 +353,14 @@
                 "queryobject"
             ],
 <<<<<<< HEAD
+<<<<<<< HEAD
             "time": "2017-02-04T21:20:13+00:00"
 =======
             "time": "2017-02-08 12:53:47"
 >>>>>>> bc5c0648ac31c4dbbf0425c5221f635c5d9e02c6
+=======
+            "time": "2017-02-08T12:53:47+00:00"
+>>>>>>> 119734ff6ad135435874e19eeae382bf207a0dc5
         },
         {
             "name": "doctrine/doctrine-bundle",
@@ -452,10 +442,14 @@
                 "persistence"
             ],
 <<<<<<< HEAD
+<<<<<<< HEAD
             "time": "2017-01-16T12:01:26+00:00"
 =======
             "time": "2017-01-16 12:01:26"
 >>>>>>> bc5c0648ac31c4dbbf0425c5221f635c5d9e02c6
+=======
+            "time": "2017-01-16T12:01:26+00:00"
+>>>>>>> 119734ff6ad135435874e19eeae382bf207a0dc5
         },
         {
             "name": "doctrine/doctrine-cache-bundle",
@@ -1150,7 +1144,7 @@
                 "thumbnail",
                 "wkhtmltopdf"
             ],
-            "time": "2015-11-17 13:16:27"
+            "time": "2015-11-17T13:16:27+00:00"
         },
         {
             "name": "knplabs/knp-snappy-bundle",
@@ -1207,7 +1201,7 @@
                 "pdf",
                 "snappy"
             ],
-            "time": "2015-11-11 17:40:14"
+            "time": "2015-11-11T17:40:14+00:00"
         },
         {
             "name": "kriswallsmith/assetic",
@@ -1624,10 +1618,14 @@
                 "controllers"
             ],
 <<<<<<< HEAD
+<<<<<<< HEAD
             "time": "2017-02-02T15:31:23+00:00"
 =======
             "time": "2017-02-02 15:31:23"
 >>>>>>> bc5c0648ac31c4dbbf0425c5221f635c5d9e02c6
+=======
+            "time": "2017-02-02T15:31:23+00:00"
+>>>>>>> 119734ff6ad135435874e19eeae382bf207a0dc5
         },
         {
             "name": "sensiolabs/security-checker",
@@ -1672,6 +1670,69 @@
             ],
             "description": "A security checker for your composer.lock",
             "time": "2016-09-23T18:09:57+00:00"
+<<<<<<< HEAD
+        },
+        {
+            "name": "stfalcon/tinymce-bundle",
+            "version": "v2.1",
+            "target-dir": "Stfalcon/Bundle/TinymceBundle",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/stfalcon/TinymceBundle.git",
+                "reference": "a23ff96d6efec9cb014d3409c908b724b42fbbf8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/stfalcon/TinymceBundle/zipball/a23ff96d6efec9cb014d3409c908b724b42fbbf8",
+                "reference": "a23ff96d6efec9cb014d3409c908b724b42fbbf8",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4.0",
+                "symfony/symfony": ">=2.1"
+            },
+            "type": "symfony-bundle",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Stfalcon\\Bundle\\TinymceBundle": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Stepan Tanasiychuk",
+                    "email": "ceo@stfalcon.com",
+                    "homepage": "http://blog.stfalcon.com"
+                },
+                {
+                    "name": "Igor Negrutsa",
+                    "email": "progi2007@gmail.com",
+                    "homepage": "http://igor-negrutsa.info"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://github.com/stfalcon/TinymceBundle/contributors"
+                }
+            ],
+            "description": "This Bundle integrates TinyMCE WYSIWYG editor into a Symfony2 project.",
+            "keywords": [
+                "Symfony2",
+                "bundle",
+                "editor",
+                "tinymce",
+                "wysiwyg"
+            ],
+            "time": "2016-05-18T14:48:11+00:00"
+=======
+>>>>>>> 119734ff6ad135435874e19eeae382bf207a0dc5
         },
         {
             "name": "stfalcon/tinymce-bundle",
@@ -1734,77 +1795,17 @@
             "time": "2016-05-18T14:48:11+00:00"
         },
         {
-            "name": "stfalcon/tinymce-bundle",
-            "version": "v2.1",
-            "target-dir": "Stfalcon/Bundle/TinymceBundle",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/stfalcon/TinymceBundle.git",
-                "reference": "a23ff96d6efec9cb014d3409c908b724b42fbbf8"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/stfalcon/TinymceBundle/zipball/a23ff96d6efec9cb014d3409c908b724b42fbbf8",
-                "reference": "a23ff96d6efec9cb014d3409c908b724b42fbbf8",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.4.0",
-                "symfony/symfony": ">=2.1"
-            },
-            "type": "symfony-bundle",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "2.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-0": {
-                    "Stfalcon\\Bundle\\TinymceBundle": ""
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Stepan Tanasiychuk",
-                    "email": "ceo@stfalcon.com",
-                    "homepage": "http://blog.stfalcon.com"
-                },
-                {
-                    "name": "Igor Negrutsa",
-                    "email": "progi2007@gmail.com",
-                    "homepage": "http://igor-negrutsa.info"
-                },
-                {
-                    "name": "Symfony Community",
-                    "homepage": "https://github.com/stfalcon/TinymceBundle/contributors"
-                }
-            ],
-            "description": "This Bundle integrates TinyMCE WYSIWYG editor into a Symfony2 project.",
-            "keywords": [
-                "Symfony2",
-                "bundle",
-                "editor",
-                "tinymce",
-                "wysiwyg"
-            ],
-            "time": "2016-05-18 14:48:11"
-        },
-        {
             "name": "swiftmailer/swiftmailer",
-            "version": "v5.4.5",
+            "version": "v5.4.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/swiftmailer/swiftmailer.git",
-                "reference": "cd142238a339459b10da3d8234220963f392540c"
+                "reference": "81fdccfaf8bdc5d5d7a1ef6bb3a61bbb1a6c4a3e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/swiftmailer/swiftmailer/zipball/cd142238a339459b10da3d8234220963f392540c",
-                "reference": "cd142238a339459b10da3d8234220963f392540c",
+                "url": "https://api.github.com/repos/swiftmailer/swiftmailer/zipball/81fdccfaf8bdc5d5d7a1ef6bb3a61bbb1a6c4a3e",
+                "reference": "81fdccfaf8bdc5d5d7a1ef6bb3a61bbb1a6c4a3e",
                 "shasum": ""
             },
             "require": {
@@ -1845,7 +1846,11 @@
                 "mail",
                 "mailer"
             ],
+<<<<<<< HEAD
             "time": "2016-12-29T10:02:40+00:00"
+=======
+            "time": "2017-02-13T07:52:53+00:00"
+>>>>>>> 119734ff6ad135435874e19eeae382bf207a0dc5
         },
         {
             "name": "symfony/assetic-bundle",
@@ -2515,10 +2520,14 @@
                 "framework"
             ],
 <<<<<<< HEAD
+<<<<<<< HEAD
             "time": "2017-02-06T13:15:43+00:00"
 =======
             "time": "2017-02-06 13:15:43"
 >>>>>>> bc5c0648ac31c4dbbf0425c5221f635c5d9e02c6
+=======
+            "time": "2017-02-06T13:15:43+00:00"
+>>>>>>> 119734ff6ad135435874e19eeae382bf207a0dc5
         },
         {
             "name": "twig/twig",
@@ -2733,10 +2742,14 @@
             "description": "Symfony PHPUnit Bridge",
             "homepage": "https://symfony.com",
 <<<<<<< HEAD
+<<<<<<< HEAD
             "time": "2017-01-21T17:06:35+00:00"
 =======
             "time": "2017-01-21 17:06:35"
 >>>>>>> bc5c0648ac31c4dbbf0425c5221f635c5d9e02c6
+=======
+            "time": "2017-01-21T17:06:35+00:00"
+>>>>>>> 119734ff6ad135435874e19eeae382bf207a0dc5
         }
     ],
     "aliases": [],

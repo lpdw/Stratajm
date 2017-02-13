@@ -1,26 +1,27 @@
 {% extends "AdminBundle::admin-layout.html.twig" %}
-{%  form_theme edit_form 'bootstrap_3_horizontal_layout.html.twig' %}
 {% block content %}
     <h1>Modification du membre</h1>
 
-    {{ form_start(edit_form) }}
+        {{ form_start(edit_form) }}
+            <div class="row">
+                {{ form_row(edit_form.firstName) }}
+                {{ form_row(edit_form.lastName) }}
+                {{ form_row(edit_form.email) }}
+                {{ form_row(edit_form.telNum) }}
 
-    {{ form_row(edit_form.firstName) }}
-    {{ form_row(edit_form.lastName) }}
-    {{ form_row(edit_form.email) }}
-    {{ form_row(edit_form.telNum) }}
+                {{ form_row(edit_form._token) }}
+                {#{{ form_widget(edit_form) }}#}
+            </div>
+            <div class="row">
+                <a href="{{ path('admin_member_index') }}"><button type="button" class="btn btn-primary">Retour à la liste</button></a>
+                <button type="submit" class="btn btn-success pull-right">Modifier</button>          
+            </div>     
+        {{ form_end(edit_form, {'render_rest': false}) }}
 
-    {{ form_row(edit_form._token) }}
-        {#{{ form_widget(edit_form) }}#}
-        <input type="submit" class="btn btn-success pull-right" value="Valider" />
-    {{ form_end(edit_form, {'render_rest': false}) }}
-
-    <a href="{{ path('admin_member_index') }}"><button class="btn btn-default col-lg-offset-2">Retour à la liste</button></a>
-
-
-
-    {{ form_start(delete_form, {}) }}
-        <input type="submit" class="btn btn-danger col-lg-offset-2" style="margin-top:10px;" value="Supprimer" >
-    {{ form_end(delete_form) }}
+    <div class="row">
+        {{ form_start(delete_form) }}
+            <input type="submit" class="btn btn-danger pull-right" value="Supprimer">
+        {{ form_end(delete_form) }}
+    </div>
 
 {% endblock %}

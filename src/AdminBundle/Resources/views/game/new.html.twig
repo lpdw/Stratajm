@@ -1,18 +1,14 @@
 {% extends "AdminBundle::admin-layout.html.twig" %}
 
 {% block content %}
-    <h1>Game creation</h1>
+    <h1>Création d'un jeu</h1>
 
     {{ form_start(form) }}
-        {{ form_widget(form) }}
-        <input type="submit" value="Create" />
+        {{ form_widget(form) }}    
+            <a href="{{ path('admin_index') }}"><button type="button" class="btn btn-primary">Retour à la liste</button></a>
+            <button type="submit" class="btn btn-success pull-right">Créer</button>
     {{ form_end(form) }}
-
-    <ul>
-        <li>
-            <a href="{{ path('admin_index') }}">Back to the list</a>
-        </li>
-    </ul>
+    
 {% endblock %}
 {% block javascripts %}
     {{ parent() }}
@@ -21,7 +17,7 @@
         $( function() {
             $( "#commonbundle_game_releaseDate" ).datepicker(
                     {
-                        yearRange: '1900:2050',
+                        yearRange: '1950:2050',
                         changeMonth: true,
                         changeYear: true,
                         altField: "#datepicker",

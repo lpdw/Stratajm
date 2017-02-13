@@ -3,7 +3,7 @@
 {% block content %}
     <div class="row top-list">
         <div class="row">
-        <h1 class="col-lg-4 col-sm-4">Emprunts en cours</h1>
+        <h1>Emprunts en cours</h1>
         </div>
         <div class="row">
             <a href="{{ path('admin_borrow_new') }}"><button class="btn btn-primary pull-right"><span class="glyphicon glyphicon-plus"></span> Déclarer un nouvel emprunt</button></a>
@@ -32,7 +32,7 @@
             <th data-field="reference">Référence</th>
             <th data-field="borrower" data-formatter="borrowerFormatter">Emprunté par</th>
             <th data-field="borrowdate">Date d'emprunt</th>
-            <th data-field="action" data-formatter="actionFormatter" data-events="actionEvents">Action</th>
+            <th data-field="action" data-formatter="actionFormatter" data-events="actionEvents">Actions</th>
         </tr>
         </thead>
     </table>

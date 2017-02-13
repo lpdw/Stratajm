@@ -41,6 +41,13 @@ class Game
     private $duration;
 
     /**
+     * @var boolean
+     *
+     * @ORM\Column(name="traditional", type="boolean", nullable=true)
+     */
+    private $traditional;
+
+    /**
      * @var string
      * @Assert\Type("integer")
      * @Assert\Range(
@@ -188,6 +195,15 @@ class Game
      */
      private $image;
 
+     /**
+     *@ORM\Column(type="string", nullable=true)
+     *@Assert\File(mimeTypes={"image/png", "image/jpeg"},
+     *             mimeTypesMessage="L'extension du fichier est invalide {{ type }}). Les extensions valides sont {{ types }}",
+     *             maxSize="1M",
+     *             maxSizeMessage="Le fichier ({{ size }} {{ suffix }}) dépasse la taille maximum autorisée ({{ limit }} {{ suffix }})")
+     */
+     private $board_image;
+
     public function __construct() {
         $this->features = new ArrayCollection();
     }
@@ -237,6 +253,30 @@ class Game
     public function setDuration($duration)
     {
         $this->duration = $duration;
+
+        return $this;
+    }
+
+    /**
+     * Get traditional
+     *
+     * @return boolean
+     */
+    public function getTraditional()
+    {
+        return $this->traditional;
+    }
+
+    /**
+     * Set traditional
+     *
+     * @param boolean $traditional
+     *
+     * @return Game
+     */
+    public function setTraditional($traditional)
+    {
+        $this->traditional = $traditional;
 
         return $this;
     }
@@ -506,9 +546,31 @@ class Game
         return $this;
     }
 
+    /**
+     * Get the value of board_image
+     *
+     * @return mixed
+     */
+    public function getBoardImage()
+    {
+        return $this->board_image;
+    }
 
     /**
-<<<<<<< HEAD
+     * Set the value of board_image
+     *
+     * @param mixed board_image
+     *
+     * @return self
+     */
+    public function setBoardImage($board_image)
+    {
+        $this->board_image = $board_image;
+        return $this;
+    }
+
+
+    /**
      * Get the value of Explanations Duration
      *
      * @return integer

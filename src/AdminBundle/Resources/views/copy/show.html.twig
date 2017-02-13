@@ -2,9 +2,9 @@
 
 {% block content %}
     <div class="row top">
-        <h1>Exemplaire d'un jeu {{ copy.game.name }}</h1>
+        <h1>Exemplaire du jeu {{ copy.game.name }}</h1>
     </div>
-    <div class="row col-sm-offset-3 col-sm-6 col-lg-offset-3 col-lg-6 show">
+    <div class="row col-sm-offset-3 col-sm-6 col-lg-offset-3 col-lg-6 ">
         <table class="table table-responsive table-striped">
             <tr>
               <th>Référence</th>
@@ -13,23 +13,17 @@
             </tr>
             <tr>
               <td>{{ copy.reference }}</td>
-              <td>{{ copy.status.name }}</td>
-              <td>{{ copy.localisation.name }}</td>
 
-                <th>Référence</th>
-                <td>{{ copy.reference }}</td>
-            </tr>
-            <tr>
-                <th>Jeu</th>
-                <td>{{ copy.game.name }}</td>
-            </tr>
-            <tr>
-                <th>État</th>
-                <td>{{ copy.status }}</td>
-            </tr>
-            <tr>
-                <th>Emplacement</th>
-                <td>{{ copy.localisation }}</td>
+              {% if copy.status != NULL %}
+                <td>{{ copy.status.name }}</td>
+              {% else %}
+                <td>Inconnu</td>
+              {% endif %}
+              {% if copy.localisation != NULL %}
+                <td>{{ copy.localisation.name }}</td>
+              {% else %}
+                <td>Inconnu</td>
+              {% endif %}
             </tr>
         </table>
     </div>

@@ -3,7 +3,7 @@
 {% block content %}
     <div class="row top-list">
         <div class="row">
-            <h1 class="col-lg-4 col-sm-4">Liste des exemplaires</h1>
+            <h1>Liste des exemplaires</h1>
         </div>
         <div class="row">
             <a href="{{ path('admin_copy_new') }}"><button class="btn btn-primary pull-right"><span class="glyphicon glyphicon-plus"></span> Créer un nouvel exemplaire</button></a>
@@ -20,8 +20,7 @@
         <tbody>
         {% for copy in copies %}
             <tr>
-                <td><a href="{{ path('admin_copy_show', { 'id': copy.id }) }}">{{ copy.id }}</a></td>
-                <td>{{ copy.reference }}</td>
+                <td><a href="{{ path('admin_copy_show', { 'id': copy.id }) }}">{{ copy.reference }}</a></td>
                 <td>
                     <a href="{{ path('admin_copy_show', { 'id': copy.id }) }}"><input type='button' class='btn btn-default' value='Voir'></a>
                     <a href="{{ path('admin_copy_edit', { 'id': copy.id }) }}"><input type='button' class='btn btn-default' value='Modifier'></a>

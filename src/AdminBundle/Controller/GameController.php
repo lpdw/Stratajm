@@ -61,8 +61,22 @@ class GameController extends Controller
 
                 $game->setImage($fileName);
             }
+            if($game->getBoardImage())
+            {
+                $file = $game->getBoardImage();
+                $fileName = md5(uniqid()).'.'.$file->guessExtension();
+
+                $file->move(
+                    $this->getParameter('images_directory'),
+                    $fileName
+                );
+
+                $game->setBoardImage($fileName);
+            }
 
             $em = $this->getDoctrine()->getManager();
+            if($game->getTraditional())
+                $game->setReleaseDate(new \DateTime('1900-01-01'));
 
             // création du jeu
             $em->persist($game);
@@ -71,8 +85,9 @@ class GameController extends Controller
             // création du nombre d'exemplaires saisis
             $nbcopies = $form['nbcopies']->getData();
             $copygenerator = $this->get('app.copygenerator');
-            $copygenerator->createGameCopies($game->getId(), $nbcopies);
 
+            $copygenerator->createGameCopies($game->getId(), $nbcopies);
+//            dump($copygenerator);die;
             return $this->redirectToRoute('admin_show', array('id' => $game->getId()));
         }
 
@@ -133,11 +148,18 @@ class GameController extends Controller
     public function editAction(Request $request, Game $game)
     {
         $oldImageName = $game->getImage();
+        $oldBoardImageName = $game->getBoardImage();
 
         if($game->getImage()) {
             //Transform the string filename in a file object for the FileType field
             $game->setImage(
                 new File($this->getParameter('images_directory').'/'.$game->getImage())
+            );
+        }
+        if($game->getBoardImage()) {
+            //Transform the string filename in a file object for the FileType field
+            $game->setBoardImage(
+                new File($this->getParameter('images_directory').'/'.$game->getBoardImage())
             );
         }
 
@@ -166,6 +188,25 @@ class GameController extends Controller
                 $game->setImage($oldImageName);
             }
 
+            if($game->getBoardImage()) {
+                if($oldBoardImageName)
+                    unlink($this->getParameter('images_directory').'/'.$oldBoardImageName);
+
+                $file = $game->getBoardImage();
+                $fileName = md5(uniqid()).'.'.$file->guessExtension();
+
+                $file->move(
+                    $this->getParameter('images_directory'),
+                    $fileName
+                );
+
+                $game->setBoardImage($fileName);
+            }
+            //else we keep the old image
+            else {
+                $game->setBoardImage($oldBoardImageName);
+            }
+
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('admin_show', array('id' => $game->getId()));
@@ -174,6 +215,7 @@ class GameController extends Controller
         return $this->render('AdminBundle:game:edit.html.twig', array(
             'game' => $game,
             'oldImageName' => $oldImageName,
+            'oldBoardImageName' => $oldBoardImageName,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         ));
@@ -209,15 +251,15 @@ class GameController extends Controller
             $nbRows = $em->getRepository('CommonBundle:Game')->countAllBySearch($search);
         }
         $rows =[];
-
         //on commence le formatage du tableau
         foreach ($games as $game) {
+//            dump($game);die;
             $line['id'] = $game->getId();
             $line['image'] = $game->getImage();
             $line['name'] = $game->getName();
             $line['age'] = $game->getAgeMin();
             $line['duration'] = $game->getDuration();
-            $line['rules'] = $game->getRules();
+            $line['explanationsDuration'] = $game->getExplanationsDuration();
             $line['releaseDate'] = date_format($game->getReleaseDate(), "Y");
 
             $rows[] = $line;

@@ -61,7 +61,7 @@ class CopyGeneratorService {
 
       $copy = new Copy();
       $copy->setGame($game);
-      $copy->setReference("CopyGeneratorService.createGameCopies:".$randomString);
+      $copy->setReference($game->getName()." ".$randomString);
       $copy->setStatus($status);
       $copy->setLocalisation($localisation);
 

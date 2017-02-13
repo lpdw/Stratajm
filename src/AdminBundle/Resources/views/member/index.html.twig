@@ -3,7 +3,7 @@
 {% block content %}
     <div class="row top-list">
         <div class="row">
-            <h1 class="col-lg-4 col-sm-4">Liste des membres</h1>
+            <h1>Liste des membres</h1>
         </div>
         <div class="row">
             <a href="{{ path('admin_member_new') }}"><button class="btn btn-primary pull-right"><span class="glyphicon glyphicon-plus"></span> Ajouter un nouveau membre</button> </a>
@@ -61,7 +61,7 @@
             <th data-field="lastname">Nom</th>
             <th data-field="email" data-formatter="emailFormatter">Email</th>
             <th data-field="telNum">Numéro téléphone</th>
-            <th data-field="action" data-formatter="actionFormatter"  data-events="actionEvents">Action</th>
+            <th data-field="action" data-formatter="actionFormatter"  data-events="actionEvents">Actions</th>
         </tr>
         </thead>
     </table>

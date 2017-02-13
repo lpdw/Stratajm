@@ -3,7 +3,13 @@
 {% block content %}
 <div class="row top">
     <img src="{{ asset('uploads/images/' ~ game.image) }}" onerror="this.style.display='none'"/>
-    <h1>{{ game.name }}</h1>
+    <div class="row col-sm-offset-3 col-sm-6 col-lg-offset-3 col-lg-6">
+        <h1>{{ game.name }}</h1>
+        {% if game.boardImage %}
+            <button onclick="newWindow = window.open('{{ asset('uploads/images/' ~ game.boardImage) }}');
+            newWindow.print();" type="button" class="btn btn-default pull-right"><span class="glyphicon glyphicon-print"></span> Imprimer plateau</button>
+        {% endif %}
+    </div>
 </div>
 <div class="row col-sm-offset-3 col-sm-6 col-lg-offset-3 col-lg-6 show">
     <table class="table table-responsive table-striped">
@@ -21,7 +27,7 @@
         </tr>
         <tr>
             <th>Règles</th>
-            <td>{{ game.rules }}</td>
+            <td>{{ game.rules | raw }}</td>
         </tr>
         <tr>
             <th>Date de sortie</th>
@@ -57,16 +63,16 @@
                 <td><a href="{{path('admin_copy_show', {'id': copy.id }) }}"> {{ copy.reference }}</a></td>
                 <td>
                     {% if copy.status == null %}
-                    null
+                        Inconnu
                     {% else %}
-                    {{copy.status.name}}
+                        {{copy.status.name}}
                     {% endif %}
                 </td>
                 <td>
                     {% if copy.localisation == null %}
-                    null
+                        Inconnu
                     {% else %}
-                    {{copy.localisation.name}}
+                        {{copy.localisation.name}}
                     {% endif %}</td>
                     <td><a href="{{path('admin_copy_edit', {'id': copy.id }) }}"><button type="button" class="btn btn-default">Editer</button></a></td>
                 </tr>

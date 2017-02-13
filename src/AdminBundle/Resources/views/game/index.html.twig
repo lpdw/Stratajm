@@ -3,7 +3,7 @@
 {% block content %}
     <div class="row top-list">
         <div class="row">
-            <h1 class="col-lg-4 col-sm-4">Liste des jeux</h1>
+            <h1>Liste des jeux</h1>
         </div>
         <div class="row">
             <a href="{{ path('admin_new') }}"><button class="btn btn-primary pull-right"><span class="glyphicon glyphicon-plus"></span> Créer un nouveau jeu</button></a>
@@ -30,11 +30,11 @@
         <tr>
             <th data-field="image" data-formatter="imgFormatter" >Image</th>
             <th data-field="name">Nom</th>
-            <th data-field="duration">Durée</th>
-            <th data-field="age">Age</th>
-            <th data-field="rules">Règles</th>
+            <th data-field="duration" data-formatter="dureeFormatter">Durée</th>
+            <th data-field="explanationsDuration" data-formatter="explicationFormatter">Temps explication</th>
+            <th data-field="age">Age min</th>
             <th data-field="releaseDate">Date de sortie</th>
-            <th data-field="action" data-formatter="actionFormatter" data-events="actionEvents">Action</th>
+            <th data-field="action" data-formatter="actionFormatter" data-events="actionEvents">Actions</th>
         </tr>
         </thead>
     </table>
@@ -54,6 +54,41 @@
                 return [
                     '<img src="'+url+value+'" onerror="this.style.display=\'none\'"/>'
                 ].join('');
+        }
+        function dureeFormatter(value,row,index) {
+            if(value == 0){
+                return [
+                    'Courte <= 30mn'
+                ].join('');
+            } if(value == 1) {
+                return [
+                    'Moyenne 30-45mn'
+                ].join('');
+            }if(value == 2) {
+                return [
+                    'Longue ~1h'
+                ].join('');
+            }if(value == 3) {
+                return [
+                    'Très longue +1h'
+                ].join('');
+            }
+        }
+
+        function explicationFormatter(value,row,index) {
+            if(value == 0){
+                return [
+                    '<10 minutes'
+                ].join('');
+            } if(value == 1) {
+                return [
+                    '<20 minutes'
+                ].join('');
+            }if(value == 2) {
+                return [
+                    '>20 minutes'
+                ].join('');
+            }
         }
 
         function actionFormatter(value, row, index) {

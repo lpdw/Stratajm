@@ -18,23 +18,25 @@ class MemberType extends AbstractType
     {
         $builder
             ->add('firstName', TextType::class, array(
-                'label' => 'Prénom :',
+                'label' => 'Prénom',
             ))
             ->add('lastName', TextType::class, array(
-                'label' => 'Nom :',
+                'label' => 'Nom',
             ))
             ->add('email', EmailType::class,array(
-                'label' => 'Email :',
+                'label' => 'Email',
             ))
             ->add('telNum', TextType::class, array(
-                'label' => 'Téléphone :',
+                'label' => 'Téléphone',
             ))
             ->add('paymentMethod', EntityType::class, array(
+                'label' => 'Moyen de paiement',
                 'class' => 'CommonBundle:PaymentMethod',
                 'choice_label' => 'name',
                 'mapped' => false,
             ))
             ->add('amount', TextType::class, array(
+                'label' => 'Montant',
                 'mapped' => false,
                 'attr' => array('class' => 'montant'),
             ));

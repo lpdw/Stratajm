@@ -1,29 +1,40 @@
 {% extends "AdminBundle::admin-layout.html.twig" %}
 
 {% block content %}
-    <h1>Game edit</h1>
+    <h1>Modification du jeu</h1>
 
     {{ form_start(edit_form) }}
-        {{ form_label(edit_form.image) }}
-        <img style="width:10%;" src="{{ asset('uploads/images/' ~ oldImageName) }}"/>
-        {{ form_widget(edit_form.image) }}
+        <div class="row">
+            {{ form_label(edit_form.image) }}
+                <div>
+                    <img style="width:10%;" src="{{ asset('uploads/images/' ~ oldImageName) }}" onerror="this.style.display='none'"/>
+                </div>
+            {{ form_widget(edit_form.image) }}
+        </div>
+        <div class="row">
+            {{ form_label(edit_form.board_image) }}
+            <div>
+                <img style="width:10%;" src="{{ asset('uploads/images/' ~ oldBoardImageName) }}" onerror="this.style.display='none'"/>
+            </div>
+            {{ form_widget(edit_form.board_image) }}
+        </div>
+        <div class="row">
+            {{ form_widget(edit_form.nbcopies, {'attr': {'disabled': 'disabled' } }) }}
+            {{ form_widget(edit_form) }}
+        </div>
 
-        {{ form_widget(edit_form.nbcopies, {'attr': {'disabled': 'disabled' } }) }}
-        {{ form_widget(edit_form) }}
-
-        <input type="submit" value="Edit" />
+        <div class="row">
+            <a href="{{ path('admin_index') }}"><button type="button" class="btn btn-primary">Retour à la liste</button></a>
+            <button type="submit" class="btn btn-success pull-right">Modifier</button>            
+        </div>        
     {{ form_end(edit_form) }}
 
-    <ul>
-        <li>
-            <a href="{{ path('admin_index') }}">Back to the list</a>
-        </li>
-        <li>
-            {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
-            {{ form_end(delete_form) }}
-        </li>
-    </ul>
+    <div class="row">
+        {{ form_start(delete_form) }}
+            <input type="submit" class="btn btn-danger pull-right" value="Supprimer">
+        {{ form_end(delete_form) }}
+    </div>
+
 {% endblock %}
 {% block javascripts %}
     {{ parent() }}

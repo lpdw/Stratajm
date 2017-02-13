@@ -18,7 +18,7 @@
                 <div>Editeur(s) :
                     {% for publisher in game.publishers %}
                     <a href="{{ publisher.url | external_link }}"> {{ publisher.name }}
-                    </a>,
+                    </a>{% if loop.last %}{% else %},{% endif %}
                     {% endfor %}
                 </div>
             </div>

@@ -1,10 +1,10 @@
+form {
+    margin:15px;
+}
+
 td {
     text-align:center;
     vertical-align: middle;
-}
-
-#table {
-    margin-top: 15px;
 }
 
 #table td {
@@ -13,7 +13,6 @@ td {
 }
 
 #table td input{
-    width:80%;
     margin-top:3px;
 }
 
@@ -24,6 +23,7 @@ td {
 
 .top-list {
     margin:0;
+    margin-bottom:15px; 
 }
 
 .top-list .row {
@@ -55,4 +55,8 @@ td {
 
 .top h1 {
     text-align:center;
+}
+
+.row {
+    margin-top : 15px;
 }

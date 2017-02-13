@@ -23,27 +23,36 @@ class GameType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('image', FileType::class, array('label' => 'Image (png, jpg)', 'required' => false))
+                ->add('board_image', FileType::class, array('label' => 'Plateau imprimable (png, jpg)', 'required' => false))
                 ->add('name', TextType::class, array('label' => 'Nom'))
                 ->add('duration', ChoiceType::class, array(
+                    'label' => 'Durée',
                     'choices'  => array(
                         'Courte <= 30mn' => 0,
                         'Moyenne 30-45mn' => 1,
                         'Longue ~1h' => 2,
                         'Très longue +1h' => 3,
                     )))
-                ->add('ageMin')
+                ->add('ageMin', IntegerType::class,array(
+                    'label' => 'Âge minimum'
+                ))
                 ->add('nbPlayers',EntityType::class,array(
-                  'class' => 'CommonBundle:Players',
-                  'choice_label' => 'name',
+                    'label' => 'Nombre de joueurs',
+                    'class' => 'CommonBundle:Players',
+                    'choice_label' => 'name',
                 ))
                 ->add('price')
                 ->add('congestion',EntityType::class,array(
-                  'class' => 'CommonBundle:Congestion',
-                  'choice_label' => 'name',
+                    'label' => 'Encombrement',
+                    'class' => 'CommonBundle:Congestion',
+                    'choice_label' => 'name',
 
                 ))
-                ->add('rules',TextareaType::class, array('attr' => array('class' => 'tinymce')))
+                ->add('rules',TextareaType::class, array(
+                    'attr' => array('class' => 'tinymce'),
+                    'label' => 'Règles du jeu'))
                 ->add('explanationsDuration',ChoiceType::class, array(
+                    'label' => 'Temps d\'explication',
                     'choices'  => array(
                         '<10 minutes' => 0,
                         '<20 minutes' => 1,
@@ -52,34 +61,40 @@ class GameType extends AbstractType
                 ->add('traditional', CheckboxType::class,array(
                     'label' => 'Traditionnel',
                     'attr' => array('class'=>'traditionnel'),
-                    'mapped' => false))
+                    'required'=>false))
                 ->add('releaseDate', DateTimeType::class, array(
+                    'label' => 'Date de sortie',
                     'widget' => 'single_text',
                     'attr' => array('id' => 'datepicker'),
                     'format' => 'yyyy-MM-dd',
                 ))
                 ->add('country',EntityType::class, array(
+                    'label' => 'Pays d\'origine',
                   'class' => 'CommonBundle:Country',
                   'choice_label' => 'name'))
                 ->add('themes',EntityType::class, array(
+                    'label' => 'Thèmes',
                   'class' => 'CommonBundle:Theme',
                   'choice_label' => 'name',
                   'expanded' => true,
                   'multiple' => true
                 ))
                 ->add('types',EntityType::class, array(
+                    'label' => 'Types',
                   'class' => 'CommonBundle:Type',
                   'choice_label' => 'name',
                   'expanded' => true,
                   'multiple' => true
                 ))
                 ->add('authors', EntityType::class, array(
+                    'label' => 'Auteurs',
                   'class' => 'CommonBundle:Author',
                   'choice_label' => 'name',
                   'expanded' => true,
                   'multiple' => true
                 ))
                 ->add('publishers', EntityType::class, array(
+                    'label' => 'Éditeurs',
                   'class' => 'CommonBundle:Publisher',
                   'choice_label' => 'name',
                   'expanded' => true,
