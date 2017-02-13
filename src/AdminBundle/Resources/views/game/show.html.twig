@@ -5,7 +5,10 @@
     <img src="{{ asset('uploads/images/' ~ game.image) }}" onerror="this.style.display='none'"/>
     <div class="row col-sm-offset-3 col-sm-6 col-lg-offset-3 col-lg-6">
         <h1>{{ game.name }}</h1>
-        <a href="{{ asset('uploads/images/' ~ game.boardImage) }}" target="_blank"><button type="button" class="btn btn-default pull-right"><span class="glyphicon glyphicon-print"></span> Imprimer plateau</button></a>
+        {% if game.boardImage %}
+            <button onclick="newWindow = window.open('{{ asset('uploads/images/' ~ game.boardImage) }}');
+            newWindow.print();" type="button" class="btn btn-default pull-right"><span class="glyphicon glyphicon-print"></span> Imprimer plateau</button>
+        {% endif %}
     </div>
 </div>
 <div class="row col-sm-offset-3 col-sm-6 col-lg-offset-3 col-lg-6 show">

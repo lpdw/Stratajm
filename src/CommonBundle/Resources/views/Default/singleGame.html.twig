@@ -34,7 +34,8 @@
         <p>  Nombres de joueurs : {{ game.nbPlayers.name }}</p>
         {% if game.boardImage %}
       <div>
-        <a href="{{ asset('uploads/images/' ~ game.boardImage) }}" target="_blank"><button type="button" class="btn btn-default"><span class="glyphicon glyphicon-print"></span> Imprimer plateau</button></a>
+          <button onclick="newWindow = window.open('{{ asset('uploads/images/' ~ game.boardImage) }}');
+          newWindow.print();" type="button" class="btn btn-default pull-right"><span class="glyphicon glyphicon-print"></span> Imprimer plateau</button>
       </div>
       {% endif %}
 
