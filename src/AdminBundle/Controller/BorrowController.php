@@ -3,6 +3,8 @@
 namespace AdminBundle\Controller;
 
 use CommonBundle\Entity\Borrow;
+use CommonBundle\Entity\Copy;
+use CommonBundle\Entity\Game;
 use CommonBundle\Form\BorrowType;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -59,6 +61,9 @@ class BorrowController extends Controller
         $form = $this->createForm("CommonBundle\Form\BorrowType",$borrow);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            $copy = $em->getRepository('CommonBundle:Copy')->findById($request->request->get('borrow')['copy']);
+            $borrow->setCopy($copy[0]);
+
             $em->persist($borrow);
             $em->flush($borrow);
             return $this->redirectToRoute('admin_borrow_show', array('id' => $borrow->getId()));
@@ -89,6 +94,7 @@ class BorrowController extends Controller
     {
         $deleteForm = $this->createDeleteForm($borrow);
 
+
         return $this->render('AdminBundle:borrow:show.html.twig', array(
             'borrow' => $borrow,
             'delete_form' => $deleteForm->createView(),
@@ -106,7 +112,6 @@ class BorrowController extends Controller
         $deleteForm = $this->createDeleteForm($borrow);
         $editForm = $this->createForm('CommonBundle\Form\BorrowType', $borrow);
         $editForm->handleRequest($request);
-
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
@@ -150,19 +155,20 @@ class BorrowController extends Controller
             $nbRows = $em->getRepository('CommonBundle:Borrow')->countAllBySearch($search);
         }
         $rows =[];
+
         //on commence le formatage du tableau
         foreach ($borrows as $borrow) {
 
             $copy = $borrow->getCopy();
             $member = $borrow->getMember();
-
             $line['id'] = $borrow->getId();
-            $line['game'] = "Hello";
+            $line['game'] = $copy->getGame()->getName();
             $line['reference'] = $copy->getReference();
             $line['borrower'] = [$member->getId(), $member->getFirstName(), $member->getLastName()];
             $line['borrowdate'] = date_format($borrow->getBeginDate(), "m/d/Y");
 
-            $rows[] = $borrow;
+            $rows[] = $line;
+
         }
         $result['total'] = $nbRows;
         $result['rows'] = $rows;

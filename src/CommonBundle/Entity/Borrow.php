@@ -3,12 +3,15 @@
 namespace CommonBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Doctrine\ORM\Mapping\UniqueConstraint;
 
 /**
  * Borrow
  *
  * @ORM\Table(name="borrow")
  * @ORM\Entity(repositoryClass="CommonBundle\Repository\BorrowRepository")
+ * @UniqueEntity(fields="copy", message="Le jeu  {{ value }} existe déjà.")
  */
 class Borrow
 {
@@ -38,7 +41,7 @@ class Borrow
     /**
      * Many Borrow have One Copy.
      * @ORM\ManyToOne(targetEntity="Copy")
-     * @ORM\JoinColumn(name="copy_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="copy_id", referencedColumnName="id", unique=true)
      */
     private $copy;
 
@@ -58,6 +61,7 @@ class Borrow
 
 
     public function __construct(){
+        $this->onGoing = true;
     }
     /**
      * Get id
