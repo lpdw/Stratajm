@@ -20,3 +20,9 @@ services:
     app.copiesgetter:
       class: AdminBundle\Services\CopiesGetterService
       arguments: ['@doctrine']
+
+    app.form.type.borrow:
+        class: CommonBundle\Form\BorrowType
+        arguments: ["@doctrine.orm.entity_manager"]
+        tags:
+            - { name: form.type }

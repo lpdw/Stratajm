@@ -10,4 +10,16 @@ namespace CommonBundle\Repository;
  */
 class CopyRepository extends \Doctrine\ORM\EntityRepository
 {
+  public function getCopiesByGame($game)
+ {
+    return $this
+      ->createQueryBuilder('c')
+      ->select('c')
+      ->where("c.game = :game")
+      ->setParameter('game', $game)
+      ->getQuery()
+      ->getArrayResult();
+
+  }
+
 }

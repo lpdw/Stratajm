@@ -11,21 +11,21 @@ use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use AdminBundle\Services\CopiesGetterService;
-
+use CommonBundle\Form\DataTransformers\CopyNumberTransformer;
+use Doctrine\Common\Persistence\ObjectManager;
 
 class BorrowType extends AbstractType
 {
+    private $manager;
 
-    /**
-     * {@inheritdoc}
-     */
+       public function __construct(ObjectManager $manager)
+       {
+           $this->manager = $manager;
+       }
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-
-
-      $copiesgetter = $options['copiesgetter'];
-
-      $builder
+        $builder
         ->add('beginDate', DateType::class, array(
           'label' => 'Date d\'emprunt',
           'placeholder' => array(
@@ -42,14 +42,25 @@ class BorrowType extends AbstractType
           'placeholder' => 'Choisissez un jeu',
           'mapped' => false
         ))
+        ->add('copy', EntityType::class, array(
+          'class' => 'CommonBundle:Copy',
+          'choice_label' => 'reference',
+          'label' => 'Exemplaire emprunté',
+          'placeholder' => 'Choisissez un exemplaire',
+          'mapped' => false
+        ))
         ->add('member', EntityType::class, array(
           'class' => 'CommonBundle:Member',
-          'choice_label' => function($member) {
-            return $member->getFirstName().' '.$member->getLastName();
+          'choice_label' => function ($member) {
+              return $member->getFirstName().' '.$member->getLastName();
           },
           'label' => "Emprunteur"
           )
         )
+        ->get('copy')
+           ->addModelTransformer(new CopyNumberTransformer($this->manager))
+        ;
+        /*
         ->addEventListener(
           FormEvents::PRE_SUBMIT,
           function (FormEvent $event) {
@@ -62,9 +73,7 @@ class BorrowType extends AbstractType
             }
             dump($borrow['game']);
 
-            /**
-            * TODO : à partir du game (id) récupérée, récupérer la liste des exempaires du jeu
-            **/
+
 
            die;
             $form->add('copy', EntityType::class, array(
@@ -90,28 +99,7 @@ class BorrowType extends AbstractType
           //   }
           //
         }
-          )
-          ->getForm();
+          )*/
+          $builder->getForm();
     }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function configureOptions(OptionsResolver $resolver)
-    {
-        $resolver->setDefaults(array(
-            'data_class' => 'CommonBundle\Entity\Borrow'
-        ));
-        $resolver->setRequired('copiesgetter');
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getBlockPrefix()
-    {
-        return 'commonbundle_borrow';
-    }
-
-
 }
