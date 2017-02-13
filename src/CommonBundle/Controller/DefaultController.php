@@ -7,6 +7,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
 use CommonBundle\Form\GameSearchType;
+use CommonBundle\Form\RulesType;
 use CommonBundle\Form\GameSortType;
 
 use CommonBundle\Repository\GameRepository;
@@ -148,10 +149,26 @@ class DefaultController extends Controller
      * @Route("/singlegame/{id}", name="single_game")
      * @Method("GET")
      */
-    public function singleGameAction(Game $game)
+    public function singleGameAction(Game $game, Request $request)
     {
       return $this->render('CommonBundle:Default:singleGame.html.twig', array('game' => $game));
     }
 
 
+    /**
+     * @Route("/singlegame/{id}/pdf", name="rules_pdf")
+     */
+    public function generatePDFAction(Game $game, Request $request)
+    {
+    $pdfTemplate = $this->renderView('CommonBundle:Default:rulesPDF.html.twig', array('game'  => $game));
+    $PDFname= sprintf($game->getName().'-%s.pdf', date('Y-m-d'));
+    return new Response(
+        $this->get('knp_snappy.pdf')->getOutputFromHtml($pdfTemplate),
+        200,
+        array(
+            'Content-Type'          => 'application/pdf',
+            'Content-Disposition'   => 'attachment; filename="'.$PDFname
+        )
+    );
+  }
 }
