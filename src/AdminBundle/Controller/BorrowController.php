@@ -7,6 +7,7 @@ use CommonBundle\Entity\Copy;
 use CommonBundle\Entity\Game;
 use CommonBundle\Form\BorrowType;
 
+use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -62,10 +63,21 @@ class BorrowController extends Controller
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $copy = $em->getRepository('CommonBundle:Copy')->findById($request->request->get('borrow')['copy']);
+
             $borrow->setCopy($copy[0]);
 
             $em->persist($borrow);
-            $em->flush($borrow);
+
+            //provisoire
+            try{
+                $em->flush($borrow);
+            } catch (UniqueConstraintViolationException $e){
+                return $this->render('AdminBundle:borrow:new.html.twig', array(
+                    'borrow' => $borrow,
+                    'form' => $form->createView(),
+                    'error' => 'Exemplaire déjà emprunté'
+                ));
+            }
             return $this->redirectToRoute('admin_borrow_show', array('id' => $borrow->getId()));
         }
 
