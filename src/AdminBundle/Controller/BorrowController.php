@@ -3,12 +3,14 @@
 namespace AdminBundle\Controller;
 
 use CommonBundle\Entity\Borrow;
+use CommonBundle\Form\BorrowType;
+
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
-
+use Symfony\Component\HttpFoundation\Response;
 /**
  * Borrow controller.
  *
@@ -47,24 +49,28 @@ class BorrowController extends Controller
     /**
      * Creates a new borrow entity.
      *
-     * @Route("/new", name="admin_borrow_new")
+     * @Route("/new", name="admin_borrow_new",options={"expose"=true})
      * @Method({"GET", "POST"})
      */
     public function newAction(Request $request)
     {
+        $em = $this->getDoctrine()->getManager();
         $borrow = new Borrow();
-        $borrow->setOnGoing(false);
-        $form = $this->createForm('CommonBundle\Form\BorrowType', $borrow, array(
-          'copiesgetter' => $this->get('app.copiesgetter')
-        ));
+        $form = $this->createForm("CommonBundle\Form\BorrowType",$borrow);
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
             $em->persist($borrow);
             $em->flush($borrow);
-
             return $this->redirectToRoute('admin_borrow_show', array('id' => $borrow->getId()));
+        }
+
+        // On récupère le jeu  envoyé en ajax
+        if($request->isXmlHttpRequest()){
+          $game=$request->request->get('game');
+          // On récupère la liste des copies pour le jeu selectionné
+          $copies = $em->getRepository('CommonBundle:Copy')->getCopiesByGame($game);
+          return new JsonResponse($copies);
+
         }
 
         return $this->render('AdminBundle:borrow:new.html.twig', array(
@@ -144,19 +150,19 @@ class BorrowController extends Controller
             $nbRows = $em->getRepository('CommonBundle:Borrow')->countAllBySearch($search);
         }
         $rows =[];
-
         //on commence le formatage du tableau
         foreach ($borrows as $borrow) {
+
             $copy = $borrow->getCopy();
             $member = $borrow->getMember();
 
             $line['id'] = $borrow->getId();
-            $line['game'] = $copy->getGame()->getName();
+            $line['game'] = "Hello";
             $line['reference'] = $copy->getReference();
             $line['borrower'] = [$member->getId(), $member->getFirstName(), $member->getLastName()];
             $line['borrowdate'] = date_format($borrow->getBeginDate(), "m/d/Y");
 
-            $rows[] = $line;
+            $rows[] = $borrow;
         }
         $result['total'] = $nbRows;
         $result['rows'] = $rows;

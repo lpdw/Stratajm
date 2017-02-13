@@ -31,7 +31,7 @@ class Borrow
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="endDate", type="datetime", nullable=true)
+     * @ORM\Column(name="endDate", type="datetime", nullable=true,options={"default" : null})
      */
     private $endDate;
 
@@ -52,11 +52,13 @@ class Borrow
     /**
      * @var boolean
      *
-     * @ORM\Column(name="ongoing", type="boolean")
+     * @ORM\Column(name="ongoing", type="boolean",options={"default" : true})
      */
     private $onGoing;
 
 
+    public function __construct(){
+    }
     /**
      * Get id
      *
