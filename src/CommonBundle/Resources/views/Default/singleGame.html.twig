@@ -4,6 +4,7 @@
 
 {% block content %}
   <div id="main-div">
+    <small> <a href="{{ path('display_games')}}"> < Retour à la liste des jeux</a></small>
     <h2 id="pagetitle">{{ game.name }}</h2>
 
     <img  id="single-game-image" src="{{ asset('uploads/images/' ~ game.image) }}" alt="Image du jeu {{ game.name }}"/>
