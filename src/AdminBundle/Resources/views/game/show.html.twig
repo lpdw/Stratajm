@@ -26,7 +26,9 @@
             <td>{{ game.ageMin }} </td>
         </tr>
         <tr>
-            <th>Règles</th>
+            <th>Règles  {% if games.rules is defined %}
+            <a href="{{ path('rules_pdf', { 'id': game.id }) }}"><button type="button" class="btn btn-default"><span class="glyphicon glyphicon-save"></span> Télécharger les règles du jeu</button></a>
+            {% endif %}</th>
             <td>{{ game.rules | raw }}</td>
         </tr>
         <tr>
