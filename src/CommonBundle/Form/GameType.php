@@ -41,7 +41,9 @@ class GameType extends AbstractType
                     'class' => 'CommonBundle:Players',
                     'choice_label' => 'name',
                 ))
-                ->add('price')
+                ->add('price',TextType::class,array(
+                  'label' => 'Prix'
+                ))
                 ->add('congestion',EntityType::class,array(
                     'label' => 'Encombrement',
                     'class' => 'CommonBundle:Congestion',
