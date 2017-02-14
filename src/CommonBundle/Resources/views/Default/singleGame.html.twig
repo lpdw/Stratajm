@@ -52,7 +52,8 @@
       Durée d'explication du jeu : {% if game.explanationsDuration == 0  %} Moins de 10 minutes
       {% elseif game.explanationsDuration == 1 %} Moins de 20 minutes
       {% elseif game.explanationsDuration == 2 %} Plus de 20 minutes
-      {% endif %}<a href="{{ path('rules_pdf', { 'id': game.id }) }}"><button type="button" class="btn btn-default"><span class="glyphicon glyphicon-save"></span> Télécharger les règles du jeu</button></a>
+      {% endif %}
+    {% if game.rules is not null  %}<a href="{{ path('rules_pdf', { 'id': game.id }) }}"><button type="button" class="btn btn-default"><span class="glyphicon glyphicon-save"></span> Télécharger les règles du jeu</button></a>{% endif %}
     </div>
     </div>
   </div>
