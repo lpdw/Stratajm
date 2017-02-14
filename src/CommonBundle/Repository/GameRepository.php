@@ -25,8 +25,6 @@ class GameRepository extends \Doctrine\ORM\EntityRepository
     {
         return $this
       ->createQueryBuilder('g')
-      ->select(array('g', 'p'))
-      ->leftJoin('g.publisher', 'p', 'WITH', 'g.publisher = p.id')
       ->where("g.name LIKE :name")
       ->setParameter('name', "%".$name."%")
       ->getQuery();
