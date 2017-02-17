@@ -60,3 +60,8 @@ td {
 .row {
     margin-top : 15px;
 }
+
+#commonbundle_game_themes, #commonbundle_game_types, #commonbundle_game_authors, #commonbundle_game_publishers{
+  max-height: 150px;
+  overflow-y: scroll;
+}

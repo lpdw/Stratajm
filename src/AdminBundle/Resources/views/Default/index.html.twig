@@ -2,11 +2,36 @@
 {% block title %}Admin{% endblock %}
 
 {% block content %}
-test
+<div class="row">
+  <div class="col-md-12">
 
 
-    <p>Envelope icon: <span class="glyphicon glyphicon-envelope"></span></p>
-    <p>Envelope icon:<span class="glyphicon glyphicon-envelope"></span> <input type="button" class="btn btn-default" value="test"/></p>
+ Avant d'ajouter un nouveau jeu, veuillez saisir les données suivantes :
+ <ul>
+   <li>
+     Auteur
+   </li>
+   <li>
+     Thème
+   </li>
+   <li>
+     Type de jeu
+   </li>
+   <li>
+     Éditeur
+   </li>
+   <li>
+     Pays
+   </li>
+   <li>
+     Nombre de joueurs
+   </li>
+   <li>
+     Encombrement du jeu
+   </li>
+ </ul>
+</div>
+</div>
 {% endblock %}
 {% block javascripts %}
     {{ parent() }}
@@ -15,4 +40,3 @@ test
     <script src="{{ asset_url }}"></script>
     {% endjavascripts %}
 {% endblock %}
-

@@ -111,6 +111,8 @@ class Game
      *      min = "1",
      *      minMessage = "Merci de choisir au moins un thème",
      * )
+     * @Assert\NotNull(message="Vous devez choisir au moins un thème")
+
      * @ORM\ManyToMany(targetEntity="Theme")
      * @ORM\JoinTable(name="game_theme",
      *      joinColumns={@ORM\JoinColumn(name="game_id", referencedColumnName="id")},
@@ -146,6 +148,7 @@ class Game
      *      min = "1",
      *      minMessage = "Merci de choisir au moins un type de jeu",
      * )
+     * @Assert\NotNull(message="Vous devez choisir au moins un type")
      * @ORM\ManyToMany(targetEntity="Type")
      * @ORM\JoinTable(name="game_type",
      *      joinColumns={@ORM\JoinColumn(name="game_id", referencedColumnName="id")},
@@ -159,7 +162,10 @@ class Game
      * @Assert\Count(
      *      min = "1",
      *      minMessage = "Merci de choisir au moins un éditeur",
-     * )     * @ORM\ManyToMany(targetEntity="Publisher")
+     * )
+     * @Assert\NotNull(message="Vous devez choisir au moins un éditeur")
+
+     * @ORM\ManyToMany(targetEntity="Publisher")
      * @ORM\JoinTable(name="game_publisher",
      *      joinColumns={@ORM\JoinColumn(name="game_id", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="publisher_id", referencedColumnName="id")}
@@ -171,7 +177,10 @@ class Game
      * @Assert\Count(
      *      min = "1",
      *      minMessage = "Merci de choisir au moins un auteur",
-     * )     * @ORM\ManyToMany(targetEntity="Author")
+     * )
+     * @Assert\NotNull(message="Vous devez choisir au moins un auteur")
+
+     * @ORM\ManyToMany(targetEntity="Author")
      * @ORM\JoinTable(name="game_author",
      *      joinColumns={@ORM\JoinColumn(name="game_id", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="author_id", referencedColumnName="id")}
